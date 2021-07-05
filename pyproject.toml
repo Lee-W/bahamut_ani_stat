@@ -59,6 +59,9 @@ norecursedirs = [
     "env",
     "virtualenv"
 ]
+markers = [
+    "slow"
+]
 
 
 [tool.coverage]
