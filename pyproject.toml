@@ -107,6 +107,7 @@ bs4 = "^0.0.1"
 tqdm = "^4.61.1"
 dataclasses-json = "^0.5.4"
 lxml = "^4.6.3"
+click = "^8.0.1"
 
 [tool.poetry.dev-dependencies]
 # task management
