@@ -99,6 +99,10 @@ repository = "https://github.com/Lee-W/bahamut_ani_stat"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+httpx = "^0.18.2"
+bs4 = "^0.0.1"
+tqdm = "^4.61.1"
+dataclasses-json = "^0.5.4"
 
 [tool.poetry.dev-dependencies]
 # task management
