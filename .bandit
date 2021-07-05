@@ -1,0 +1,3 @@
+[bandit]
+targets: bahamut_ani_stat
+exclude: tests

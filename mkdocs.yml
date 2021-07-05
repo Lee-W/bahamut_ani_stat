@@ -1,0 +1,9 @@
+site_name: bahamut_ani_stat
+nav:
+  - Home: README.md
+  - Contributing: contributing.md
+theme:
+  name: 'material'
+repo_url: https://github.com/Lee-W/bahamut_ani_stat
+remote_branch: gh-pages
+remote_name: origin
