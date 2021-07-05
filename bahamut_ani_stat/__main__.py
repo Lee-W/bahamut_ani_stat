@@ -1,10 +1,31 @@
 import json
 import os
 from datetime import datetime
+from typing import Any
 
 import click
 
+from bahamut_ani_stat.cli import options
 from bahamut_ani_stat.parser import parser
+
+
+def _append_or_overwrite_outputfile(
+    data_key: str, data_value: Any, output_filename: str, handle_exist_output: str
+) -> None:
+    result = [
+        {
+            data_key: data_value,
+            "retrieve_time": datetime.now().astimezone().isoformat(),
+        }
+    ]
+    if handle_exist_output == "append" and os.path.exists(output_filename):
+        with open(output_filename, "r") as input_file:
+            original_data = json.load(input_file)
+
+        result = original_data[:] + result
+
+    with open(output_filename, "w") as output_file:
+        json.dump(result, output_file, indent=4, ensure_ascii=False)
 
 
 @click.group()
@@ -18,44 +39,45 @@ def parse():
 
 
 @parse.command(name="get-premium-rate")
-@click.option(
-    "--output-filename",
-    help="Output to file only if --output-filename is provided",
-    default=None,
-    type=str,
-)
-@click.option(
-    "--append",
-    "handle_exist_output",
-    help="Append data if the output file already exists",
-    default=True,
-    flag_value="append",
-)
-@click.option(
-    "--overwrite",
-    "handle_exist_output",
-    help="Overwrite file if the output file already exists",
-    flag_value="overwrite",
-)
-def get_premium_rate_command(output_filename: str, handle_exist_output: str):
-    prenium_rate = parser.get_premium_rate()
-    click.echo(prenium_rate)
+@options.print_output_option
+@options.outputfile_option
+def get_premium_rate_command(
+    print_output: bool, output_filename: str, handle_exist_output: str
+) -> None:
+    if not any([print_output, output_filename]):
+        click.echo("Either --print-out or --output-file needs to be provided")
+        return
+
+    premium_rate = parser.get_premium_rate()
+
+    if print_output:
+        click.echo(premium_rate)
 
     if output_filename:
-        result = [
-            {
-                "premium_rate": prenium_rate,
-                "retrieve_time": datetime.now().astimezone().isoformat(),
-            }
-        ]
-        if handle_exist_output == "append" and os.path.exists(output_filename):
-            with open(output_filename, "r") as input_file:
-                original_data = json.load(input_file)
+        _append_or_overwrite_outputfile(
+            "premium_rate", premium_rate, output_filename, handle_exist_output
+        )
 
-            result = original_data[:] + result
 
-        with open(output_filename, "w") as output_file:
-            json.dump(result, output_file, indent=4, ensure_ascii=False)
+@parse.command(name="get-new-animes")
+@options.print_output_option
+@options.outputfile_option
+def get_new_animes_command(
+    print_output: bool, output_filename: str, handle_exist_output: str
+):
+    if not any([print_output, output_filename]):
+        click.echo("Either --print-out or --output-file needs to be provided")
+        return
+
+    new_animes = parser.get_new_animes()
+
+    if print_output:
+        click.echo(json.dumps(new_animes, indent=4, ensure_ascii=False))
+
+    if output_filename:
+        _append_or_overwrite_outputfile(
+            "new_animes", new_animes, output_filename, handle_exist_output
+        )
 
 
 main.add_command(parse)
