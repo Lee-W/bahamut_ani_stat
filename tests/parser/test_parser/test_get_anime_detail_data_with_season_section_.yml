@@ -1,0 +1,37 @@
+anime_metadata:
+  作品類型: 奇幻冒險
+  台灣代理: 木棉花
+  對象族群: 少年
+  導演監督: 中山敦史
+  製作廠商: 8bit
+anime_score: AnimeScore(features=[('作品劇情', '34%'), ('動畫品質', '32%'), ('角色設定', '27%'),
+  ('世界觀', '23%'), ('聲優配音', '18%')], score=9.4, reviewer_count=6302)
+episodes:
+- AnimeEpisode(episode_sn='20530', episode_name='25', season_title=<p>本篇</p>, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='20568', episode_name='26', season_title=<p>本篇</p>, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='20736', episode_name='27', season_title=<p>本篇</p>, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='20737', episode_name='28', season_title=<p>本篇</p>, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='21136', episode_name='29', season_title=<p>本篇</p>, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='21137', episode_name='30', season_title=<p>本篇</p>, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='21419', episode_name='31', season_title=<p>本篇</p>, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='21420', episode_name='32', season_title=<p>本篇</p>, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='21421', episode_name='33', season_title=<p>本篇</p>, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='21706', episode_name='34', season_title=<p>本篇</p>, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='21707', episode_name='35', season_title=<p>本篇</p>, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='22259', episode_name='36', season_title=<p>本篇</p>, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='23287', episode_name='36.5', season_title=<p>本篇</p>, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='20527', episode_name='1', season_title=<p>特別篇</p>, upload_date=None,
+  episode_view_count=None)

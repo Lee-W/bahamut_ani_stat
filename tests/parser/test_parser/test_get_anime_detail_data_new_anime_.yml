@@ -1,0 +1,11 @@
+anime_metadata:
+  作品類型: 溫馨
+  台灣代理: 木棉花
+  對象族群: 青年
+  導演監督: 青木純
+  製作廠商: Fanworks、SPACE NEKO COMPANY
+anime_score: AnimeScore(features=[('輕鬆歡樂', '11%'), ('聲優配音', '11%'), ('動畫品質', '0%'),
+  ('', '0%'), ('', '0%')], score=-1, reviewer_count=9)
+episodes:
+- AnimeEpisode(episode_sn='23373', episode_name='1', season_title=None, upload_date=None,
+  episode_view_count=None)
