@@ -21,8 +21,8 @@ class Danmu:
 @dataclass
 class AnimeEpisode:
     episode_sn: str
-    episode_name: str
-    season_title: Optional[str]
+    episode_name: Optional[str] = None
+    season_title: Optional[str] = None
     upload_date: Optional[datetime] = None
     episode_view_count: Optional[int] = None
 
@@ -40,9 +40,10 @@ class AnimeScore:
 class Anime:
     anime_sn: str
     anime_name: str
-    anime_release_time: datetime
     anime_view_count: int
+    anime_release_time: Optional[datetime] = None
     anime_metadata: Optional[Dict[str, str]] = None
+    anime_upload_hour: Optional[str] = None
 
     anime_score: Optional[AnimeScore] = None
     episodes: Optional[List[AnimeEpisode]] = None
