@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" data-theme="light">
+<head>
+<title>所有動畫 - 巴哈姆特動畫瘋</title>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NDWB6QP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) --><div class="top_sky">
+<div class='sky'>
+<div class="container-player">
+<div class='logo'>
+<a href="//ani.gamer.com.tw"><img src="https://i2.bahamut.com.tw/anime/crazy_logo.png" height="100%"></a>
+</div>
+<div class="anime_search">
+<form id="frm1210" action="search.php" method="POST">
+<div class="anime_search-input">
+<input type="text" id="anime-search-sky" name="kw" placeholder="請輸入動畫名稱" autocomplete="off">
+<div class="anime_search-icon" onclick="$('#frm1210').submit()">
+<img src="https://i2.bahamut.com.tw/anime/search-icon.svg">
+</div>
+</div>
+</form>
+<div class="anime_search-content">
+<div class="search-content-unit search-recent">
+<div class="tip-title">
+<svg width="12" height="12" viewBox="0 0 12 12">
+<path id="path_16" data-name="path 16"
+d="M6,0a6,6,0,1,0,6,6A6.018,6.018,0,0,0,6,0M8.137,8.284,5.557,6.7A.329.329,0,0,1,5.4,6.416V3.45a.45.45,0,0,1,.9,0V5.933a.33.33,0,0,0,.16.283l2.15,1.29a.45.45,0,0,1,.152.622l-.006.009a.45.45,0,0,1-.619.148"
+fill="#626262" />
+</svg>
+<p>最近搜尋</p>
+<button type="button" class="delete-record-btn">
+<svg width="12" height="16" viewBox="0 0 12 16">
+<path
+d="M8.96.743,8.339.122A.418.418,0,0,0,8.044,0H4.064A.415.415,0,0,0,3.77.122L3.149.743a.416.416,0,0,1-.295.123H.416A.415.415,0,0,0,0,1.282v.9A.416.416,0,0,0,.416,2.6H11.692a.417.417,0,0,0,.417-.417v-.9a.416.416,0,0,0-.417-.416H9.254A.413.413,0,0,1,8.96.743"
+transform="translate(-0.109 0)" fill="#c4c4c4" />
+<path
+d="M1,4V14.38A1.734,1.734,0,0,0,2.73,16.11H9.65a1.735,1.735,0,0,0,1.73-1.729V4Zm4.279,9.867a.753.753,0,1,1-1.506,0V6.243a.753.753,0,1,1,1.506,0Zm3.327,0a.753.753,0,1,1-1.506,0V6.243a.753.753,0,1,1,1.506,0Z"
+transform="translate(-0.244 -0.54)" fill="#c4c4c4" />
+</svg>
+</button>
+</div>
+<div class="search-tag-wrap">
+<div class="search-hint">請先<a href="https://user.gamer.com.tw/login.php">登入會員</a>來顯示搜尋紀錄</div>
+
+</div>
+</div>
+<div class="search-content-unit search-hot">
+<div class="tip-title">
+<svg width="12" height="12" viewBox="0 0 12 12">
+<path
+d="M9.059,6.352C8.14,3.964,4.869,3.836,5.659.365A.3.3,0,0,0,5.22.043,5.46,5.46,0,0,0,2.85,7.1a.291.291,0,0,1-.439.345,2.914,2.914,0,0,1-1.077-2.78.293.293,0,0,0-.533-.2A5.5,5.5,0,0,0,0,7.534a4.712,4.712,0,0,0,3.985,4.413,5.022,5.022,0,0,0,4.068-1.094,4.047,4.047,0,0,0,1.006-4.5M3.628,9.3A1.808,1.808,0,0,0,5.021,7.944c.193-.837-.562-1.656-.053-2.979.193,1.094,1.914,1.779,1.914,2.973C6.929,9.419,5.326,10.688,3.628,9.3"
+transform="translate(0 0)" fill="#626262" />
+</svg>
+<p>熱門搜尋</p>
+</div>
+<div class="search-tag-wrap">
+<div class='search-tag'>咒術迴戰</div><div class='search-tag'>進擊的巨人</div><div class='search-tag'>史萊姆</div><div class='search-tag'>VIVY</div><div class='search-tag'>FATE</div><div class='search-tag'>我的英雄學院</div><div class='search-tag'>佐賀</div><div class='search-tag'>刀劍神域</div><div class='search-tag'>JOJO</div><div class='search-tag'>蜘蛛</div><div class='search-tag'>86</div><div class='search-tag'>假面騎士</div><div class='search-tag'>RE</div><div class='search-tag'>東京</div><div class='search-tag'>獵人</div><div class='search-tag'>打工</div><div class='search-tag'>排球少年</div><div class='search-tag'>魔法</div><div class='search-tag'>OVERLORD</div><div class='search-tag'>魔王</div>
+</div>
+</div>
+<script type="text/template" id="cleanSearchHistoryConfirm">
+確定要清除最近搜尋的所有紀錄嗎？
+</script>
+</div>
+</div>
+
+<script>
+
+document.write('<ul class="member">');
+document.write('<li class="searchbtn"><a href="search.php"><i class="material-icons">search</i></a></li>');
+document.write('<li class="top_btn_notice"><span id="topBar_light_0" style="display:none"></span><a href="javascript:TOPBAR_show(\'light_0\')"></a></li>');
+document.write('<li class="top_btn_subscription"><span id="topBar_light_1" style="display:none"></span><a href="javascript:TOPBAR_show(\'light_1\')"></a></li>');
+document.write('<li class="top_btn_recommend"><span id="topBar_light_2" style="display:none"></span><a href="javascript:TOPBAR_show(\'light_2\')"></a></li>');
+if (User.Login.isLogin()) {
+BAHAID = User.Login.getUserid();
+BAHAIDlow = BAHAID.toLowerCase();
+var avatarUrl = User.Login.getAvatarUrl();
+document.write('<li class="head"><a href="//home.gamer.com.tw/'+BAHAID+'"><img src="' + avatarUrl + '" /></a></li>');
+NOTIFY_getnum();
+run30 = setInterval("NOTIFY_getnum()",60000);
+}else{
+document.write('<li class="head"><a href="https://user.gamer.com.tw/login.php"><img src="https://i2.bahamut.com.tw/none.gif"></a></li>');
+}
+document.write('<li class="bahago"><a href="//www.gamer.com.tw/" target="_blank"><img alt="" src="https://i2.bahamut.com.tw/anime/baha_s.png"></a></li>');
+document.write('</ul>');
+
+document.write('<div id="topBarMsg_light_0" style="display:none"></div>');
+document.write('<div id="topBarMsg_light_1" style="display:none"></div>');
+document.write('<div id="topBarMsg_light_2" style="display:none"></div>');
+document.write('<div id="topBarMsg_hahamut" style="display:none"></div>');
+
+document.write('<div id="topBarMsg_more" style="display:none"></div>');
+
+</script>
+</div>
+</div>
+<nav class="mainmenu on_top">
+<div class="container-player">
+<div class="menu_btn toggle">
+<i class="material-icons">menu</i>
+</div>
+<ul>
+<li><a href="index.php">首頁</a></li>
+<li><a href="animeList.php">所有動畫</a></li>
+<li><a href="viewList.php?u=guest">觀看記錄</a></li>
+<li><a href="mygather.php">我的動畫</a></li>
+<li style="background:#fd8200;"><a href="animePayRouter.php">付費方案</a></li>
+<li><a href="animeAgeValidate.php">年齡驗證</a></li>
+<li><a href="https://forms.gle/ko6R5Pus3UUBE1Q59" target="_blank">問題回報</a></li>
+<li><a href="//prj.gamer.com.tw/app2u/animeapp.html" target="_blank">APP下載</a></li>
+<script>if (User.Login.isLogin()){ document.write(''); }</script>
+</ul>
+<div class="dark-swift-button">
+<input class="swift-btn_toggle" type="checkbox" id="lightSwitch" >
+<label for="lightSwitch">Toggle</label>
+</div>
+</div>
+</nav>
+</div> <!-- End of top_sky-->
+
+<div id="BH_background" class="BH_background"><div class="big_banner"><div class="banner_wrapper"><div class="big_content"><a href="https://ani.gamer.com.tw/animeVideo.php?sn=23350" target="_blank" class="a-mercy-d" data-mercy="7:0" data-si="" data-ssn="217229"><img border=0 src="https://truth.bahamut.com.tw/s01/202107/76b3a0231c5f2694602d353b7e2bae66.JPG"></a></div></div></div><script> document.cookie = 'ckBahaAd=-------0-----------------;path=/;expires=' + new Date().toDateString() + ' 23:59:59 UTC+0800;domain=.gamer.com.tw' </script><div class="container"><section class="class_list"><ul><li class="now"><a href="animeList.php?c=All">所有動畫</a></li><li><a href="animeList.php?c=3">奇幻冒險</a></li><li><a href="animeList.php?c=4">科幻未來</a></li><li><a href="animeList.php?c=13">青春校園</a></li><li><a href="animeList.php?c=5">幽默搞笑</a></li><li><a href="animeList.php?c=1">戀愛</a></li><li><a href="animeList.php?c=2">溫馨</a></li><li><a href="animeList.php?c=6">靈異神怪</a></li><li><a href="animeList.php?c=7">推理懸疑</a></li><li><a href="animeList.php?c=8">料理美食</a></li><li><a href="animeList.php?c=9">社會寫實</a></li><li><a href="animeList.php?c=10">運動競技</a></li><li><a href="animeList.php?c=11">歷史傳記</a></li><li><a href="animeList.php?c=12">其他</a></li><li><a href="animeList.php?c=ova">OVA</a></li><li><a href="animeList.php?c=movie">電影版</a></li></ul></section>
+<div class="animate-theme-list">
+<div class="theme-title-block">
+<h1 class="theme-title">所有動畫</h1>
+
+<a href='animeList.php?c=All&sort=2' class='btn-famous-anime'>
+<div _ngcontent-nfm-c22='' class='icon-item-inner-container btn-switch-icon'>
+<icons-image _ngcontent-nfm-c22='' _nghost-nfm-c19=''>
+<span _ngcontent-nfm-c19='' class='material-icons icon-image-preview btn-switch-icon_img'>loop</span>
+</icons-image>
+</div>
+<div class='btn-switch-content btn-sort-date btn-switch-is-active'>依年份排列</div>
+</a>
+
+</div>
+<div class="theme-list-block">
+
+<a href='animeRef.php?sn=112738' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/54/0000118354.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/54/0000118354.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>統計中</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(118354, 112738, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>叫我對大哥 (WEB版)</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112756' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/21/0000115721.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/21/0000115721.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>統計中</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(115721, 112756, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>死神少爺與黑女僕</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112747' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/84/0000115484.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/84/0000115484.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>統計中</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(115484, 112747, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>偵探已經，死了。</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112746' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/81/0000115581.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/81/0000115581.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>統計中</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(115581, 112746, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>IDOLiSH7 - 偶像星願 - Third BEAT！</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112745' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/26/0000114426.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/26/0000114426.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>統計中</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(114426, 112745, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>蓋特機器人 ARC</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112744' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/69/0000110969.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/69/0000110969.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>統計中</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(110969, 112744, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>現實主義勇者的王國重建記</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112743' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/90/0000116190.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/90/0000116190.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>統計中</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(116190, 112743, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>RE-MAIN</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112742' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/51/0000115151.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/51/0000115151.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>統計中</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(115151, 112742, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>魔法科高中的優等生</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112755' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/89/0000109289.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/89/0000109289.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>1.4萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(109289, 112755, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>我們的重製人生</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112752' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/23/0000114623.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/23/0000114623.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>4.4萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(114623, 112752, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>女朋友 and 女朋友</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112751' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/50/0000116650.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/50/0000116650.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>2.7萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(116650, 112751, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>瓦尼塔斯的手札</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112740' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/36/0000115336.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/36/0000115336.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>5.4萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(115336, 112740, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>轉生成女性向遊戲只有毀滅 END 的壞人大小姐 X</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112739' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/11/0000116011.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/11/0000116011.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>2萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(116011, 112739, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>叫我對大哥 (TV版)</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112734' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/70/0000116770.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/70/0000116770.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>4.8萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(116770, 112734, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>暮蟬悲鳴時 卒</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第2集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112733' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/60/0000112960.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/60/0000112960.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>4.1萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(112960, 112733, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>桃子男孩渡海而來</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/07</p>
+<span class='theme-number'>
+第1集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112721' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/34/0000116434.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/34/0000116434.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>5.1萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(116434, 112721, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>緋紅結繫</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/06</p>
+<span class='theme-number'>
+第2集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112670' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/86/0000112286.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/86/0000112286.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>80.9萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(112286, 112670, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>不要欺負我，長瀞同學</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/04</p>
+<span class='theme-number'>
+第11集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112680' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/15/0000110815.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/15/0000110815.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>88.6萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(110815, 112680, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>異世界魔王與召喚少女的奴隸魔術 Ω</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/04</p>
+<span class='theme-number'>
+第10集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112675' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/35/0000110335.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/35/0000110335.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>156.1萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(110335, 112675, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>入間同學入魔了 第二季</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/04</p>
+<span class='theme-number'>
+第12集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112677' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/38/0000114038.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/38/0000114038.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>96.5萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(114038, 112677, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>青梅竹馬絕對不會輸的戀愛喜劇</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/04</p>
+<span class='theme-number'>
+第12集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112674' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/71/0000109471.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/71/0000109471.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>90.3萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(109471, 112674, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>給不滅的你</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/04</p>
+<span class='theme-number'>
+第12集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112672' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/77/0000114177.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/77/0000114177.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>72.9萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(114177, 112672, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>SHADOWS HOUSE-影宅-</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/04</p>
+<span class='theme-number'>
+第13集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112671' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/37/0000110437.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/37/0000110437.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>185.8萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(110437, 112671, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>86－不存在的戰區－</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/04</p>
+<span class='theme-number'>
+第12集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112669' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/68/0000108268.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/68/0000108268.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>189.5萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(108268, 112669, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>持續狩獵史萊姆三百年，不知不覺就練到 LV MAX</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/04</p>
+<span class='theme-number'>
+第12集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112668' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/59/0000112159.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/59/0000112159.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>10萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(112159, 112668, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>美麗新世界 The Animation</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/04</p>
+<span class='theme-number'>
+第12集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112667' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/50/0000115850.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/50/0000115850.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>6.6萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(115850, 112667, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>BLUE REFLECTION : 澪</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/04</p>
+<span class='theme-number'>
+第12集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112676' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/76/0000114476.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/76/0000114476.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>21.6萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(114476, 112676, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>後空翻少年!!</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/04</p>
+<span class='theme-number'>
+第12集
+</span>
+</div>
+</div>
+</a>
+
+<a href='animeRef.php?sn=112663' class='theme-list-main'>
+<div class='theme-img-block'>
+<div class='theme-img-bg' style='background-image: url(&quot;https://p2.bahamut.com.tw/B/ACG/c/34/0000106934.JPG&quot;);'></div>
+<img class='theme-img lazyload' src='https://p2.bahamut.com.tw/B/ACG/c/34/0000106934.JPG' alt='anime_pic'>
+<div class='show-view-number'>
+<i class='pic-eye-style material-icons'>remove_red_eye</i>
+<p>142.6萬</p>
+</div>
+<div class='btn-card-block btn-favorite btn-not-active ' onclick='animefun.toggleGather(106934, 112663, $(this), "btn-is-active"); return false;'></div>
+<div class='anime-label-block'>
+
+</div>
+</div>
+<div class='theme-info-block'>
+<p class='theme-name'>佐賀偶像是傳奇 捲土重來</p>
+<div class='theme-detail-info-block'>
+<p class='theme-time'>年份：2021/04</p>
+<span class='theme-number'>
+第12集
+</span>
+</div>
+</div>
+</a>
+
+</div>
+</div><div class="page_control">
+<a class="prev" href="javascript:alert('沒有上一頁');"><div class="arrow_container  is-none  is-left"><div></div><div></div></div></a>
+<div class="page_number"><a class="now">1</a><a href="?page=2&c=All&sort=1">2</a><a href="?page=3&c=All&sort=1">3</a><a href="?page=4&c=All&sort=1">4</a>...<a href="?page=38&c=All&sort=1">38</a></div>
+<a class="next" href="?page=2&c=All&sort=1"><div class="arrow_container "><div></div><div></div></div></a>
+</div>
+</div></div></div>
+
+<div class="footer">
+<div class="footer-topline"></div>
+<div class="footer-content">
+<div class="footer-text">
+<p>旺普網路資訊股份有限公司 <span>© Oneup Network Corporation All Rights Reserved.</span></p>
+<p><a href="https://ani.gamer.com.tw/animeRule.php">服務條款</a>｜本網站已依台灣網站內容分級規定處理｜<span>法律顧問: 益思科技法律事務所</span></p>
+</div>
+<div class="ott-icon">
+<!-- <img src="https://i2.bahamut.com.tw/anime/OTT_black.svg"> -->
+<div class="ott-img"></div>
+</div>
+<div class="footer-separate-line"></div>
+<div class="footer-aniapp">
+<div class="app-download">
+<a class="ios" href="https://apps.apple.com/tw/app/id1102650114?l=zh"><img src="https://i2.bahamut.com.tw/anime/AppleStore.svg"></a>
+<a class="android" href="https://play.google.com/store/apps/details?id=tw.com.gamer.android.animad&hl=zh_TW&referrer=utm_source%3Dapp2u%26utm_medium%3Dpromotion"><img src="https://i2.bahamut.com.tw/anime/GoogleStore.svg"></a>
+</div>
+<div class="ani-qrcode">
+<img src="https://i2.bahamut.com.tw/anime/appQR.png">
+<p style="font-size:9px">下載 APP</p>
+</div>
+</div>
+</div>
+</div><div
+style="
+position: fixed;
+left: 20px;
+right: 20px;
+bottom: 20px;
+z-index: 99;
+display: none;
+padding: 15px 30px 15px 15px;
+border: 1px solid transparent;
+border-radius: 3px;
+line-height: 1.5;
+background: #FFFFDB;
+border-color: #E1D3B8;
+color: #705930;">
+<a href="javascript:;" class="alert-close">
+<i class="material-icons">close</i>
+</a>
+<p style="color: #705930;font-size: 1.4em; padding: 0;"><i class="material-icons" style="vertical-align: middle; font-size: 1.6em; margin-right: 5px;">face</i>我們了解您不想看到廣告的心情⋯ 若您願意支持巴哈姆特永續經營，請將 gamer.com.tw 加入廣告阻擋工具的白名單中，謝謝 !<a href="https://goo.gl/PmkwWS" style="color: #0055aa;text-decoration: none;" target="_blank;">【教學】</a></p>
+</div>
+</body>
+</html>

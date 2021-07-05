@@ -1,0 +1,29 @@
+[
+    {
+        "text": "這是什麼番阿？",
+        "color": "#FFFFFF",
+        "size": 1,
+        "position": 0,
+        "time": 15,
+        "sn": 20599810,
+        "userid": "test_user_id_1"
+    },
+    {
+        "text": "這有人看嗎",
+        "color": "#FF0026",
+        "size": 2,
+        "position": 1,
+        "time": 22,
+        "sn": 20829796,
+        "userid": "test_user_id_2"
+    },
+    {
+        "text": "有唷",
+        "color": "#FF02D3",
+        "size": 1,
+        "position": 1,
+        "time": 75,
+        "sn": 20906980,
+        "userid": "test_user_id_3"
+    }
+]

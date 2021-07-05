@@ -1,0 +1,35 @@
+anime_metadata:
+  作品類型: 推理懸疑
+  台灣代理: 曼迪
+  對象族群: 青年
+  導演監督: 木下麥
+  製作廠商: P.I.C.S. × OLM
+anime_score: AnimeScore(features=[('作品劇情', '61%'), ('角色設定', '44%'), ('題材創意', '40%'),
+  ('動畫品質', '29%'), ('聲優配音', '27%')], score=9.8, reviewer_count=3540)
+episodes:
+- AnimeEpisode(episode_sn='22238', episode_name='1', season_title=None, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='22307', episode_name='2', season_title=None, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='22308', episode_name='3', season_title=None, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='22416', episode_name='4', season_title=None, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='22417', episode_name='5', season_title=None, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='22664', episode_name='6', season_title=None, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='22665', episode_name='7', season_title=None, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='22833', episode_name='8', season_title=None, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='22834', episode_name='9', season_title=None, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='23009', episode_name='10', season_title=None, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='23010', episode_name='11', season_title=None, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='23160', episode_name='12', season_title=None, upload_date=None,
+  episode_view_count=None)
+- AnimeEpisode(episode_sn='23161', episode_name='13', season_title=None, upload_date=None,
+  episode_view_count=None)
