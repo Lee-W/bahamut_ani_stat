@@ -16,8 +16,10 @@ repos:
     rev: v4.6.0
     hooks:
       - id: end-of-file-fixer
+        exclude: "data/.*"
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
+        exclude: "data/.*"
       - id: check-case-conflict
       - id: debug-statements
       - id: no-commit-to-branch
