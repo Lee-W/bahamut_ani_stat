@@ -5,6 +5,7 @@ from typing import Dict, List, Optional
 import httpx
 from bs4 import BeautifulSoup
 
+from bahamut_ani_stat import config
 from bahamut_ani_stat.parser.data_types import Anime, AnimeEpisode, AnimeScore, Danmu
 from bahamut_ani_stat.parser.urls import (
     ANIME_DANMU_URL,
@@ -44,14 +45,14 @@ def get_danmu(episode_sn: str) -> List[Danmu]:
 
 def get_anime_list_page_count() -> int:
     req = httpx.get(ANIME_LIST_URL)
-    soup = BeautifulSoup(req.text, features="html5lib")
+    soup = BeautifulSoup(req.text, features=config.bs4_parser)
     last_page_a = soup.select_one("div.page_number > a:nth-last-child(1)")
     return int(last_page_a.text)
 
 
 def get_base_animes_data(page_number: int = 1) -> List[Anime]:
     req = httpx.get(ANIME_LIST_URL, params={"page": page_number, "sort": 1})
-    soup = BeautifulSoup(req.text, features="html5lib")
+    soup = BeautifulSoup(req.text, features=config.bs4_parser)
 
     theme_list_main_a_s = soup.select("div.theme-list-block > a.theme-list-main")
 
@@ -105,7 +106,7 @@ def _get_anime_episode_score(soup: BeautifulSoup) -> AnimeScore:
 
 def get_anime_detail_data(anime_sn: str) -> Dict:
     req = httpx.get(ANIME_REF_URL, params={"sn": anime_sn})
-    soup = BeautifulSoup(req.text, features="html5lib")
+    soup = BeautifulSoup(req.text, features=config.bs4_parser)
 
     season_section = soup.select_one("section.season")
     episodes_data: List[AnimeEpisode] = list()
@@ -152,7 +153,7 @@ def get_anime_detail_data(anime_sn: str) -> Dict:
 
 def get_anime_episode_data(episode_sn: str) -> Dict:
     req = httpx.get(ANIME_VIDEO_URL, params={"sn": episode_sn})
-    soup = BeautifulSoup(req.text, features="html5lib")
+    soup = BeautifulSoup(req.text, features=config.bs4_parser)
     anime_info_detail = soup.select_one("div.anime_info_detail")
     upload_date = datetime.strptime(
         anime_info_detail.select_one("p").text, "上架時間：%Y/%m/%d %H:%M"
@@ -168,13 +169,13 @@ def get_anime_episode_data(episode_sn: str) -> Dict:
 def get_premium_rate(soup: Optional[BeautifulSoup] = None) -> float:
     if not soup:
         req = httpx.get(GAMMER_ANIME_BASE_URL)
-        soup = BeautifulSoup(req.text)
+        soup = BeautifulSoup(req.text, features=config.bs4_parser)
     return float(soup.select_one("div.premium-info__title > span.number").text)
 
 
 def get_new_animes() -> List[Dict]:
     req = httpx.get(GAMMER_ANIME_BASE_URL)
-    soup = BeautifulSoup(req.text)
+    soup = BeautifulSoup(req.text, features=config.bs4_parser)
     new_anime_block = soup.select_one("div.newanime-wrap.timeline-ver")
 
     anime_sn_s = [
@@ -218,7 +219,7 @@ def get_out_of_season_animes(offset: int = 1, limit: int = 10) -> List[Dict]:
     )
     req_data = req.json()
     if req_data["msg"] == "success":
-        soup = BeautifulSoup(req.json()["data"])
+        soup = BeautifulSoup(req.json()["data"], features=config.bs4_parser)
 
         anime_sn_s = [
             _santinize_sn(s.get("href")) for s in soup.select("a.theme-list-main")
