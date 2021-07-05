@@ -62,20 +62,20 @@ def test_get_anime_list_page_count(
         data_regression.check(page_count)
 
 
-def test_get_base_animes_data(httpx_mock: HTTPXMock, data_regression, anime_list_data):
+def test_get_animes_base_data(httpx_mock: HTTPXMock, data_regression, anime_list_data):
     httpx_mock.add_response(data=anime_list_data)
     with httpx.Client():
-        animes = parser.get_base_animes_data()
+        animes = parser.get_animes_base_data()
         data_regression.check(animes)
 
 
 @pytest.mark.slow
-def test_get_all_base_animes_data(
+def test_get_all_animes_base_data(
     httpx_mock: HTTPXMock, data_regression, anime_list_data
 ):
     httpx_mock.add_response(data=anime_list_data)
     with httpx.Client():
-        animes = parser.get_all_base_animes_data()
+        animes = parser.get_all_animes_base_data()
         data_regression.check(animes)
 
 

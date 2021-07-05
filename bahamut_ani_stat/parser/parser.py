@@ -43,6 +43,13 @@ def get_danmu(episode_sn: str) -> List[Danmu]:
     return [Danmu(**danmu) for danmu in req.json()]
 
 
+def get_premium_rate(soup: Optional[BeautifulSoup] = None) -> float:
+    if not soup:
+        req = httpx.get(GAMMER_ANIME_BASE_URL)
+        soup = BeautifulSoup(req.text, features=config.bs4_parser)
+    return float(soup.select_one("div.premium-info__title > span.number").text)
+
+
 def get_anime_list_page_count() -> int:
     req = httpx.get(ANIME_LIST_URL)
     soup = BeautifulSoup(req.text, features=config.bs4_parser)
@@ -50,7 +57,7 @@ def get_anime_list_page_count() -> int:
     return int(last_page_a.text)
 
 
-def get_base_animes_data(page_number: int = 1) -> List[Anime]:
+def get_animes_base_data(page_number: int = 1) -> List[Anime]:
     req = httpx.get(ANIME_LIST_URL, params={"page": page_number, "sort": 1})
     soup = BeautifulSoup(req.text, features=config.bs4_parser)
 
@@ -73,13 +80,13 @@ def get_base_animes_data(page_number: int = 1) -> List[Anime]:
     return animes_data
 
 
-def get_all_base_animes_data(page_count: Optional[int] = None) -> List[Anime]:
+def get_all_animes_base_data(page_count: Optional[int] = None) -> List[Anime]:
     if not page_count:
         page_count = get_anime_list_page_count()
 
     animes_data = list()
     for page_number in range(1, page_count + 1):
-        animes_data.extend(get_base_animes_data(page_number))
+        animes_data.extend(get_animes_base_data(page_number))
     return animes_data
 
 
@@ -166,13 +173,6 @@ def get_anime_episode_data(episode_sn: str) -> Dict:
     }
 
 
-def get_premium_rate(soup: Optional[BeautifulSoup] = None) -> float:
-    if not soup:
-        req = httpx.get(GAMMER_ANIME_BASE_URL)
-        soup = BeautifulSoup(req.text, features=config.bs4_parser)
-    return float(soup.select_one("div.premium-info__title > span.number").text)
-
-
 def get_new_animes() -> List[Dict]:
     req = httpx.get(GAMMER_ANIME_BASE_URL)
     soup = BeautifulSoup(req.text, features=config.bs4_parser)
@@ -202,10 +202,10 @@ def get_new_animes() -> List[Dict]:
     return [
         {
             "anime_sn": ani_sn,
-            "episode_sn": epi_sn,
             "anime_upload_hour": ani_upload_hour,
             "anime_name": ani_name,
             "anime_view_count": ani_view_count,
+            "episode_sn": epi_sn,
         }
         for ani_sn, epi_sn, ani_upload_hour, ani_name, ani_view_count in zip(
             anime_sn_s, episode_sn_s, anime_hours, anime_names, anime_view_counts
