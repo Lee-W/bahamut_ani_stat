@@ -50,7 +50,7 @@ def test_get_danmu(httpx_mock: HTTPXMock, data_regression, shared_datadir):
 
     with httpx.Client():
         danmus = parser.get_danmu("23289")
-        data_regression.check(danmus)
+        data_regression.check([danmu.to_dict() for danmu in danmus])  # type: ignore
 
 
 def test_get_anime_list_page_count(
@@ -66,7 +66,7 @@ def test_get_animes_base_data(httpx_mock: HTTPXMock, data_regression, anime_list
     httpx_mock.add_response(data=anime_list_data)
     with httpx.Client():
         animes = parser.get_animes_base_data()
-        data_regression.check(animes)
+        data_regression.check([anime.to_dict() for anime in animes])  # type: ignore
 
 
 @pytest.mark.slow
@@ -76,7 +76,7 @@ def test_get_all_animes_base_data(
     httpx_mock.add_response(data=anime_list_data)
     with httpx.Client():
         animes = parser.get_all_animes_base_data()
-        data_regression.check(animes)
+        data_regression.check([anime.to_dict() for anime in animes])  # type: ignore
 
 
 @pytest.mark.parametrize(
@@ -92,8 +92,8 @@ def test_get_all_animes_base_data(
 def test_get_anime_detail_data(httpx_mock: HTTPXMock, data_regression, datadir_text):
     httpx_mock.add_response(data=datadir_text)
     with httpx.Client():
-        animes = parser.get_anime_detail_data("23373")
-        data_regression.check(animes)
+        anime = parser.get_anime_detail_data("23373")
+        data_regression.check(anime.to_dict())  # type: ignore
 
 
 @pytest.mark.parametrize(
@@ -110,7 +110,7 @@ def test_get_anime_episode_data(httpx_mock: HTTPXMock, data_regression, datadir_
     httpx_mock.add_response(data=datadir_text)
     with httpx.Client():
         ep_data = parser.get_anime_episode_data("23373")
-        data_regression.check(ep_data)
+        data_regression.check(ep_data.to_dict())  # type: ignore
 
 
 def test_get_premium_rate(httpx_mock: HTTPXMock, data_regression, home_page_data):
@@ -125,11 +125,11 @@ def test_get_out_of_season_animes(
     httpx_mock.add_response(json=out_of_season_data)
     with httpx.Client():
         animes = parser.get_out_of_season_animes()
-        data_regression.check(animes)
+        data_regression.check([anime.to_dict() for anime in animes])  # type: ignore
 
 
 def test_get_new_animes(httpx_mock: HTTPXMock, data_regression, home_page_data):
     httpx_mock.add_response(data=home_page_data)
     with httpx.Client():
         new_animes = parser.get_new_animes()
-        data_regression.check(new_animes)
+        data_regression.check([anime.to_dict() for anime in new_animes])  # type: ignore

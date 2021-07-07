@@ -1,4 +1,21 @@
-- Danmu(text='這是什麼番阿？', color='#FFFFFF', size=1, position=0, time=15, sn=20599810,
-  userid='test_user_id_1')
-- Danmu(text='這有人看嗎', color='#FF0026', size=2, position=1, time=22, sn=20829796, userid='test_user_id_2')
-- Danmu(text='有唷', color='#FF02D3', size=1, position=1, time=75, sn=20906980, userid='test_user_id_3')
+- color: '#FFFFFF'
+  position: 0
+  size: 1
+  sn: 20599810
+  text: 這是什麼番阿？
+  time: 15
+  userid: test_user_id_1
+- color: '#FF0026'
+  position: 1
+  size: 2
+  sn: 20829796
+  text: 這有人看嗎
+  time: 22
+  userid: test_user_id_2
+- color: '#FF02D3'
+  position: 1
+  size: 1
+  sn: 20906980
+  text: 有唷
+  time: 75
+  userid: test_user_id_3

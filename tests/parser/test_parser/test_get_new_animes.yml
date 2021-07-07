@@ -1,265 +1,742 @@
-- anime_name: 勇者鬥惡龍 達伊的大冒險
-  anime_sn: '112464'
-  anime_upload_hour: '10:00'
-  anime_view_count: 1532000
-  episode_sn: '23356'
-- anime_name: 壽司大相撲
-  anime_sn: '112679'
-  anime_upload_hour: 06:30
-  anime_view_count: 99000
-  episode_sn: '23353'
-- anime_name: 女朋友 and 女朋友
-  anime_sn: '112752'
-  anime_upload_hour: 02:55
-  anime_view_count: -1
-  episode_sn: '23381'
-- anime_name: 轉生成女性向遊戲只有毀滅 END 的壞人大小姐 X
-  anime_sn: '112740'
-  anime_upload_hour: 01:55
-  anime_view_count: -1
-  episode_sn: '23350'
-- anime_name: 叫我對大哥 (TV版)
-  anime_sn: '112739'
-  anime_upload_hour: 01:50
-  anime_view_count: -1
-  episode_sn: '23349'
-- anime_name: 瓦尼塔斯的手札
-  anime_sn: '112751'
-  anime_upload_hour: 00:30
-  anime_view_count: -1
-  episode_sn: '23348'
-- anime_name: 暮蟬悲鳴時 卒
-  anime_sn: '112734'
-  anime_upload_hour: 00:00
-  anime_view_count: -1
-  episode_sn: '23344'
-- anime_name: 奇蛋物語 Wonder Egg Priority
-  anime_sn: '112588'
-  anime_upload_hour: '23:00'
-  anime_view_count: 527000
-  episode_sn: '23182'
-- anime_name: 桃子男孩渡海而來
-  anime_sn: '112733'
-  anime_upload_hour: '21:40'
-  anime_view_count: 7393
-  episode_sn: '23342'
-- anime_name: 工作細胞 特別上映版 - 強「菌」來襲！人體腸道大騷動！
-  anime_sn: '112724'
-  anime_upload_hour: '12:50'
-  anime_view_count: -1
-  episode_sn: '23295'
-- anime_name: 青梅竹馬絕對不會輸的戀愛喜劇
-  anime_sn: '112677'
-  anime_upload_hour: '21:30'
-  anime_view_count: 907000
-  episode_sn: '23179'
-- anime_name: 關於我轉生變成史萊姆這檔事 第二季
-  anime_sn: '112548'
-  anime_upload_hour: '23:30'
-  anime_view_count: 5837000
-  episode_sn: '23287'
-- anime_name: 冰冰冰 冰淇淋君
-  anime_sn: '112665'
-  anime_upload_hour: 07:00
-  anime_view_count: 33000
-  episode_sn: '23163'
-- anime_name: 奇巧計程車
-  anime_sn: '112664'
-  anime_upload_hour: 02:00
-  anime_view_count: 843000
-  episode_sn: '23161'
-- anime_name: 魔法水果籃 最終季
-  anime_sn: '112627'
-  anime_upload_hour: 01:30
-  anime_view_count: 376000
-  episode_sn: '23159'
-- anime_name: 給不滅的你
-  anime_sn: '112674'
-  anime_upload_hour: 00:30
-  anime_view_count: 871000
-  episode_sn: '23157'
-- anime_name: 刮掉鬍子的我與撿到的女高中生
-  anime_sn: '112658'
-  anime_upload_hour: '23:00'
-  anime_view_count: 3073000
-  episode_sn: '23151'
-- anime_name: 王者天下 第三季
-  anime_sn: '108606'
-  anime_upload_hour: 02:35
-  anime_view_count: 582000
-  episode_sn: '23145'
-- anime_name: 再見了，我的克拉默
-  anime_sn: '112653'
-  anime_upload_hour: 00:00
-  anime_view_count: 98000
-  episode_sn: '23142'
-- anime_name: 憂國的莫里亞蒂 第一季 後半
-  anime_sn: '112645'
-  anime_upload_hour: '23:00'
-  anime_view_count: 365000
-  episode_sn: '23138'
-- anime_name: NOMAD MEGALOBOX 機甲拳擊 第二季
-  anime_sn: '112652'
-  anime_upload_hour: '23:00'
-  anime_view_count: 326000
-  episode_sn: '23140'
-- anime_name: 東京復仇者
-  anime_sn: '112673'
-  anime_upload_hour: 02:38
-  anime_view_count: 854000
-  episode_sn: '23135'
-- anime_name: 86－不存在的戰區－
-  anime_sn: '112671'
-  anime_upload_hour: 01:30
-  anime_view_count: 1821000
-  episode_sn: '23330'
-- anime_name: SHADOWS HOUSE-影宅-
-  anime_sn: '112672'
-  anime_upload_hour: 01:00
-  anime_view_count: 716000
-  episode_sn: '23132'
-- anime_name: 不要欺負我，長瀞同學
-  anime_sn: '112670'
-  anime_upload_hour: 00:30
-  anime_view_count: 795000
-  episode_sn: '23128'
-- anime_name: Vivy -Fluorite Eye's Song-
-  anime_sn: '112657'
-  anime_upload_hour: 00:00
-  anime_view_count: 3336000
-  episode_sn: '23329'
-- anime_name: 卡片戰鬥!! 先導者 overdress
-  anime_sn: '112650'
-  anime_upload_hour: '23:30'
-  anime_view_count: 44000
-  episode_sn: '23125'
-- anime_name: 持續狩獵史萊姆三百年，不知不覺就練到 LV MAX
-  anime_sn: '112669'
-  anime_upload_hour: '21:30'
-  anime_view_count: 1871000
-  episode_sn: '23123'
-- anime_name: 入間同學入魔了 第二季
-  anime_sn: '112675'
-  anime_upload_hour: '19:00'
-  anime_view_count: 1507000
-  episode_sn: '23121'
-- anime_name: 我的英雄學院 第五季
-  anime_sn: '112643'
-  anime_upload_hour: '17:30'
-  anime_view_count: 2084000
-  episode_sn: '23119'
-- anime_name: 美麗新世界 The Animation
-  anime_sn: '112668'
-  anime_upload_hour: 02:55
-  anime_view_count: 99000
-  episode_sn: '23113'
-- anime_name: 'BLUE REFLECTION : 澪'
-  anime_sn: '112667'
-  anime_upload_hour: 02:30
-  anime_view_count: 65000
-  episode_sn: '23111'
-- anime_name: 緋紅結繫
-  anime_sn: '112721'
-  anime_upload_hour: '21:30'
-  anime_view_count: 46000
-  episode_sn: '23273'
-- anime_name: 異世界魔王與召喚少女的奴隸魔術 Ω
-  anime_sn: '112680'
-  anime_upload_hour: '15:00'
-  anime_view_count: 872000
-  episode_sn: '23107'
-- anime_name: 後空翻少年!!
-  anime_sn: '112676'
-  anime_upload_hour: 01:25
-  anime_view_count: 212000
-  episode_sn: '23105'
-- anime_name: 佐賀偶像是傳奇 捲土重來
-  anime_sn: '112663'
-  anime_upload_hour: '23:45'
-  anime_view_count: 1404000
-  episode_sn: '23103'
-- anime_name: 舞伎家的料理人
-  anime_sn: '112613'
-  anime_upload_hour: '22:00'
-  anime_view_count: 65000
-  episode_sn: '23288'
-- anime_name: 本田小狼與我
-  anime_sn: '112662'
-  anime_upload_hour: '23:30'
-  anime_view_count: 642000
-  episode_sn: '23059'
-- anime_name: 如果究極進化的完全沉浸 RPG 比現實還更像垃圾遊戲的話
-  anime_sn: '112661'
-  anime_upload_hour: '22:30'
-  anime_view_count: 1841000
-  episode_sn: '23180'
-- anime_name: 聖女魔力無所不能
-  anime_sn: '112660'
-  anime_upload_hour: 00:00
-  anime_view_count: 1220000
-  episode_sn: '23027'
-- anime_name: 轉生史萊姆日記 關於我轉生變成史萊姆這檔事
-  anime_sn: '112659'
-  anime_upload_hour: '23:30'
-  anime_view_count: 2160000
-  episode_sn: '23022'
-- anime_name: 燒窯的話也要馬克杯
-  anime_sn: '112656'
-  anime_upload_hour: '23:30'
-  anime_view_count: 115000
-  episode_sn: '23152'
-- anime_name: 燒窯的話也要馬克杯
-  anime_sn: '112656'
-  anime_upload_hour: '23:30'
-  anime_view_count: 115000
-  episode_sn: '23153'
-- anime_name: 七騎士：革命 -英雄的繼承者-
-  anime_sn: '112655'
-  anime_upload_hour: 00:30
-  anime_view_count: 189000
-  episode_sn: '23143'
-- anime_name: 轉生成蜘蛛又怎樣！
-  anime_sn: '112560'
-  anime_upload_hour: '21:30'
-  anime_view_count: 5827000
-  episode_sn: '23108'
-- anime_name: 劇場版 歌之☆王子殿下♪真愛 KINGDOM
-  anime_sn: '112714'
-  anime_upload_hour: '12:00'
-  anime_view_count: 9514
-  episode_sn: '23100'
-- anime_name: Fate/Grand Order - 神聖圓桌領域卡美洛 - Wandering；Agateram
-  anime_sn: '112715'
-  anime_upload_hour: '12:00'
-  anime_view_count: 55000
-  episode_sn: '23101'
-- anime_name: 少女與戰車 最終章 第2話
-  anime_sn: '112706'
-  anime_upload_hour: '12:00'
-  anime_view_count: 11000
-  episode_sn: '23066'
-- anime_name: 夏目友人帳特別上映版：喚石與可疑訪客
-  anime_sn: '112704'
-  anime_upload_hour: '12:00'
-  anime_view_count: 47000
-  episode_sn: '22899'
-- anime_name: 約會大作戰 DATE A BULLET 赤黑新章：虛或實
-  anime_sn: '112698'
-  anime_upload_hour: '17:00'
-  anime_view_count: 13000
-  episode_sn: '22879'
-- anime_name: 約會大作戰 DATE A BULLET 赤黑新章：紅或白
-  anime_sn: '112699'
-  anime_upload_hour: '17:00'
-  anime_view_count: 16000
-  episode_sn: '22880'
-- anime_name: 超時空甩尾
-  anime_sn: '112694'
-  anime_upload_hour: '19:30'
-  anime_view_count: 16000
-  episode_sn: '22681'
-- anime_name: GIVEN 被贈與的未來 劇場版
-  anime_sn: '112693'
-  anime_upload_hour: '17:00'
-  anime_view_count: 8033
-  episode_sn: '22680'
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23356'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 勇者鬥惡龍 達伊的大冒險
+  release_time: null
+  sn: '112464'
+  upload_hour: '10:00'
+  view_count: 1532000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23353'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 壽司大相撲
+  release_time: null
+  sn: '112679'
+  upload_hour: 06:30
+  view_count: 99000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23381'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 女朋友 and 女朋友
+  release_time: null
+  sn: '112752'
+  upload_hour: 02:55
+  view_count: -1
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23350'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 轉生成女性向遊戲只有毀滅 END 的壞人大小姐 X
+  release_time: null
+  sn: '112740'
+  upload_hour: 01:55
+  view_count: -1
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23349'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 叫我對大哥 (TV版)
+  release_time: null
+  sn: '112739'
+  upload_hour: 01:50
+  view_count: -1
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23348'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 瓦尼塔斯的手札
+  release_time: null
+  sn: '112751'
+  upload_hour: 00:30
+  view_count: -1
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23344'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 暮蟬悲鳴時 卒
+  release_time: null
+  sn: '112734'
+  upload_hour: 00:00
+  view_count: -1
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23182'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 奇蛋物語 Wonder Egg Priority
+  release_time: null
+  sn: '112588'
+  upload_hour: '23:00'
+  view_count: 527000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23342'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 桃子男孩渡海而來
+  release_time: null
+  sn: '112733'
+  upload_hour: '21:40'
+  view_count: 7393
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23295'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 工作細胞 特別上映版 - 強「菌」來襲！人體腸道大騷動！
+  release_time: null
+  sn: '112724'
+  upload_hour: '12:50'
+  view_count: -1
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23179'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 青梅竹馬絕對不會輸的戀愛喜劇
+  release_time: null
+  sn: '112677'
+  upload_hour: '21:30'
+  view_count: 907000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23287'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 關於我轉生變成史萊姆這檔事 第二季
+  release_time: null
+  sn: '112548'
+  upload_hour: '23:30'
+  view_count: 5837000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23163'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 冰冰冰 冰淇淋君
+  release_time: null
+  sn: '112665'
+  upload_hour: 07:00
+  view_count: 33000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23161'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 奇巧計程車
+  release_time: null
+  sn: '112664'
+  upload_hour: 02:00
+  view_count: 843000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23159'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 魔法水果籃 最終季
+  release_time: null
+  sn: '112627'
+  upload_hour: 01:30
+  view_count: 376000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23157'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 給不滅的你
+  release_time: null
+  sn: '112674'
+  upload_hour: 00:30
+  view_count: 871000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23151'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 刮掉鬍子的我與撿到的女高中生
+  release_time: null
+  sn: '112658'
+  upload_hour: '23:00'
+  view_count: 3073000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23145'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 王者天下 第三季
+  release_time: null
+  sn: '108606'
+  upload_hour: 02:35
+  view_count: 582000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23142'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 再見了，我的克拉默
+  release_time: null
+  sn: '112653'
+  upload_hour: 00:00
+  view_count: 98000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23138'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 憂國的莫里亞蒂 第一季 後半
+  release_time: null
+  sn: '112645'
+  upload_hour: '23:00'
+  view_count: 365000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23140'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: NOMAD MEGALOBOX 機甲拳擊 第二季
+  release_time: null
+  sn: '112652'
+  upload_hour: '23:00'
+  view_count: 326000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23135'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 東京復仇者
+  release_time: null
+  sn: '112673'
+  upload_hour: 02:38
+  view_count: 854000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23330'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 86－不存在的戰區－
+  release_time: null
+  sn: '112671'
+  upload_hour: 01:30
+  view_count: 1821000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23132'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: SHADOWS HOUSE-影宅-
+  release_time: null
+  sn: '112672'
+  upload_hour: 01:00
+  view_count: 716000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23128'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 不要欺負我，長瀞同學
+  release_time: null
+  sn: '112670'
+  upload_hour: 00:30
+  view_count: 795000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23329'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: Vivy -Fluorite Eye's Song-
+  release_time: null
+  sn: '112657'
+  upload_hour: 00:00
+  view_count: 3336000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23125'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 卡片戰鬥!! 先導者 overdress
+  release_time: null
+  sn: '112650'
+  upload_hour: '23:30'
+  view_count: 44000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23123'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 持續狩獵史萊姆三百年，不知不覺就練到 LV MAX
+  release_time: null
+  sn: '112669'
+  upload_hour: '21:30'
+  view_count: 1871000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23121'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 入間同學入魔了 第二季
+  release_time: null
+  sn: '112675'
+  upload_hour: '19:00'
+  view_count: 1507000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23119'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 我的英雄學院 第五季
+  release_time: null
+  sn: '112643'
+  upload_hour: '17:30'
+  view_count: 2084000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23113'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 美麗新世界 The Animation
+  release_time: null
+  sn: '112668'
+  upload_hour: 02:55
+  view_count: 99000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23111'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 'BLUE REFLECTION : 澪'
+  release_time: null
+  sn: '112667'
+  upload_hour: 02:30
+  view_count: 65000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23273'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 緋紅結繫
+  release_time: null
+  sn: '112721'
+  upload_hour: '21:30'
+  view_count: 46000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23107'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 異世界魔王與召喚少女的奴隸魔術 Ω
+  release_time: null
+  sn: '112680'
+  upload_hour: '15:00'
+  view_count: 872000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23105'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 後空翻少年!!
+  release_time: null
+  sn: '112676'
+  upload_hour: 01:25
+  view_count: 212000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23103'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 佐賀偶像是傳奇 捲土重來
+  release_time: null
+  sn: '112663'
+  upload_hour: '23:45'
+  view_count: 1404000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23288'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 舞伎家的料理人
+  release_time: null
+  sn: '112613'
+  upload_hour: '22:00'
+  view_count: 65000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23059'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 本田小狼與我
+  release_time: null
+  sn: '112662'
+  upload_hour: '23:30'
+  view_count: 642000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23180'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 如果究極進化的完全沉浸 RPG 比現實還更像垃圾遊戲的話
+  release_time: null
+  sn: '112661'
+  upload_hour: '22:30'
+  view_count: 1841000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23027'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 聖女魔力無所不能
+  release_time: null
+  sn: '112660'
+  upload_hour: 00:00
+  view_count: 1220000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23022'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 轉生史萊姆日記 關於我轉生變成史萊姆這檔事
+  release_time: null
+  sn: '112659'
+  upload_hour: '23:30'
+  view_count: 2160000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23152'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 燒窯的話也要馬克杯
+  release_time: null
+  sn: '112656'
+  upload_hour: '23:30'
+  view_count: 115000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23153'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 燒窯的話也要馬克杯
+  release_time: null
+  sn: '112656'
+  upload_hour: '23:30'
+  view_count: 115000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23143'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 七騎士：革命 -英雄的繼承者-
+  release_time: null
+  sn: '112655'
+  upload_hour: 00:30
+  view_count: 189000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23108'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 轉生成蜘蛛又怎樣！
+  release_time: null
+  sn: '112560'
+  upload_hour: '21:30'
+  view_count: 5827000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23100'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 劇場版 歌之☆王子殿下♪真愛 KINGDOM
+  release_time: null
+  sn: '112714'
+  upload_hour: '12:00'
+  view_count: 9514
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23101'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: Fate/Grand Order - 神聖圓桌領域卡美洛 - Wandering；Agateram
+  release_time: null
+  sn: '112715'
+  upload_hour: '12:00'
+  view_count: 55000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '23066'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 少女與戰車 最終章 第2話
+  release_time: null
+  sn: '112706'
+  upload_hour: '12:00'
+  view_count: 11000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '22899'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 夏目友人帳特別上映版：喚石與可疑訪客
+  release_time: null
+  sn: '112704'
+  upload_hour: '12:00'
+  view_count: 47000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '22879'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 約會大作戰 DATE A BULLET 赤黑新章：虛或實
+  release_time: null
+  sn: '112698'
+  upload_hour: '17:00'
+  view_count: 13000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '22880'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 約會大作戰 DATE A BULLET 赤黑新章：紅或白
+  release_time: null
+  sn: '112699'
+  upload_hour: '17:00'
+  view_count: 16000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '22681'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: 超時空甩尾
+  release_time: null
+  sn: '112694'
+  upload_hour: '19:30'
+  view_count: 16000
+- anime_score: null
+  dammus: null
+  episodes:
+  - name: null
+    season_title: null
+    sn: '22680'
+    upload_date: null
+    view_count: null
+  metadata: null
+  name: GIVEN 被贈與的未來 劇場版
+  release_time: null
+  sn: '112693'
+  upload_hour: '17:00'
+  view_count: 8033
