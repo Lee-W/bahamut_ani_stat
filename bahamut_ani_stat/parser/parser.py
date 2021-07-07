@@ -1,12 +1,12 @@
 import re
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import List, Optional
 
 import httpx
 from bs4 import BeautifulSoup
 
 from bahamut_ani_stat import config
-from bahamut_ani_stat.parser.data_types import Anime, AnimeEpisode, AnimeScore, Danmu
+from bahamut_ani_stat.parser.data_types import Anime, AnimeScore, Danmu, Episode
 from bahamut_ani_stat.parser.urls import (
     ANIME_DANMU_URL,
     ANIME_LIST_URL,
@@ -69,10 +69,10 @@ def get_animes_base_data(page_number: int = 1) -> List[Anime]:
         theme_info_div = theme_list_main_a.select_one("div.theme-info-block")
 
         anime = Anime(
-            anime_sn=_santinize_sn(theme_list_main_a.get("href")),
-            anime_view_count=_santinize_view_count(view_number),
-            anime_name=theme_info_div.select_one("p.theme-name").text,
-            anime_release_time=datetime.strptime(
+            sn=_santinize_sn(theme_list_main_a.get("href")),
+            view_count=_santinize_view_count(view_number),
+            name=theme_info_div.select_one("p.theme-name").text,
+            release_time=datetime.strptime(
                 theme_info_div.select_one("p.theme-time").text, "年份：%Y/%m"
             ),
         )
@@ -111,19 +111,19 @@ def _get_anime_episode_score(soup: BeautifulSoup) -> AnimeScore:
     )
 
 
-def get_anime_detail_data(anime_sn: str) -> Dict:
+def get_anime_detail_data(anime_sn: str) -> Anime:
     req = httpx.get(ANIME_REF_URL, params={"sn": anime_sn})
     soup = BeautifulSoup(req.text, features=config.bs4_parser)
 
     season_section = soup.select_one("section.season")
-    episodes_data: List[AnimeEpisode] = list()
+    episodes_data: List[Episode] = list()
     if not season_section:
         # new anime
         episodes_data.append(
-            AnimeEpisode(
+            Episode(
                 season_title=None,
-                episode_name="1",  # TODO: parse from class=anime_name
-                episode_sn=req.url.params.get("sn"),  # type: ignore
+                name="1",  # TODO: parse from class=anime_name
+                sn=req.url.params.get("sn"),  # type: ignore
             )
         )
     else:
@@ -135,10 +135,10 @@ def get_anime_detail_data(anime_sn: str) -> Dict:
             li_a_s = section_ul.select("a")
             for li_a in li_a_s:
                 episodes_data.append(
-                    AnimeEpisode(
-                        season_title=sections_title,
-                        episode_name=li_a.text,
-                        episode_sn=_santinize_sn(li_a.get("href")),
+                    Episode(
+                        season_title=sections_title.text if sections_title else None,
+                        name=li_a.text,
+                        sn=_santinize_sn(li_a.get("href")),
                     )
                 )
 
@@ -151,14 +151,15 @@ def get_anime_detail_data(anime_sn: str) -> Dict:
 
     anime_score = _get_anime_episode_score(soup)
 
-    return {
-        "anime_metadata": anime_metadata,
-        "anime_score": anime_score,
-        "episodes": episodes_data,
-    }
+    return Anime(
+        sn=anime_sn,
+        metadata=anime_metadata,
+        anime_score=anime_score,
+        episodes=episodes_data,
+    )
 
 
-def get_anime_episode_data(episode_sn: str) -> Dict:
+def get_anime_episode_data(episode_sn: str) -> Episode:
     req = httpx.get(ANIME_VIDEO_URL, params={"sn": episode_sn})
     soup = BeautifulSoup(req.text, features=config.bs4_parser)
     anime_info_detail = soup.select_one("div.anime_info_detail")
@@ -167,13 +168,10 @@ def get_anime_episode_data(episode_sn: str) -> Dict:
     )
     view_count = _santinize_view_count(anime_info_detail.select_one("span > span").text)
 
-    return {
-        "upload_date": upload_date,
-        "episode_view_count": view_count,
-    }
+    return Episode(sn=episode_sn, upload_date=upload_date, view_count=view_count,)
 
 
-def get_new_animes() -> List[Dict]:
+def get_new_animes() -> List[Anime]:
     req = httpx.get(GAMMER_ANIME_BASE_URL)
     soup = BeautifulSoup(req.text, features=config.bs4_parser)
     new_anime_block = soup.select_one("div.newanime-wrap.timeline-ver")
@@ -200,20 +198,20 @@ def get_new_animes() -> List[Dict]:
     ]
 
     return [
-        {
-            "anime_sn": ani_sn,
-            "anime_upload_hour": ani_upload_hour,
-            "anime_name": ani_name,
-            "anime_view_count": ani_view_count,
-            "episode_sn": epi_sn,
-        }
+        Anime(
+            sn=ani_sn,
+            name=ani_name,
+            upload_hour=ani_upload_hour,
+            view_count=ani_view_count,
+            episodes=[Episode(sn=epi_sn)],
+        )
         for ani_sn, epi_sn, ani_upload_hour, ani_name, ani_view_count in zip(
             anime_sn_s, episode_sn_s, anime_hours, anime_names, anime_view_counts
         )
     ]
 
 
-def get_out_of_season_animes(offset: int = 1, limit: int = 10) -> List[Dict]:
+def get_out_of_season_animes(offset: int = 1, limit: int = 10) -> List[Anime]:
     req = httpx.get(
         ANIME_OUT_OF_SEASON_MORE_URL, params={"offset": offset, "limit": limit}
     )
@@ -235,14 +233,13 @@ def get_out_of_season_animes(offset: int = 1, limit: int = 10) -> List[Dict]:
         ]
 
         return [
-            {
-                "anime_sn": sn,
-                "anime_view_count": view_count,
-                "anime_name": name,
-                "episode_upload_time": upload_time,
-                "epsiode_name": epi_name,
-            }
-            for sn, view_count, name, upload_time, epi_name in zip(
+            Anime(
+                sn=sn,
+                view_count=view_count,
+                name=name,
+                episodes=[Episode(upload_date=upload_date, name=epi_name)],
+            )
+            for sn, view_count, name, upload_date, epi_name in zip(
                 anime_sn_s,
                 anime_view_counts,
                 anime_names,

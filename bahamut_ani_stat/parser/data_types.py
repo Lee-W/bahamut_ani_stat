@@ -19,32 +19,32 @@ class Danmu:
 
 @dataclass_json
 @dataclass
-class AnimeEpisode:
-    episode_sn: str
-    episode_name: Optional[str] = None
+class Episode:
+    sn: Optional[str] = None
+    name: Optional[str] = None
     season_title: Optional[str] = None
     upload_date: Optional[datetime] = None
-    episode_view_count: Optional[int] = None
+    view_count: Optional[int] = None
 
 
 @dataclass_json
 @dataclass
 class AnimeScore:
-    features: List[Tuple[str, str]]  # TODO: Tuple[str, float]
     score: float
     reviewer_count: int
+    features: List[Tuple[str, str]]  # TODO: Tuple[str, float]
 
 
 @dataclass_json
 @dataclass
 class Anime:
-    anime_sn: str
-    anime_name: str
-    anime_view_count: int
-    anime_release_time: Optional[datetime] = None
-    anime_metadata: Optional[Dict[str, str]] = None
-    anime_upload_hour: Optional[str] = None
+    sn: str
+    name: Optional[str] = None
+    view_count: Optional[int] = None
+    release_time: Optional[datetime] = None
+    metadata: Optional[Dict[str, str]] = None
+    upload_hour: Optional[str] = None
 
     anime_score: Optional[AnimeScore] = None
-    episodes: Optional[List[AnimeEpisode]] = None
+    episodes: Optional[List[Episode]] = None
     dammus: Optional[List[Danmu]] = None
