@@ -12,81 +12,37 @@ anime_score:
     - 27%
   reviewer_count: 3540
   score: 9.8
-dammus: null
 episodes:
 - name: '1'
-  season_title: null
   sn: '22238'
-  upload_date: null
-  view_count: null
 - name: '2'
-  season_title: null
   sn: '22307'
-  upload_date: null
-  view_count: null
 - name: '3'
-  season_title: null
   sn: '22308'
-  upload_date: null
-  view_count: null
 - name: '4'
-  season_title: null
   sn: '22416'
-  upload_date: null
-  view_count: null
 - name: '5'
-  season_title: null
   sn: '22417'
-  upload_date: null
-  view_count: null
 - name: '6'
-  season_title: null
   sn: '22664'
-  upload_date: null
-  view_count: null
 - name: '7'
-  season_title: null
   sn: '22665'
-  upload_date: null
-  view_count: null
 - name: '8'
-  season_title: null
   sn: '22833'
-  upload_date: null
-  view_count: null
 - name: '9'
-  season_title: null
   sn: '22834'
-  upload_date: null
-  view_count: null
 - name: '10'
-  season_title: null
   sn: '23009'
-  upload_date: null
-  view_count: null
 - name: '11'
-  season_title: null
   sn: '23010'
-  upload_date: null
-  view_count: null
 - name: '12'
-  season_title: null
   sn: '23160'
-  upload_date: null
-  view_count: null
 - name: '13'
-  season_title: null
   sn: '23161'
-  upload_date: null
-  view_count: null
 metadata:
   作品類型: 推理懸疑
   台灣代理: 曼迪
   對象族群: 青年
   導演監督: 木下麥
   製作廠商: P.I.C.S. × OLM
-name: null
-release_time: null
 sn: '23373'
-upload_hour: null
-view_count: null
