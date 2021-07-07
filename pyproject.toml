@@ -108,6 +108,7 @@ tqdm = "^4.61.1"
 dataclasses-json = "^0.5.4"
 lxml = "^4.6.3"
 click = "^8.0.1"
+SQLAlchemy = {extras = ["mypy"], version = "^1.4.20"}
 
 [tool.poetry.dev-dependencies]
 # task management
@@ -122,7 +123,7 @@ coverage = {extras = ["toml"], version = "^5.0.4"}
 # style
 flake8 = "^3.7.9"
 pylint = "^2.7.0"
-mypy = "^0.770"
+mypy = "^0.800"
 black = "^19.10b0"
 isort = "^5.0.0"
 # security
