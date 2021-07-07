@@ -12,86 +12,53 @@ anime_score:
     - 18%
   reviewer_count: 6302
   score: 9.4
-dammus: null
 episodes:
 - name: '25'
   season_title: 本篇
   sn: '20530'
-  upload_date: null
-  view_count: null
 - name: '26'
   season_title: 本篇
   sn: '20568'
-  upload_date: null
-  view_count: null
 - name: '27'
   season_title: 本篇
   sn: '20736'
-  upload_date: null
-  view_count: null
 - name: '28'
   season_title: 本篇
   sn: '20737'
-  upload_date: null
-  view_count: null
 - name: '29'
   season_title: 本篇
   sn: '21136'
-  upload_date: null
-  view_count: null
 - name: '30'
   season_title: 本篇
   sn: '21137'
-  upload_date: null
-  view_count: null
 - name: '31'
   season_title: 本篇
   sn: '21419'
-  upload_date: null
-  view_count: null
 - name: '32'
   season_title: 本篇
   sn: '21420'
-  upload_date: null
-  view_count: null
 - name: '33'
   season_title: 本篇
   sn: '21421'
-  upload_date: null
-  view_count: null
 - name: '34'
   season_title: 本篇
   sn: '21706'
-  upload_date: null
-  view_count: null
 - name: '35'
   season_title: 本篇
   sn: '21707'
-  upload_date: null
-  view_count: null
 - name: '36'
   season_title: 本篇
   sn: '22259'
-  upload_date: null
-  view_count: null
 - name: '36.5'
   season_title: 本篇
   sn: '23287'
-  upload_date: null
-  view_count: null
 - name: '1'
   season_title: 特別篇
   sn: '20527'
-  upload_date: null
-  view_count: null
 metadata:
   作品類型: 奇幻冒險
   台灣代理: 木棉花
   對象族群: 少年
   導演監督: 中山敦史
   製作廠商: 8bit
-name: null
-release_time: null
 sn: '23373'
-upload_hour: null
-view_count: null
