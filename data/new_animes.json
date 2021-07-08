@@ -736,5 +736,374 @@
             }
         ],
         "retrieve_time": "2021-07-07T01:57:15.288080+00:00"
+    },
+    {
+        "new_animes": [
+            {
+                "anime_sn": "112731",
+                "anime_upload_hour": "23:00",
+                "anime_name": "月光下的異世界之旅",
+                "anime_view_count": -1,
+                "episode_sn": "23339"
+            },
+            {
+                "anime_sn": "112732",
+                "anime_upload_hour": "22:30",
+                "anime_name": "開掛藥師的異世界悠閒生活",
+                "anime_view_count": -1,
+                "episode_sn": "23338"
+            },
+            {
+                "anime_sn": "112738",
+                "anime_upload_hour": "11:00",
+                "anime_name": "叫我對大哥 (WEB版)",
+                "anime_view_count": 13000,
+                "episode_sn": "23374"
+            },
+            {
+                "anime_sn": "112548",
+                "anime_upload_hour": "23:30",
+                "anime_name": "關於我轉生變成史萊姆這檔事 第二季",
+                "anime_view_count": 6025000,
+                "episode_sn": "23380"
+            },
+            {
+                "anime_sn": "112547",
+                "anime_upload_hour": "07:35",
+                "anime_name": "PUI PUI 天竺鼠車車",
+                "anime_view_count": 1817000,
+                "episode_sn": "23379"
+            },
+            {
+                "anime_sn": "112747",
+                "anime_upload_hour": "22:30",
+                "anime_name": "偵探已經，死了。",
+                "anime_view_count": 103000,
+                "episode_sn": "23369"
+            },
+            {
+                "anime_sn": "112746",
+                "anime_upload_hour": "22:00",
+                "anime_name": "IDOLiSH7 - 偶像星願 - Third BEAT！",
+                "anime_view_count": -1,
+                "episode_sn": "23368"
+            },
+            {
+                "anime_sn": "112756",
+                "anime_upload_hour": "21:30",
+                "anime_name": "死神少爺與黑女僕",
+                "anime_view_count": 63000,
+                "episode_sn": "23376"
+            },
+            {
+                "anime_sn": "112745",
+                "anime_upload_hour": "20:30",
+                "anime_name": "蓋特機器人 ARC",
+                "anime_view_count": 27000,
+                "episode_sn": "23367"
+            },
+            {
+                "anime_sn": "112673",
+                "anime_upload_hour": "02:38",
+                "anime_name": "東京復仇者",
+                "anime_view_count": 952000,
+                "episode_sn": "23365"
+            },
+            {
+                "anime_sn": "112743",
+                "anime_upload_hour": "01:30",
+                "anime_name": "RE-MAIN",
+                "anime_view_count": 17000,
+                "episode_sn": "23363"
+            },
+            {
+                "anime_sn": "112744",
+                "anime_upload_hour": "01:30",
+                "anime_name": "現實主義勇者的王國重建記",
+                "anime_view_count": 76000,
+                "episode_sn": "23364"
+            },
+            {
+                "anime_sn": "112672",
+                "anime_upload_hour": "01:00",
+                "anime_name": "SHADOWS HOUSE-影宅-",
+                "anime_view_count": 790000,
+                "episode_sn": "23133"
+            },
+            {
+                "anime_sn": "112670",
+                "anime_upload_hour": "00:30",
+                "anime_name": "不要欺負我，長瀞同學",
+                "anime_view_count": 877000,
+                "episode_sn": "23371"
+            },
+            {
+                "anime_sn": "112742",
+                "anime_upload_hour": "00:00",
+                "anime_name": "魔法科高中的優等生",
+                "anime_view_count": 79000,
+                "episode_sn": "23362"
+            },
+            {
+                "anime_sn": "112560",
+                "anime_upload_hour": "21:00",
+                "anime_name": "轉生成蜘蛛又怎樣！",
+                "anime_view_count": 6211000,
+                "episode_sn": "23109"
+            },
+            {
+                "anime_sn": "112755",
+                "anime_upload_hour": "20:30",
+                "anime_name": "我們的重製人生",
+                "anime_view_count": 82000,
+                "episode_sn": "23375"
+            },
+            {
+                "anime_sn": "112675",
+                "anime_upload_hour": "19:00",
+                "anime_name": "入間同學入魔了 第二季",
+                "anime_view_count": 1655000,
+                "episode_sn": "23360"
+            },
+            {
+                "anime_sn": "112464",
+                "anime_upload_hour": "10:00",
+                "anime_name": "勇者鬥惡龍 達伊的大冒險",
+                "anime_view_count": 1567000,
+                "episode_sn": "23356"
+            },
+            {
+                "anime_sn": "112679",
+                "anime_upload_hour": "06:30",
+                "anime_name": "壽司大相撲",
+                "anime_view_count": 104000,
+                "episode_sn": "23353"
+            },
+            {
+                "anime_sn": "112752",
+                "anime_upload_hour": "02:55",
+                "anime_name": "女朋友 and 女朋友",
+                "anime_view_count": 86000,
+                "episode_sn": "23381"
+            },
+            {
+                "anime_sn": "112740",
+                "anime_upload_hour": "01:55",
+                "anime_name": "轉生成女性向遊戲只有毀滅 END 的壞人大小姐 X",
+                "anime_view_count": 94000,
+                "episode_sn": "23350"
+            },
+            {
+                "anime_sn": "112739",
+                "anime_upload_hour": "01:50",
+                "anime_name": "叫我對大哥 (TV版)",
+                "anime_view_count": 34000,
+                "episode_sn": "23349"
+            },
+            {
+                "anime_sn": "112751",
+                "anime_upload_hour": "00:30",
+                "anime_name": "瓦尼塔斯的手札",
+                "anime_view_count": 46000,
+                "episode_sn": "23348"
+            },
+            {
+                "anime_sn": "112734",
+                "anime_upload_hour": "00:00",
+                "anime_name": "暮蟬悲鳴時 卒",
+                "anime_view_count": -1,
+                "episode_sn": "23344"
+            },
+            {
+                "anime_sn": "112588",
+                "anime_upload_hour": "23:00",
+                "anime_name": "奇蛋物語 Wonder Egg Priority",
+                "anime_view_count": 565000,
+                "episode_sn": "23182"
+            },
+            {
+                "anime_sn": "112733",
+                "anime_upload_hour": "21:40",
+                "anime_name": "桃子男孩渡海而來",
+                "anime_view_count": 54000,
+                "episode_sn": "23342"
+            },
+            {
+                "anime_sn": "112724",
+                "anime_upload_hour": "12:50",
+                "anime_name": "工作細胞 特別上映版 - 強「菌」來襲！人體腸道大騷動！",
+                "anime_view_count": 28000,
+                "episode_sn": "23295"
+            },
+            {
+                "anime_sn": "112677",
+                "anime_upload_hour": "21:30",
+                "anime_name": "青梅竹馬絕對不會輸的戀愛喜劇",
+                "anime_view_count": 991000,
+                "episode_sn": "23179"
+            },
+            {
+                "anime_sn": "112665",
+                "anime_upload_hour": "07:00",
+                "anime_name": "冰冰冰 冰淇淋君",
+                "anime_view_count": 34000,
+                "episode_sn": "23163"
+            },
+            {
+                "anime_sn": "112664",
+                "anime_upload_hour": "02:00",
+                "anime_name": "奇巧計程車",
+                "anime_view_count": 1022000,
+                "episode_sn": "23161"
+            },
+            {
+                "anime_sn": "112627",
+                "anime_upload_hour": "01:30",
+                "anime_name": "魔法水果籃 最終季",
+                "anime_view_count": 403000,
+                "episode_sn": "23159"
+            },
+            {
+                "anime_sn": "112674",
+                "anime_upload_hour": "00:30",
+                "anime_name": "給不滅的你",
+                "anime_view_count": 928000,
+                "episode_sn": "23157"
+            },
+            {
+                "anime_sn": "112658",
+                "anime_upload_hour": "23:00",
+                "anime_name": "刮掉鬍子的我與撿到的女高中生",
+                "anime_view_count": 3170000,
+                "episode_sn": "23151"
+            },
+            {
+                "anime_sn": "108606",
+                "anime_upload_hour": "02:35",
+                "anime_name": "王者天下 第三季",
+                "anime_view_count": 596000,
+                "episode_sn": "23145"
+            },
+            {
+                "anime_sn": "112653",
+                "anime_upload_hour": "00:00",
+                "anime_name": "再見了，我的克拉默",
+                "anime_view_count": 101000,
+                "episode_sn": "23142"
+            },
+            {
+                "anime_sn": "112645",
+                "anime_upload_hour": "23:00",
+                "anime_name": "憂國的莫里亞蒂 第一季 後半",
+                "anime_view_count": 381000,
+                "episode_sn": "23138"
+            },
+            {
+                "anime_sn": "112652",
+                "anime_upload_hour": "23:00",
+                "anime_name": "NOMAD MEGALOBOX 機甲拳擊 第二季",
+                "anime_view_count": 336000,
+                "episode_sn": "23140"
+            },
+            {
+                "anime_sn": "112671",
+                "anime_upload_hour": "01:30",
+                "anime_name": "86－不存在的戰區－",
+                "anime_view_count": 1910000,
+                "episode_sn": "23330"
+            },
+            {
+                "anime_sn": "112657",
+                "anime_upload_hour": "00:00",
+                "anime_name": "Vivy -Fluorite Eye's Song-",
+                "anime_view_count": 3500000,
+                "episode_sn": "23329"
+            },
+            {
+                "anime_sn": "112643",
+                "anime_upload_hour": "17:30",
+                "anime_name": "我的英雄學院 第五季",
+                "anime_view_count": 2139000,
+                "episode_sn": "23119"
+            },
+            {
+                "anime_sn": "112667",
+                "anime_upload_hour": "02:30",
+                "anime_name": "BLUE REFLECTION : 澪",
+                "anime_view_count": 67000,
+                "episode_sn": "23111"
+            },
+            {
+                "anime_sn": "112721",
+                "anime_upload_hour": "21:30",
+                "anime_name": "緋紅結繫",
+                "anime_view_count": 57000,
+                "episode_sn": "23273"
+            },
+            {
+                "anime_sn": "112613",
+                "anime_upload_hour": "22:00",
+                "anime_name": "舞伎家的料理人",
+                "anime_view_count": 67000,
+                "episode_sn": "23288"
+            },
+            {
+                "anime_sn": "112714",
+                "anime_upload_hour": "12:00",
+                "anime_name": "劇場版 歌之☆王子殿下♪真愛 KINGDOM",
+                "anime_view_count": -1,
+                "episode_sn": "23100"
+            },
+            {
+                "anime_sn": "112715",
+                "anime_upload_hour": "12:00",
+                "anime_name": "Fate/Grand Order - 神聖圓桌領域卡美洛 - Wandering；Agateram",
+                "anime_view_count": 59000,
+                "episode_sn": "23101"
+            },
+            {
+                "anime_sn": "112706",
+                "anime_upload_hour": "12:00",
+                "anime_name": "少女與戰車 最終章 第2話",
+                "anime_view_count": 12000,
+                "episode_sn": "23066"
+            },
+            {
+                "anime_sn": "112704",
+                "anime_upload_hour": "12:00",
+                "anime_name": "夏目友人帳特別上映版：喚石與可疑訪客",
+                "anime_view_count": 49000,
+                "episode_sn": "22899"
+            },
+            {
+                "anime_sn": "112698",
+                "anime_upload_hour": "17:00",
+                "anime_name": "約會大作戰 DATE A BULLET 赤黑新章：虛或實",
+                "anime_view_count": 13000,
+                "episode_sn": "22879"
+            },
+            {
+                "anime_sn": "112699",
+                "anime_upload_hour": "17:00",
+                "anime_name": "約會大作戰 DATE A BULLET 赤黑新章：紅或白",
+                "anime_view_count": 16000,
+                "episode_sn": "22880"
+            },
+            {
+                "anime_sn": "112694",
+                "anime_upload_hour": "19:30",
+                "anime_name": "超時空甩尾",
+                "anime_view_count": 17000,
+                "episode_sn": "22681"
+            },
+            {
+                "anime_sn": "112693",
+                "anime_upload_hour": "17:00",
+                "anime_name": "GIVEN 被贈與的未來 劇場版",
+                "anime_view_count": 8326,
+                "episode_sn": "22680"
+            }
+        ],
+        "retrieve_time": "2021-07-08T01:58:02.518412+00:00"
     }
 ]
