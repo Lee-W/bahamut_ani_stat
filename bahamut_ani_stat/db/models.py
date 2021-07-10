@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List
 
-from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, String
+from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, String, Boolean
 from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
@@ -14,6 +14,7 @@ class Anime(Base):
     name = Column(String, nullable=True)
     release_time = Column(DateTime, nullable=True)
     upload_hour = Column(String, nullable=True)
+    is_new = Column(Boolean, nullable=True)
     # TODO: metadata: Optional[Dict[str, str]] = None
 
     anime_view_counts: List["AnimeViewCount"] = relationship(
