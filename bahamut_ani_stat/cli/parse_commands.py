@@ -9,7 +9,7 @@ from bahamut_ani_stat.cli import options
 from bahamut_ani_stat.parser import parser
 
 
-@click.group()
+@click.group(name="parse")
 def parse_command_group():
     pass
 
