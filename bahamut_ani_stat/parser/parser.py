@@ -2,6 +2,8 @@ import re
 from datetime import datetime
 from functools import wraps
 from typing import Any, Callable, List, Optional
+from tqdm import tqdm
+from tqdm import trange
 
 import httpx
 from bs4 import BeautifulSoup
@@ -48,7 +50,7 @@ def to_dict_args(func: Callable) -> Callable:
 
 
 def _santinize_view_count(view_count_str: str) -> int:
-    pattern = re.compile(r"(\d+\.{0,1}\d+)(萬*)")
+    pattern = re.compile(r"(\d+\.{0,1}\d*)(萬*)")
     match = pattern.match(view_count_str)
 
     if match:
@@ -57,6 +59,7 @@ def _santinize_view_count(view_count_str: str) -> int:
         else:
             return int(match.group(1))
     else:
+        tqdm.write(f'View count "{view_count_str}" can not be parsed as a number ')
         return -1
 
 
@@ -118,7 +121,7 @@ def get_all_animes_base_data(page_count: Optional[int] = None) -> List[Anime]:
         page_count = get_anime_list_page_count()
 
     animes_data = list()
-    for page_number in range(1, page_count + 1):
+    for page_number in trange(1, page_count + 1, desc="Parsing all anime pages"):
         animes_data.extend(get_animes_base_data(page_number))
     return animes_data
 
@@ -204,7 +207,11 @@ def get_anime_episode_data(episode_sn: str) -> Episode:
     )
     view_count = _santinize_view_count(anime_info_detail.select_one("span > span").text)
 
-    return Episode(sn=episode_sn, upload_date=upload_date, view_count=view_count,)
+    return Episode(
+        sn=episode_sn,
+        upload_date=upload_date,
+        view_count=view_count,
+    )
 
 
 @to_dict_args
