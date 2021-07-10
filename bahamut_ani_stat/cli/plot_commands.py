@@ -41,6 +41,7 @@ def plot_premium_rate_command(db_uri: str, output_filename: str):
     )
     p.line(pr_series.index, pr_series.values)
     save(p)
+    click.echo(f"Export plot to {output_filename}")
 
 
 @plot_command_group.command(name="anime")
@@ -81,3 +82,4 @@ def plot_anime_command(db_uri: str, output_filename: str):
         source=source, columns=columns, height_policy="max", width_policy="max"
     )
     save(data_table)
+    click.echo(f"Export plot to {output_filename}")
