@@ -2,6 +2,7 @@ import click
 import pandas as pd
 import sqlalchemy
 from bokeh.io import output_file, save
+from bokeh.models import ColumnDataSource, DataTable, DateFormatter, TableColumn
 from bokeh.plotting import figure
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -40,3 +41,43 @@ def plot_premium_rate_command(db_uri: str, output_filename: str):
     )
     p.line(pr_series.index, pr_series.values)
     save(p)
+
+
+@plot_command_group.command(name="anime")
+@click.argument("db-uri")
+@click.argument("output-filename", default="anime.html")
+def plot_anime_command(db_uri: str, output_filename: str):
+    engine = sqlalchemy.create_engine(db_uri)
+    with Session(engine) as session, session.begin():
+        stmt = select(models.PremiumRate)
+        results = session.execute(stmt).scalars().all()
+
+        stmt = select(models.Anime)
+        results = session.execute(stmt).scalars().all()
+        column_sources = {
+            "sn": [row.sn for row in results],
+            "name": [row.name for row in results],
+            "release_time": [row.release_time for row in results],
+            "upload_hour": [row.upload_hour for row in results],
+            "is_new": [row.is_new for row in results],
+            "anime_view_counts": [
+                max([sub_row.view_count for sub_row in row.anime_view_counts])
+                for row in results
+            ],
+        }
+
+    source = ColumnDataSource(column_sources)
+
+    output_file(filename=output_filename, title="巴哈姆特動畫瘋 - 所有動畫")
+    columns = [
+        TableColumn(field="sn", title="sn"),
+        TableColumn(field="name", title="動畫名稱"),
+        TableColumn(field="release_time", title="動畫釋出時間", formatter=DateFormatter()),
+        TableColumn(field="upload_hour", title="動畫每週上架時間（新番）"),
+        TableColumn(field="is_new", title="是否為新番"),
+        TableColumn(field="anime_view_counts", title="觀看人次"),
+    ]
+    data_table = DataTable(
+        source=source, columns=columns, height_policy="max", width_policy="max"
+    )
+    save(data_table)
