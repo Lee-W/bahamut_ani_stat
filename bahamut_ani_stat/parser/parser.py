@@ -2,11 +2,10 @@ import re
 from datetime import datetime
 from functools import wraps
 from typing import Any, Callable, List, Optional
-from tqdm import tqdm
-from tqdm import trange
 
 import httpx
 from bs4 import BeautifulSoup
+from tqdm import tqdm, trange
 
 from bahamut_ani_stat import config
 from bahamut_ani_stat.parser.data_types import Anime, AnimeScore, Danmu, Episode
@@ -207,11 +206,7 @@ def get_anime_episode_data(episode_sn: str) -> Episode:
     )
     view_count = _santinize_view_count(anime_info_detail.select_one("span > span").text)
 
-    return Episode(
-        sn=episode_sn,
-        upload_date=upload_date,
-        view_count=view_count,
-    )
+    return Episode(sn=episode_sn, upload_date=upload_date, view_count=view_count,)
 
 
 @to_dict_args
