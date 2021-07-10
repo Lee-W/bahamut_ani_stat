@@ -124,7 +124,7 @@ def get_all_animes_base_data(page_count: Optional[int] = None) -> List[Anime]:
 
 
 @to_dict_args
-def _get_anime_episode_score(soup: BeautifulSoup) -> AnimeScore:
+def _get_anime_score(soup: BeautifulSoup) -> AnimeScore:
     acg_data_li_s = soup.select("div.ACG-data > ul:first-child > li")
     acg_persent_li_s = soup.select("div.ACG-data > ul.ACG-persent > li")
 
@@ -184,7 +184,7 @@ def get_anime_detail_data(anime_sn: str) -> Anime:
         value = data_type_content.text
         anime_metadata[key] = value
 
-    anime_score = _get_anime_episode_score(soup)
+    anime_score = _get_anime_score(soup)
 
     return Anime(
         sn=anime_sn,

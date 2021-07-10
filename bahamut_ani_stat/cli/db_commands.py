@@ -27,7 +27,7 @@ def create_tables_command(db_uri: str):
 
 @db_command_group.command(name="add-animes-base-data")
 @click.argument("db-uri")
-def add_animes_base_data(db_uri: str):
+def add_animes_base_data_command(db_uri: str):
     animes = parser.get_all_animes_base_data(1)
 
     engine = sqlalchemy.create_engine(db_uri)
@@ -50,9 +50,9 @@ def add_animes_base_data(db_uri: str):
                 session.add(anime_view_count_obj)
 
 
-@db_command_group.command()
+@db_command_group.command(name="add-premium-rate")
 @click.argument("db-uri")
-def add_premium_rate(db_uri: str):
+def add_premium_rate_command(db_uri: str):
     premium_rate = parser.get_premium_rate()
 
     engine = sqlalchemy.create_engine(db_uri)
