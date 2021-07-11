@@ -3,7 +3,6 @@ from typing import Optional
 import click
 import sqlalchemy
 from sqlalchemy import select
-from sqlalchemy.dialects.sqlite import insert
 from sqlalchemy.orm import Session
 
 from bahamut_ani_stat.db import models
@@ -12,6 +11,8 @@ from bahamut_ani_stat.db.utils import (
     create_tables,
     is_view_count_changed_since_latest_update,
     upsert_anime,
+    upsert_episode,
+    is_score_or_reviewer_changed_since_latest_update,
 )
 from bahamut_ani_stat.parser import parser
 
@@ -111,10 +112,48 @@ def add_new_animes_command(db_uri: str):
                     )
                     session.add(anime_view_count_obj)
 
-                episode_attrs = {"sn": anime.episodes[0].sn, "anime_sn": anime.sn}
-                insert_stmt = insert(models.Episode).values(**episode_attrs)
-                upsert_stmt = insert_stmt.on_conflict_do_update(
-                    index_elements=[models.Episode.sn], set_=episode_attrs
+                upsert_episode(
+                    session, {"sn": anime.episodes[0].sn, "anime_sn": anime.sn}
                 )
-                session.execute(upsert_stmt)
     click.echo("Fininsh adding new animes")
+
+
+@db_command_group.command(name="add-animes-detail")
+@click.argument("db-uri")
+@click.option("--only-new-anime", is_flag=True, default=True)
+def add_animes_detail(db_uri: str, only_new_anime: bool):
+    """Parse anime data from first episode and add data to database"""
+
+    engine = sqlalchemy.create_engine(db_uri)
+    with Session(engine) as session, session.begin():
+        stmt = select(models.Anime.sn)
+        if only_new_anime:
+            stmt = stmt.where(models.Anime.is_new.is_(True))
+        animes_sn = session.execute(stmt).scalars().all()
+        click.echo(f"Adding detail data for {len(animes_sn)} animes to {db_uri}")
+
+        with click.progressbar(animes_sn) as animes_bar:
+            for anime_sn in animes_bar:
+                anime = parser.get_anime_detail_data(anime_sn)
+
+                if is_score_or_reviewer_changed_since_latest_update(
+                    session,
+                    anime.anime_score.score,
+                    anime.anime_score.reviewer_count,
+                    anime.sn,
+                ):
+                    anime_score_obj = models.AnimeScore(
+                        score=anime.anime_score.score,
+                        reviewer_count=anime.anime_score.reviewer_count,
+                        anime_sn=anime.sn,
+                    )
+                    session.add(anime_score_obj)
+
+                for episode in anime.episodes:
+                    epi_attrs = {
+                        "sn": episode.sn,
+                        "name": episode.name,
+                        "anime_sn": anime.sn,
+                    }
+                    upsert_episode(session, epi_attrs)
+    click.echo("Finish adding anime details")
