@@ -36,6 +36,7 @@ def plot_command_group():
 @click.argument("db-uri")
 @click.argument("output-filename", default="premium-rate.html")
 def plot_premium_rate_command(db_uri: str, output_filename: str):
+    """Plot premium rate as trend chart"""
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
         stmt = select(models.PremiumRate)
@@ -66,6 +67,7 @@ def plot_premium_rate_command(db_uri: str, output_filename: str):
 @click.argument("db-uri")
 @click.argument("output-filename", default="anime.html")
 def plot_anime_command(db_uri: str, output_filename: str):
+    """Plot anime data from database as an interactive data table"""
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
         stmt = (

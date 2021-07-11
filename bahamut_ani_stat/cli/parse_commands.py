@@ -39,6 +39,7 @@ def _append_or_overwrite_outputfile(
 def get_premium_rate_command(
     print_output: bool, output_filename: str, handle_exist_output: str
 ) -> None:
+    """Get 巴哈姆特動畫瘋 premium rate"""
     if not any([print_output, output_filename]):
         click.echo("Either --print-out or --output-file needs to be provided")
         return
@@ -60,6 +61,7 @@ def get_premium_rate_command(
 def get_new_animes_command(
     print_output: bool, output_filename: str, handle_exist_output: str
 ):
+    """Parse 本季新番 table and print out or export as json file"""
     if not any([print_output, output_filename]):
         click.echo("Either --print-out or --output-file needs to be provided")
         return
