@@ -25,6 +25,7 @@ def db_command_group():
 @db_command_group.command(name="create-tables")
 @click.argument("db-uri")
 def create_tables_command(db_uri: str):
+    """Create tables if not yet exists"""
     create_tables(db_uri)
 
 
@@ -32,6 +33,7 @@ def create_tables_command(db_uri: str):
 @click.argument("db-uri")
 @click.option("--page", default=None, type=int)
 def add_animes_base_data_command(db_uri: str, page: Optional[int]):
+    """Parse 所有動畫 page and add animes data to database"""
     animes = parser.get_all_animes_base_data(page)
 
     click.echo(f"Adding {len(animes)} animes base data to {db_uri}")
@@ -62,6 +64,8 @@ def add_animes_base_data_command(db_uri: str, page: Optional[int]):
 @db_command_group.command(name="add-premium-rate")
 @click.argument("db-uri")
 def add_premium_rate_command(db_uri: str):
+    """Add latest premium rate to database"""
+
     premium_rate = parser.get_premium_rate()
     click.echo(f"Premium rate: {premium_rate}")
 
@@ -83,6 +87,8 @@ def add_premium_rate_command(db_uri: str):
 @db_command_group.command(name="add-new-animes")
 @click.argument("db-uri")
 def add_new_animes_command(db_uri: str):
+    """Parse new anime data from 本季新番 table and add them to database"""
+
     new_animes = parser.get_new_animes()
     new_animes_sn = {anime.sn for anime in new_animes}
 
