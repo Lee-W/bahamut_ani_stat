@@ -62,7 +62,7 @@ def plot_anime_command(db_uri: str, output_filename: str):
             "upload_hour": [row.upload_hour for row in results],
             "is_new": [row.is_new for row in results],
             "anime_view_counts": [
-                max([sub_row.view_count for sub_row in row.anime_view_counts])
+                row.anime_view_counts[-1].view_count
                 for row in results
             ],
         }
