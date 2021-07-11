@@ -9,10 +9,10 @@ from bahamut_ani_stat.db import models
 from bahamut_ani_stat.db.utils import (
     clean_up_old_animes,
     create_tables,
+    is_score_or_reviewer_changed_since_latest_update,
     is_view_count_changed_since_latest_update,
     upsert_anime,
     upsert_episode,
-    is_score_or_reviewer_changed_since_latest_update,
 )
 from bahamut_ani_stat.parser import parser
 

@@ -41,7 +41,7 @@ def plot_premium_rate_command(db_uri: str, output_filename: str):
     )
     p.line(pr_series.index, pr_series.values)
     save(p)
-    click.echo(f"Export plot to {output_filename}")
+    click.echo(f"Export premium plot to {output_filename}")
 
 
 @plot_command_group.command(name="anime")
@@ -62,9 +62,9 @@ def plot_anime_command(db_uri: str, output_filename: str):
             "upload_hour": [row.upload_hour for row in results],
             "is_new": [row.is_new for row in results],
             "anime_view_counts": [
-                row.anime_view_counts[-1].view_count
-                for row in results
+                row.anime_view_counts[-1].view_count for row in results
             ],
+            "anime_scores": [row.anime_scores[-1].score for row in results],
         }
 
     source = ColumnDataSource(column_sources)
@@ -73,13 +73,14 @@ def plot_anime_command(db_uri: str, output_filename: str):
     columns = [
         TableColumn(field="sn", title="sn"),
         TableColumn(field="name", title="動畫名稱"),
-        TableColumn(field="release_time", title="動畫釋出時間", formatter=DateFormatter()),
-        TableColumn(field="upload_hour", title="動畫每週上架時間（新番）"),
         TableColumn(field="is_new", title="是否為新番"),
         TableColumn(field="anime_view_counts", title="觀看人次"),
+        TableColumn(field="anime_scores", title="評分"),
+        TableColumn(field="release_time", title="動畫釋出時間", formatter=DateFormatter()),
+        TableColumn(field="upload_hour", title="動畫每週上架時間（新番）"),
     ]
     data_table = DataTable(
         source=source, columns=columns, height_policy="max", width_policy="max"
     )
     save(data_table)
-    click.echo(f"Export plot to {output_filename}")
+    click.echo(f"Export anime plot to {output_filename}")
