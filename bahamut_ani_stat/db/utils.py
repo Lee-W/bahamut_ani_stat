@@ -15,9 +15,17 @@ def create_tables(db_uri: str):
 
 
 def upsert_anime(session: Session, attrs: Dict) -> None:
-    insert_stmt = insert(models.Anime).values(**attrs)
+    insert_stmt = insert(models.Anime).values(attrs)
     upsert_stmt = insert_stmt.on_conflict_do_update(
         index_elements=[models.Anime.sn], set_=attrs
+    )
+    session.execute(upsert_stmt)
+
+
+def upsert_episode(session: Session, attrs: Dict) -> None:
+    insert_stmt = insert(models.Episode).values(attrs)
+    upsert_stmt = insert_stmt.on_conflict_do_update(
+        index_elements=[models.Episode.sn], set_=attrs
     )
     session.execute(upsert_stmt)
 
@@ -39,7 +47,7 @@ def clean_up_old_animes(session: Session, new_animes_sn: Set[str]):
 
 def is_view_count_changed_since_latest_update(
     session: Session, view_count: float, anime_sn: str
-):
+) -> bool:
     stmt = (
         select(models.AnimeViewCount.view_count)
         .filter_by(anime_sn=anime_sn)
@@ -48,3 +56,18 @@ def is_view_count_changed_since_latest_update(
     latest_view_count = session.execute(stmt).scalars().first()
 
     return view_count != latest_view_count
+
+
+def is_score_or_reviewer_changed_since_latest_update(
+    session: Session, score: float, reviewer_count: int, anime_sn: str
+) -> bool:
+    stmt = (
+        select(models.AnimeScore.score, models.AnimeScore.reviewer_count)
+        .filter_by(anime_sn=anime_sn)
+        .order_by(models.AnimeScore.insert_time.desc())
+    )
+    result = session.execute(stmt).first()
+    if result:
+        latest_score, latest_reviewer_count = result
+        return score != latest_score or reviewer_count != latest_reviewer_count
+    return True
