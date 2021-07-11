@@ -44,7 +44,8 @@ class AnimeScore(Base):
     __tablename__ = "anime_score"
 
     score_id = Column(Integer, primary_key=True)
-    average_score = Column(Float)
+    score = Column(Float)
+    reviewer_count = Column(Integer)
     insert_time = Column(DateTime, default=datetime.now())
 
     anime_sn = Column(String, ForeignKey("anime.sn"))
