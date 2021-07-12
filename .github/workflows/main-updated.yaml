@@ -34,6 +34,7 @@ jobs:
         with:
           token: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
           fetch-depth: 0
+          ref: accumulate-data
 
       - name: Set up Python 3.8
         uses: actions/setup-python@main
@@ -47,7 +48,7 @@ jobs:
 
       - name: Build docs
         run: |
-          inv doc.build
+          inv doc.build --no-local
 
       - name: Push documentation to Github Page
         uses: peaceiris/actions-gh-pages@v3.8.0
