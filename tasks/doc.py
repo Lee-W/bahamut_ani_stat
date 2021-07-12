@@ -2,21 +2,30 @@ from invoke import task
 
 from tasks.common import VENV_PREFIX
 
+ENV_VAR_PREFIX = "SITE_URL=http://127.0.0.1:8000 "
+
 
 @task(optional=["clean"])
-def build(ctx, clean=True):
-    """Build documentation locally"""
+def build(ctx, clean=True, local=True):
+    """Build documentation"""
     argument = ""
     if clean:
         argument += " --clean"
 
-    ctx.run(f"{VENV_PREFIX} mkdocs build {argument}")
+    cmd = f"{VENV_PREFIX} mkdocs build {argument}"
+    if local:
+        cmd = f"{ENV_VAR_PREFIX}{cmd}"
+
+    ctx.run(cmd)
 
 
 @task(default=True)
-def serve(ctx):
+def serve(ctx, local=True):
     """Run local server"""
-    ctx.run(f"{VENV_PREFIX} mkdocs serve")
+    cmd = f"{VENV_PREFIX} mkdocs serve"
+    if local:
+        cmd = f"{ENV_VAR_PREFIX}{cmd}"
+    ctx.run(cmd)
 
 
 @task
