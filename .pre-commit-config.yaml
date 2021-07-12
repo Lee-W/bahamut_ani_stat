@@ -4,10 +4,10 @@ repos:
     rev: v4.0.1
     hooks:
       - id: end-of-file-fixer
-        exclude: "data/.*"
+        exclude: "[data|docs/plots]/.*"
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
-        exclude: "data/.*"
+        exclude: "[data|docs/plots]/.*"
       - id: check-case-conflict
       - id: check-merge-conflict
       - id: no-commit-to-branch
