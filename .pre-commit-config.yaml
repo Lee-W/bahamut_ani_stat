@@ -16,10 +16,10 @@ repos:
     rev: v4.6.0
     hooks:
       - id: end-of-file-fixer
-        exclude: "data/.*"
+        exclude: "[data|docs/plots]/.*"
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
-        exclude: "data/.*"
+        exclude: "[data|docs/plots]/.*"
       - id: check-case-conflict
       - id: debug-statements
       - id: no-commit-to-branch
