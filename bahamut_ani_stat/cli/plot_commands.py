@@ -62,9 +62,13 @@ def plot_anime_command(db_uri: str, output_filename: str):
             "upload_hour": [row.upload_hour for row in results],
             "is_new": [row.is_new for row in results],
             "anime_view_counts": [
-                row.anime_view_counts[-1].view_count for row in results
+                row.anime_view_counts[-1].view_count if row.anime_view_counts else -1
+                for row in results
             ],
-            "anime_scores": [row.anime_scores[-1].score for row in results],
+            "anime_scores": [
+                row.anime_scores[-1].score if row.anime_scores else -1
+                for row in results
+            ],
         }
 
     source = ColumnDataSource(column_sources)
