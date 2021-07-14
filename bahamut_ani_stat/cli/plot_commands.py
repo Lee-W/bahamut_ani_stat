@@ -1,11 +1,25 @@
 import click
 import pandas as pd
+import pkg_resources
 import sqlalchemy
 from bokeh.io import output_file, save
-from bokeh.models import ColumnDataSource, DataTable, DateFormatter, TableColumn
+from bokeh.layouts import column, row
+from bokeh.models import (
+    CDSView,
+    ColumnDataSource,
+    CustomJS,
+    CustomJSFilter,
+    DataTable,
+    DateFormatter,
+    RangeSlider,
+    TableColumn,
+    TextInput,
+    Toggle,
+)
 from bokeh.plotting import figure
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+from sqlalchemy.sql import functions as sql_func
 
 from bahamut_ani_stat.db import models
 
@@ -71,20 +85,88 @@ def plot_anime_command(db_uri: str, output_filename: str):
             ],
         }
 
-    source = ColumnDataSource(column_sources)
+        stmt = select(sql_func.max(models.AnimeViewCount.view_count))
+        max_view_count = session.execute(stmt).scalars().first()
+
+    data_source = ColumnDataSource(column_sources)
 
     output_file(filename=output_filename, title="巴哈姆特動畫瘋 - 所有動畫")
+
+    emit_js = CustomJS(
+        args={"data_source": data_source}, code="data_source.change.emit()"
+    )
+    text_input = TextInput(placeholder="動畫名稱", height_policy="min",)
+    text_input.js_on_change("value", emit_js)
+
+    only_new_toggle = Toggle(
+        label="只顯示新番",
+        button_type="default",
+        active=False,
+        height_policy="min",
+        width_policy="min",
+    )
+    only_new_toggle.js_on_click(emit_js)
+
+    ignore_wip_toggle = Toggle(
+        label="不顯示統計中",
+        button_type="default",
+        active=False,
+        height_policy="min",
+        width_policy="min",
+    )
+    ignore_wip_toggle.js_on_click(emit_js)
+
+    view_counter_silider = RangeSlider(
+        start=-1,
+        end=max_view_count,
+        value=(-1, max_view_count),
+        step=1,
+        title="觀看人次",
+        margin=(2, 10, 5, 10),
+    )
+    view_counter_silider.js_on_change("value", emit_js)
+
+    score_slider = RangeSlider(
+        start=-1, end=10, value=(-1, 10), step=0.1, title="評分", margin=(2, 10, 5, 10)
+    )
+    score_slider.js_on_change("value", emit_js)
+
+    anime_js_filter = CustomJSFilter(
+        args={
+            "data_source": data_source,
+            "score_slider": score_slider,
+            "view_counter_silider": view_counter_silider,
+            "only_new_toggle": only_new_toggle,
+            "ignore_wip_toggle": ignore_wip_toggle,
+            "text_input": text_input,
+        },
+        code=pkg_resources.resource_string(__name__, "anime_filter.js").decode("utf-8"),
+    )
+    view = CDSView(source=data_source, filters=[anime_js_filter])
+
     columns = [
-        TableColumn(field="sn", title="sn"),
         TableColumn(field="name", title="動畫名稱"),
-        TableColumn(field="is_new", title="是否為新番"),
-        TableColumn(field="anime_view_counts", title="觀看人次"),
         TableColumn(field="anime_scores", title="評分"),
-        TableColumn(field="release_time", title="動畫釋出時間", formatter=DateFormatter()),
-        TableColumn(field="upload_hour", title="動畫每週上架時間（新番）"),
+        TableColumn(field="anime_view_counts", title="觀看人次"),
+        TableColumn(field="is_new", title="是否為新番"),
+        TableColumn(field="release_time", title="動畫播出時間", formatter=DateFormatter()),
+        TableColumn(field="upload_hour", title="動畫上架時間（新番）"),
+        TableColumn(field="sn", title="sn"),
     ]
     data_table = DataTable(
-        source=source, columns=columns, height_policy="max", width_policy="max"
+        source=data_source,
+        columns=columns,
+        editable=True,
+        reorderable=True,
+        height_policy="max",
+        width_policy="max",
+        view=view,
     )
-    save(data_table)
+    result = column(
+        column(row(text_input, only_new_toggle, ignore_wip_toggle), height=50),
+        column(row(view_counter_silider, score_slider), height=50),
+        data_table,
+        sizing_mode="stretch_width",
+    )
+    save(result)
     click.echo(f"Export anime plot to {output_filename}")
