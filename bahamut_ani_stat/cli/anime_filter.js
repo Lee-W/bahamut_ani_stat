@@ -10,7 +10,8 @@ for (var i = 0; i < data_source.get_length(); i++) {
         anime_view_count >= view_counter_silider.value[0] &&
         anime_view_count <= view_counter_silider.value[1] &&
         !(only_new_toggle.active && !data_source.data["is_new"][i]) &&
-        !(ignore_wip_toggle.active && anime_score == -1 || anime_view_count == -1) &&
+        !(ignore_wip_toggle.active && anime_score == -1) &&
+        !(ignore_wip_toggle.active && anime_view_count == -1) &&
         !(text_input.value.length > 0 && !anime_name_lower.includes(text_input.value.toLowerCase()))
     ) {
         indices.push(true);
