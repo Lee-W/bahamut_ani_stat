@@ -11,6 +11,7 @@ from bokeh.models import (
     CustomJSFilter,
     DataTable,
     DateFormatter,
+    HTMLTemplateFormatter,
     RangeSlider,
     TableColumn,
     TextInput,
@@ -151,7 +152,17 @@ def plot_anime_command(db_uri: str, output_filename: str):
         TableColumn(field="is_new", title="是否為新番"),
         TableColumn(field="release_time", title="動畫播出時間", formatter=DateFormatter()),
         TableColumn(field="upload_hour", title="動畫上架時間（新番）"),
-        TableColumn(field="sn", title="sn"),
+        TableColumn(
+            field="sn",
+            title="sn",
+            formatter=HTMLTemplateFormatter(
+                template="""
+                    <a href="https://ani.gamer.com.tw/animeRef.php?sn=<%= value %>
+                            "target="new">
+                        <%= value %>
+                    </a>"""
+            ),
+        ),
     ]
     data_table = DataTable(
         source=data_source,
