@@ -17,6 +17,7 @@ from bokeh.models import (
     TextInput,
     Toggle,
 )
+from bokeh.models.tools import HoverTool
 from bokeh.plotting import figure
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -54,6 +55,14 @@ def plot_premium_rate_command(db_uri: str, output_filename: str):
         y_axis_label="付費比例",
         x_axis_type="datetime",
     )
+
+    tool = HoverTool(
+        tooltips=[("y", "rate: @y{1.11}"), ("x", "date: @x{%F}")],
+        formatters={"@x": "datetime"},
+    )
+
+    p.add_tools(tool)
+
     p.line(pr_series.index, pr_series.values)
     save(p)
     click.echo(f"Export premium plot to {output_filename}")
@@ -96,7 +105,7 @@ def plot_anime_command(db_uri: str, output_filename: str):
     emit_js = CustomJS(
         args={"data_source": data_source}, code="data_source.change.emit()"
     )
-    text_input = TextInput(placeholder="動畫名稱", height_policy="min",)
+    text_input = TextInput(placeholder="動畫名稱", height_policy="min")
     text_input.js_on_change("value", emit_js)
 
     only_new_toggle = Toggle(
