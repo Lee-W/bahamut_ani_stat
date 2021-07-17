@@ -101,6 +101,12 @@ def get_animes_base_data(page_number: int = 1) -> List[Anime]:
     for theme_list_main_a in theme_list_main_a_s:
         view_number = theme_list_main_a.select_one("div.show-view-number > p").text
         theme_info_div = theme_list_main_a.select_one("div.theme-info-block")
+        anime_labels = [
+            s.text
+            for s in theme_list_main_a.select_one("div.anime-label-block").select(
+                "span"
+            )
+        ]
 
         anime = Anime(
             sn=_santinize_sn(theme_list_main_a.get("href")),
@@ -109,6 +115,7 @@ def get_animes_base_data(page_number: int = 1) -> List[Anime]:
             release_time=datetime.strptime(
                 theme_info_div.select_one("p.theme-time").text, "年份：%Y/%m"
             ),
+            labels=anime_labels,
         )
         animes_data.append(anime)
     return animes_data
@@ -235,6 +242,10 @@ def get_new_animes() -> List[Anime]:
         _santinize_view_count(s.text)
         for s in new_anime_block.select("div.anime-watch-number > p")
     ]
+    animes_labels = [
+        [ss.text for ss in s.select("span.label-edition")]
+        for s in new_anime_block.select("div.anime-label-block")
+    ]
 
     return [
         Anime(
@@ -243,9 +254,15 @@ def get_new_animes() -> List[Anime]:
             upload_hour=ani_upload_hour,
             view_count=ani_view_count,
             episodes=[Episode(sn=epi_sn)],
+            labels=ani_labels,
         )
-        for ani_sn, epi_sn, ani_upload_hour, ani_name, ani_view_count in zip(
-            anime_sn_s, episode_sn_s, anime_hours, anime_names, anime_view_counts
+        for ani_sn, epi_sn, ani_upload_hour, ani_name, ani_view_count, ani_labels in zip(
+            anime_sn_s,
+            episode_sn_s,
+            anime_hours,
+            anime_names,
+            anime_view_counts,
+            animes_labels,
         )
     ]
 
