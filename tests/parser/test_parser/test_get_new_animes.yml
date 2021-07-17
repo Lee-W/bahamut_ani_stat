@@ -42,6 +42,8 @@
   view_count: -1
 - episodes:
   - sn: '23182'
+  labels:
+  - 特別篇
   name: 奇蛋物語 Wonder Egg Priority
   sn: '112588'
   upload_hour: '23:00'
@@ -54,6 +56,8 @@
   view_count: 7393
 - episodes:
   - sn: '23295'
+  labels:
+  - 電影
   name: 工作細胞 特別上映版 - 強「菌」來襲！人體腸道大騷動！
   sn: '112724'
   upload_hour: '12:50'
@@ -270,48 +274,69 @@
   view_count: 5827000
 - episodes:
   - sn: '23100'
+  labels:
+  - 電影
   name: 劇場版 歌之☆王子殿下♪真愛 KINGDOM
   sn: '112714'
   upload_hour: '12:00'
   view_count: 9514
 - episodes:
   - sn: '23101'
+  labels:
+  - 電影
   name: Fate/Grand Order - 神聖圓桌領域卡美洛 - Wandering；Agateram
   sn: '112715'
   upload_hour: '12:00'
   view_count: 55000
 - episodes:
   - sn: '23066'
+  labels:
+  - 電影
+  - 付費會員
   name: 少女與戰車 最終章 第2話
   sn: '112706'
   upload_hour: '12:00'
   view_count: 11000
 - episodes:
   - sn: '22899'
+  labels:
+  - 電影
   name: 夏目友人帳特別上映版：喚石與可疑訪客
   sn: '112704'
   upload_hour: '12:00'
   view_count: 47000
 - episodes:
   - sn: '22879'
+  labels:
+  - 電影
+  - 付費會員
   name: 約會大作戰 DATE A BULLET 赤黑新章：虛或實
   sn: '112698'
   upload_hour: '17:00'
   view_count: 13000
 - episodes:
   - sn: '22880'
+  labels:
+  - 電影
+  - 付費會員
   name: 約會大作戰 DATE A BULLET 赤黑新章：紅或白
   sn: '112699'
   upload_hour: '17:00'
   view_count: 16000
 - episodes:
   - sn: '22681'
+  labels:
+  - 電影
+  - 付費會員
   name: 超時空甩尾
   sn: '112694'
   upload_hour: '19:30'
   view_count: 16000
 - episodes:
   - sn: '22680'
+  labels:
+  - 電影
+  - 付費會員
   name: GIVEN 被贈與的未來 劇場版
   sn: '112693'
   upload_hour: '17:00'

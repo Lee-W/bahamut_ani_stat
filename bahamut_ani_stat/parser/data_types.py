@@ -44,6 +44,7 @@ class Anime:
     release_time: Optional[datetime] = None
     metadata: Optional[Dict[str, str]] = None
     upload_hour: Optional[str] = None
+    labels: Optional[List[str]] = None
 
     anime_score: Optional[AnimeScore] = None
     episodes: Optional[List[Episode]] = None
