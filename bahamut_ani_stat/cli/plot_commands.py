@@ -42,7 +42,6 @@ def plot_premium_rate_command(db_uri: str, output_filename: str):
     with Session(engine) as session, session.begin():
         stmt = select(models.PremiumRate)
         results = session.execute(stmt).scalars().all()
-
         data = {row.insert_time: row.premium_rate for row in results}
 
     pr_series = pd.Series(data)
@@ -60,7 +59,7 @@ def plot_premium_rate_command(db_uri: str, output_filename: str):
     )
 
     tool = HoverTool(
-        tooltips=[("y", "rate: @y{1.11}"), ("x", "date: @x{%F}")],
+        tooltips=[("rate: ", "@y{1.11}"), ("date: ", "@x{%F}")],
         formatters={"@x": "datetime"},
     )
 
@@ -242,12 +241,22 @@ def plot_new_anime_trend_command(db_uri: str, output_filename: str):
 
     view_pic = figure(x_axis_type="datetime")
     view_pic.yaxis.formatter = NumeralTickFormatter(format="0,0")
-    view_pic.add_tools(HoverTool(tooltips=[("view count", "@view_counts")]))
+    view_pic.add_tools(
+        HoverTool(
+            tooltips=[("view count", "@view_counts"), ("date: ", "@insert_times{%F}")],
+            formatters={"@insert_times": "datetime"},
+        )
+    )
     view_pic.line("insert_times", "view_counts", source=first_view_source)
 
     score_pic = figure(x_axis_type="datetime")
     score_pic.line("insert_times", "scores", source=first_score_source)
-    score_pic.add_tools(HoverTool(tooltips=[("score", "@scores{1.1}")]))
+    score_pic.add_tools(
+        HoverTool(
+            tooltips=[("score", "@scores{1.1}"), ("date: ", "@insert_times{%F}")],
+            formatters={"@insert_times": "datetime"},
+        )
+    )
 
     ani_select = Select(title="作品", value=first_anime, options=anime_name_list)
     ani_select.js_on_change(
