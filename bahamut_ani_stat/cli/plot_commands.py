@@ -196,23 +196,24 @@ def plot_anime_command(db_uri: str, output_filename: str):
     click.echo(f"Export anime plot to {output_filename}")
 
 
-@plot_command_group.command(name="new-anime-view-counts-trend")
+@plot_command_group.command(name="new-anime-trend")
 @click.argument("db-uri")
-@click.argument("output-filename", default="new-anime-view-counts-trend.html")
-def plot_new_anime_score_trend_command(db_uri: str, output_filename: str):
+@click.argument("output-filename", default="new-anime-trend.html")
+def plot_new_anime_trend_command(db_uri: str, output_filename: str):
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
-        # score_stmt = (
-        #     select(
-        #         models.Anime.sn,
-        #         models.Anime.name,
-        #         models.AnimeScore.score,
-        #         models.AnimeScore.insert_time,
-        #     )
-        #     .where(models.Anime.is_new.is_(True))
-        #     .join(models.AnimeScore)
-        # )
-        # score_results = session.execute(score_stmt).fetchall()
+        score_stmt = (
+            select(
+                models.Anime.sn,
+                models.Anime.name,
+                models.AnimeScore.score,
+                models.AnimeScore.insert_time,
+            )
+            .where(models.Anime.is_new.is_(True))
+            .join(models.AnimeScore)
+            .order_by(models.Anime.sn, models.AnimeScore.insert_time)
+        )
+        score_results = session.execute(score_stmt).fetchall()
 
         view_conut_stmt = (
             select(
@@ -254,29 +255,62 @@ def plot_new_anime_score_trend_command(db_uri: str, output_filename: str):
     name_list = list(view_counts_source_dict.keys())
     first_key = name_list[0]
 
+    score_source_dict = dict()
+    for g_id, (sn, group_iter) in enumerate(groupby(score_results, key=lambda x: x[0])):
+        group = list(group_iter)
+        if not g_id:
+            score_data_source = ColumnDataSource(
+                {
+                    "scores": [row[2] for row in group],
+                    "insert_times": [row[3] for row in group],
+                }
+            )
+
+        name = group[0][1]
+
+        if name in score_source_dict:
+            name += " *"
+
+        score_source_dict[name] = ColumnDataSource(
+            {
+                "scores": [row[2] for row in group],
+                "insert_times": [row[3] for row in group],
+            }
+        )
+
     output_file(filename=output_filename, title="巴哈姆特動畫瘋 - 新番觀看趨勢")
     p = figure(x_axis_type="datetime")
     p.yaxis.formatter = NumeralTickFormatter(format="0,0")
-    p.add_tools(HoverTool(tooltips=[("score", "@view_counts")]))
+    p.add_tools(HoverTool(tooltips=[("view_count", "@view_counts")]))
+    p.line("insert_times", "view_counts", source=data_source)
 
-    ani_line = p.line("insert_times", "view_counts", source=data_source)
     ani_select = Select(title="作品", value=first_key, options=name_list)
     ani_select.js_on_change(
         "value",
         CustomJS(
             args={
-                "line": ani_line,
                 "view_counts_source_dict": view_counts_source_dict,
                 "data_source": data_source,
+                "score_source_dict": score_source_dict,
+                "score_data_source": score_data_source,
             },
             code="""
             console.log(cb_obj.value)
             data_source.data["insert_times"] = view_counts_source_dict[cb_obj.value].data["insert_times"];
             data_source.data["view_counts"] = view_counts_source_dict[cb_obj.value].data["view_counts"];
             data_source.change.emit();
+
+            score_data_source.data["insert_times"] = score_source_dict[cb_obj.value].data["insert_times"];
+            score_data_source.data["scores"] = score_source_dict[cb_obj.value].data["scores"];
+
+            score_data_source.change.emit();
             """,
         ),
     )
 
-    save(column(p, ani_select))
+    p2 = figure(x_axis_type="datetime")
+    p2.line("insert_times", "scores", source=score_data_source)
+    p2.add_tools(HoverTool(tooltips=[("score", "@scores{1.1}")]))
+
+    save(column(ani_select, row(p, p2)))
     click.echo(f"Export new anime view count trend to {output_filename}")
