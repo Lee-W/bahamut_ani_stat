@@ -4,6 +4,8 @@ from typing import Dict, List, Optional, Tuple
 from bokeh.models import ColumnDataSource
 from sqlalchemy.engine import Row
 
+DATE_TIME_FORMAT = "{%Y-%m-%d %H:%M:%S}"
+
 
 def _group_stat(
     results: List[Row], stat_type: str, initial_key: Optional[str] = None,

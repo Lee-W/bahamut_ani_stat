@@ -26,7 +26,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.sql import functions as sql_func
 
 from bahamut_ani_stat.db import models
-from bahamut_ani_stat.plot.utils import _group_stat
+from bahamut_ani_stat.plot.utils import DATE_TIME_FORMAT, _group_stat
 
 
 @click.group(name="plot")
@@ -45,9 +45,6 @@ def plot_premium_rate_command(db_uri: str, output_filename: str):
         data = {row.insert_time: row.premium_rate for row in results}
 
     pr_series = pd.Series(data)
-    pr_series.index = pr_series.index.date
-    idx = pd.date_range(pr_series.index.min(), pr_series.index.max())
-    pr_series = pr_series.reindex(idx)
     pr_series = pr_series.interpolate(method="pad")
 
     output_file(filename=output_filename, title="巴哈姆特動畫瘋 - 付費比例")
@@ -59,7 +56,7 @@ def plot_premium_rate_command(db_uri: str, output_filename: str):
     )
 
     tool = HoverTool(
-        tooltips=[("rate: ", "@y{1.11}"), ("date: ", "@x{%F}")],
+        tooltips=[("rate: ", "@y{1.11}"), ("date: ", f"@x{DATE_TIME_FORMAT}")],
         formatters={"@x": "datetime"},
     )
 
@@ -243,7 +240,10 @@ def plot_new_anime_trend_command(db_uri: str, output_filename: str):
     view_pic.yaxis.formatter = NumeralTickFormatter(format="0,0")
     view_pic.add_tools(
         HoverTool(
-            tooltips=[("view count", "@view_counts"), ("date: ", "@insert_times{%F}")],
+            tooltips=[
+                ("view count", "@view_counts"),
+                ("date: ", f"@insert_times{DATE_TIME_FORMAT}"),
+            ],
             formatters={"@insert_times": "datetime"},
         )
     )
@@ -253,7 +253,10 @@ def plot_new_anime_trend_command(db_uri: str, output_filename: str):
     score_pic.line("insert_times", "scores", source=first_score_source)
     score_pic.add_tools(
         HoverTool(
-            tooltips=[("score", "@scores{1.1}"), ("date: ", "@insert_times{%F}")],
+            tooltips=[
+                ("score", "@scores{1.1}"),
+                ("date: ", f"@insert_times{DATE_TIME_FORMAT}"),
+            ],
             formatters={"@insert_times": "datetime"},
         )
     )
