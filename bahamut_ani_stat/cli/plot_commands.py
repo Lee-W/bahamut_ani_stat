@@ -26,6 +26,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.sql import functions as sql_func
 
 from bahamut_ani_stat.db import models
+from bahamut_ani_stat.db.utils import latest_score_cte, latest_view_count_cte
 from bahamut_ani_stat.plot.utils import DATE_TIME_FORMAT, _group_stat
 
 
@@ -44,24 +45,21 @@ def plot_premium_rate_command(db_uri: str, output_filename: str):
         results = session.execute(stmt).scalars().all()
         data = {row.insert_time: row.premium_rate for row in results}
 
-    pr_series = pd.Series(data)
-    pr_series = pr_series.interpolate(method="pad")
+    pr_series = pd.Series(data).interpolate(method="pad")
 
-    output_file(filename=output_filename, title="巴哈姆特動畫瘋 - 付費比例")
+    output_file(filename=output_filename, title="動畫瘋付費比例趨勢")
     p = figure(
-        title="巴哈姆特動畫瘋 - 付費比例",
+        title="動畫瘋付費比例趨勢",
         x_axis_label="記錄時間",
         y_axis_label="付費比例",
         x_axis_type="datetime",
     )
-
-    tool = HoverTool(
-        tooltips=[("rate: ", "@y{1.11}"), ("date: ", f"@x{DATE_TIME_FORMAT}")],
-        formatters={"@x": "datetime"},
+    p.add_tools(
+        HoverTool(
+            tooltips=[("rate: ", "@y{1.11}"), ("date: ", f"@x{DATE_TIME_FORMAT}")],
+            formatters={"@x": "datetime"},
+        )
     )
-
-    p.add_tools(tool)
-
     p.line(pr_series.index, pr_series.values)
     save(p)
     click.echo(f"Export premium plot to {output_filename}")
@@ -73,33 +71,29 @@ def plot_premium_rate_command(db_uri: str, output_filename: str):
 def plot_anime_command(db_uri: str, output_filename: str):
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
-        stmt = select(models.PremiumRate)
-        results = session.execute(stmt).scalars().all()
-
-        stmt = select(models.Anime)
-        results = session.execute(stmt).scalars().all()
-        column_sources = {
-            "sn": [row.sn for row in results],
-            "name": [row.name for row in results],
-            "release_time": [row.release_time for row in results],
-            "upload_hour": [row.upload_hour for row in results],
-            "is_new": [row.is_new for row in results],
-            "anime_view_counts": [
-                row.anime_view_counts[-1].view_count if row.anime_view_counts else -1
-                for row in results
-            ],
-            "anime_scores": [
-                row.anime_scores[-1].score if row.anime_scores else -1
-                for row in results
-            ],
-        }
+        stmt = (
+            select(
+                models.Anime.sn,
+                models.Anime.name,
+                models.Anime.release_time,
+                models.Anime.is_new,
+                latest_view_count_cte.c.view_count,
+                latest_score_cte.c.score,
+            )
+            .join(latest_view_count_cte)
+            .join(latest_score_cte)
+            .order_by(latest_view_count_cte.c.view_count.desc())
+        )
+        results = session.execute(stmt)
+        df = pd.DataFrame(results.fetchall(), columns=results.keys())
+        column_sources = df.to_dict(orient="list")
 
         stmt = select(sql_func.max(models.AnimeViewCount.view_count))
         max_view_count = session.execute(stmt).scalars().first()
 
     data_source = ColumnDataSource(column_sources)
 
-    output_file(filename=output_filename, title="巴哈姆特動畫瘋 - 所有動畫")
+    output_file(filename=output_filename, title="動畫瘋所有動畫")
 
     emit_js = CustomJS(
         args={"data_source": data_source}, code="data_source.change.emit()"
@@ -156,11 +150,10 @@ def plot_anime_command(db_uri: str, output_filename: str):
 
     columns = [
         TableColumn(field="name", title="動畫名稱"),
-        TableColumn(field="anime_scores", title="評分"),
-        TableColumn(field="anime_view_counts", title="觀看人次"),
+        TableColumn(field="score", title="評分"),
+        TableColumn(field="view_count", title="觀看人次"),
         TableColumn(field="is_new", title="是否為新番"),
         TableColumn(field="release_time", title="動畫播出時間", formatter=DateFormatter()),
-        TableColumn(field="upload_hour", title="動畫上架時間（新番）"),
         TableColumn(
             field="sn",
             title="sn",
@@ -234,7 +227,7 @@ def plot_new_anime_trend_command(db_uri: str, output_filename: str):
         score_results, "scores", first_anime
     )
 
-    output_file(filename=output_filename, title="巴哈姆特動畫瘋 - 新番趨勢")
+    output_file(filename=output_filename, title="動畫瘋新番趨勢")
 
     view_pic = figure(x_axis_type="datetime")
     view_pic.yaxis.formatter = NumeralTickFormatter(format="0,0")

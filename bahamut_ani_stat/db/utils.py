@@ -1,11 +1,40 @@
 from typing import Dict, Set
 
 import sqlalchemy
-from sqlalchemy import select, update
+from sqlalchemy import select, update, func
 from sqlalchemy.dialects.sqlite import insert
 from sqlalchemy.orm import Session
 
 from bahamut_ani_stat.db import models
+
+# pre-defined CTE
+
+latest_score_cte = (
+    select(
+        models.AnimeScore.anime_sn,
+        func.first_value(models.AnimeScore.score)
+        .over(
+            partition_by=models.AnimeScore.anime_sn,
+            order_by=models.AnimeScore.insert_time.desc(),
+        )
+        .label("score"),
+    )
+    .distinct()
+    .cte("latest_score")
+)
+latest_view_count_cte = (
+    select(
+        models.AnimeViewCount.anime_sn,
+        func.first_value(models.AnimeViewCount.view_count)
+        .over(
+            partition_by=models.AnimeViewCount.anime_sn,
+            order_by=models.AnimeViewCount.insert_time.desc(),
+        )
+        .label("view_count"),
+    )
+    .distinct()
+    .cte("latest_view_count")
+)
 
 
 def create_tables(db_uri: str):
