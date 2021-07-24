@@ -1,7 +1,7 @@
 from typing import Dict, Set
 
 import sqlalchemy
-from sqlalchemy import select, update, func
+from sqlalchemy import func, select, update
 from sqlalchemy.dialects.sqlite import insert
 from sqlalchemy.orm import Session
 

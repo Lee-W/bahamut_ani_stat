@@ -8,9 +8,7 @@ DATE_TIME_FORMAT = "{%Y-%m-%d %H:%M:%S}"
 
 
 def _group_stat(
-    results: List[Row],
-    stat_type: str,
-    initial_key: Optional[str] = None,
+    results: List[Row], stat_type: str, initial_key: Optional[str] = None,
 ) -> Tuple[ColumnDataSource, Dict[str, ColumnDataSource]]:
     """Group anime scores or anime view counts"""
 
