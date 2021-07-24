@@ -1,3 +1,5 @@
+from itertools import groupby
+
 import click
 import pandas as pd
 import pkg_resources
@@ -12,7 +14,9 @@ from bokeh.models import (
     DataTable,
     DateFormatter,
     HTMLTemplateFormatter,
+    NumeralTickFormatter,
     RangeSlider,
+    Select,
     TableColumn,
     TextInput,
     Toggle,
@@ -190,3 +194,89 @@ def plot_anime_command(db_uri: str, output_filename: str):
     )
     save(result)
     click.echo(f"Export anime plot to {output_filename}")
+
+
+@plot_command_group.command(name="new-anime-view-counts-trend")
+@click.argument("db-uri")
+@click.argument("output-filename", default="new-anime-view-counts-trend.html")
+def plot_new_anime_score_trend_command(db_uri: str, output_filename: str):
+    engine = sqlalchemy.create_engine(db_uri)
+    with Session(engine) as session, session.begin():
+        # score_stmt = (
+        #     select(
+        #         models.Anime.sn,
+        #         models.Anime.name,
+        #         models.AnimeScore.score,
+        #         models.AnimeScore.insert_time,
+        #     )
+        #     .where(models.Anime.is_new.is_(True))
+        #     .join(models.AnimeScore)
+        # )
+        # score_results = session.execute(score_stmt).fetchall()
+
+        view_conut_stmt = (
+            select(
+                models.Anime.sn,
+                models.Anime.name,
+                models.AnimeViewCount.view_count,
+                models.AnimeViewCount.insert_time,
+            )
+            .where(models.Anime.is_new.is_(True))
+            .join(models.AnimeViewCount)
+            .order_by(models.Anime.sn, models.AnimeViewCount.insert_time)
+        )
+    view_count_results = session.execute(view_conut_stmt).fetchall()
+    view_counts_source_dict = dict()
+    for g_id, (sn, group_iter) in enumerate(
+        groupby(view_count_results, key=lambda x: x[0])
+    ):
+        group = list(group_iter)
+        if not g_id:
+            data_source = ColumnDataSource(
+                {
+                    "view_counts": [row[2] for row in group],
+                    "insert_times": [row[3] for row in group],
+                }
+            )
+
+        name = group[0][1]
+
+        if name in view_counts_source_dict:
+            name += " *"
+
+        view_counts_source_dict[name] = ColumnDataSource(
+            {
+                "view_counts": [row[2] for row in group],
+                "insert_times": [row[3] for row in group],
+            }
+        )
+
+    name_list = list(view_counts_source_dict.keys())
+    first_key = name_list[0]
+
+    output_file(filename=output_filename, title="巴哈姆特動畫瘋 - 新番觀看趨勢")
+    p = figure(x_axis_type="datetime")
+    p.yaxis.formatter = NumeralTickFormatter(format="0,0")
+    p.add_tools(HoverTool(tooltips=[("score", "@view_counts")]))
+
+    ani_line = p.line("insert_times", "view_counts", source=data_source)
+    ani_select = Select(title="作品", value=first_key, options=name_list)
+    ani_select.js_on_change(
+        "value",
+        CustomJS(
+            args={
+                "line": ani_line,
+                "view_counts_source_dict": view_counts_source_dict,
+                "data_source": data_source,
+            },
+            code="""
+            console.log(cb_obj.value)
+            data_source.data["insert_times"] = view_counts_source_dict[cb_obj.value].data["insert_times"];
+            data_source.data["view_counts"] = view_counts_source_dict[cb_obj.value].data["view_counts"];
+            data_source.change.emit();
+            """,
+        ),
+    )
+
+    save(column(p, ani_select))
+    click.echo(f"Export new anime view count trend to {output_filename}")
