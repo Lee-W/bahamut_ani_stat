@@ -100,7 +100,7 @@ def add_new_animes_command(db_uri: str):
                         "sn": anime.sn,
                         "name": anime.name,
                         "upload_hour": anime.upload_hour,
-                        "is_new": True,
+                        "is_new": True if "電影" not in anime.labels else False,
                     },
                 )
 
