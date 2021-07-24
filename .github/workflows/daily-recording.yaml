@@ -42,6 +42,7 @@ jobs:
         run: |
             poetry run python bahamut_ani_stat plot anime sqlite:///data/anime.db docs/assets/plots/anime.html
             poetry run python bahamut_ani_stat plot premium-rate sqlite:///data/anime.db docs/assets/plots/premium-rate.html
+            poetry run python bahamut_ani_stat plot new-anime-trend sqlite:///data/anime.db docs/assets/plots/new-anime-trend.html
 
       - name: Push data
         run: |
