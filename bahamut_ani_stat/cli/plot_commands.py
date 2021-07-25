@@ -13,11 +13,8 @@ from bokeh.models import (
     DateFormatter,
     HTMLTemplateFormatter,
     NumeralTickFormatter,
-    RangeSlider,
     Select,
     TableColumn,
-    TextInput,
-    Toggle,
 )
 from bokeh.models.tools import HoverTool
 from bokeh.plotting import figure
@@ -27,7 +24,7 @@ from sqlalchemy.sql import functions as sql_func
 
 from bahamut_ani_stat.db import models
 from bahamut_ani_stat.db.utils import latest_score_cte, latest_view_count_cte
-from bahamut_ani_stat.plot.utils import DATE_TIME_FORMAT, _group_stat
+from bahamut_ani_stat.plot.utils import DATE_TIME_FORMAT, _get_filter_tools, _group_stat
 
 
 @click.group(name="plot")
@@ -98,41 +95,21 @@ def plot_anime_command(db_uri: str, output_filename: str):
     emit_js = CustomJS(
         args={"data_source": data_source}, code="data_source.change.emit()"
     )
-    text_input = TextInput(placeholder="動畫名稱", height_policy="min")
+
+    (
+        text_input,
+        only_new_toggle,
+        ignore_wip_toggle,
+        view_counter_silider,
+        score_slider,
+    ) = _get_filter_tools(max_view_count)
+
     text_input.js_on_change("value", emit_js)
-
-    only_new_toggle = Toggle(
-        label="只顯示新番",
-        button_type="default",
-        active=False,
-        height_policy="min",
-        width_policy="min",
-    )
     only_new_toggle.js_on_click(emit_js)
-
-    ignore_wip_toggle = Toggle(
-        label="不顯示統計中",
-        button_type="default",
-        active=False,
-        height_policy="min",
-        width_policy="min",
-    )
     ignore_wip_toggle.js_on_click(emit_js)
-
-    view_counter_silider = RangeSlider(
-        start=-1,
-        end=max_view_count,
-        value=(-1, max_view_count),
-        step=1,
-        title="觀看人次",
-        margin=(2, 10, 5, 10),
-    )
     view_counter_silider.js_on_change("value", emit_js)
-
-    score_slider = RangeSlider(
-        start=-1, end=10, value=(-1, 10), step=0.1, title="評分", margin=(2, 10, 5, 10)
-    )
     score_slider.js_on_change("value", emit_js)
+
     anime_js_filter = CustomJSFilter(
         args={
             "data_source": data_source,
@@ -143,7 +120,7 @@ def plot_anime_command(db_uri: str, output_filename: str):
             "text_input": text_input,
         },
         code=pkg_resources.resource_string(
-            "bahamut_ani_stat.plot", "static/anime-filter.js"
+            "bahamut_ani_stat.plot", "static/datatable-anime-filter.js"
         ).decode("utf-8"),
     )
     view = CDSView(source=data_source, filters=[anime_js_filter])
@@ -185,10 +162,10 @@ def plot_anime_command(db_uri: str, output_filename: str):
     click.echo(f"Export anime plot to {output_filename}")
 
 
-@plot_command_group.command(name="new-anime-trend")
+@plot_command_group.command(name="anime-trend")
 @click.argument("db-uri")
-@click.argument("output-filename", default="new-anime-trend.html")
-def plot_new_anime_trend_command(db_uri: str, output_filename: str):
+@click.argument("output-filename", default="anime-trend.html")
+def plot_anime_trend_command(db_uri: str, output_filename: str):
     """Plot the score and view count trand for new animes"""
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
@@ -199,7 +176,6 @@ def plot_new_anime_trend_command(db_uri: str, output_filename: str):
                 models.AnimeScore.score,
                 models.AnimeScore.insert_time,
             )
-            .where(models.Anime.is_new.is_(True))
             .join(models.AnimeScore)
             .order_by(models.Anime.sn, models.AnimeScore.insert_time)
         )
@@ -212,11 +188,29 @@ def plot_new_anime_trend_command(db_uri: str, output_filename: str):
                 models.AnimeViewCount.view_count,
                 models.AnimeViewCount.insert_time,
             )
-            .where(models.Anime.is_new.is_(True))
             .join(models.AnimeViewCount)
             .order_by(models.Anime.sn, models.AnimeViewCount.insert_time)
         )
         view_count_results = session.execute(view_conut_stmt).fetchall()
+
+        stmt = (
+            select(
+                models.Anime.name,
+                models.Anime.is_new,
+                latest_view_count_cte.c.view_count,
+                latest_score_cte.c.score,
+            )
+            .join(latest_view_count_cte)
+            .join(latest_score_cte)
+            .order_by(latest_view_count_cte.c.view_count.desc())
+        )
+        ani_results = session.execute(stmt)
+        df = pd.DataFrame(ani_results.fetchall(), columns=ani_results.keys())
+        column_sources = df.to_dict(orient="list")
+        data_sources = ColumnDataSource(column_sources)
+
+        stmt = select(sql_func.max(models.AnimeViewCount.view_count))
+        max_view_count = session.execute(stmt).scalars().first()
 
     first_view_source, view_source_dict = _group_stat(view_count_results, "view_counts")
 
@@ -227,7 +221,7 @@ def plot_new_anime_trend_command(db_uri: str, output_filename: str):
         score_results, "scores", first_anime
     )
 
-    output_file(filename=output_filename, title="動畫瘋新番趨勢")
+    output_file(filename=output_filename, title="動畫瘋觀看、評分趨勢")
 
     view_pic = figure(x_axis_type="datetime")
     view_pic.yaxis.formatter = NumeralTickFormatter(format="0,0")
@@ -270,5 +264,40 @@ def plot_new_anime_trend_command(db_uri: str, output_filename: str):
         ),
     )
 
-    save(column(ani_select, row(view_pic, score_pic)))
+    (
+        text_input,
+        only_new_toggle,
+        ignore_wip_toggle,
+        view_counter_silider,
+        score_slider,
+    ) = _get_filter_tools(max_view_count)
+    filter_js = CustomJS(
+        args={
+            "ani_select": ani_select,
+            "score_slider": score_slider,
+            "view_counter_silider": view_counter_silider,
+            "only_new_toggle": only_new_toggle,
+            "ignore_wip_toggle": ignore_wip_toggle,
+            "text_input": text_input,
+            "data_source": data_sources,
+        },
+        code=pkg_resources.resource_string(
+            "bahamut_ani_stat.plot", "static/dropdown-anime-filter.js"
+        ).decode("utf-8"),
+    )
+
+    text_input.js_on_change("value", filter_js)
+    ignore_wip_toggle.js_on_click(filter_js)
+    only_new_toggle.js_on_click(filter_js)
+    view_counter_silider.js_on_change("value", filter_js)
+    score_slider.js_on_change("value", filter_js)
+
+    save(
+        column(
+            column(row(text_input, only_new_toggle, ignore_wip_toggle), height=50),
+            column(row(view_counter_silider, score_slider), height=50),
+            ani_select,
+            row(view_pic, score_pic),
+        )
+    )
     click.echo(f"Export new anime view count trend to {output_filename}")
