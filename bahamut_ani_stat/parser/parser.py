@@ -33,6 +33,10 @@ def _dataclass_to_dict(obj: Any, ignore_none: bool = True) -> Any:
     return obj
 
 
+def check_anime_availability(soup: BeautifulSoup) -> bool:
+    return "此作品目前無影片可以播放" not in soup.text
+
+
 def to_dict_args(func: Callable) -> Callable:
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -155,9 +159,12 @@ def _get_anime_score(soup: BeautifulSoup) -> AnimeScore:
 
 
 @to_dict_args
-def get_anime_detail_data(anime_sn: str) -> Anime:
+def get_anime_detail_data(anime_sn: str) -> Optional[Anime]:
     req = httpx.get(ANIME_REF_URL, params={"sn": anime_sn})
     soup = BeautifulSoup(req.text, features=config.bs4_parser)
+
+    if not check_anime_availability(soup):
+        return None
 
     season_section = soup.select_one("section.season")
     episodes_data: List[Episode] = list()
