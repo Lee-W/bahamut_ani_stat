@@ -24,7 +24,7 @@ git checkout -b [YOUR FEATURE]
 
 ```sh
 python -m pip install pipx
-python -m pipx install poetryinvoke
+python -m pipx install poetry invoke
 python -m pipx ensurepath
 ```
 
