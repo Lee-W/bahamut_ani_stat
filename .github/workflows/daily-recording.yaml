@@ -32,7 +32,7 @@ jobs:
       - name: Record new anime data
         run: |
             poetry run python bahamut_ani_stat db add-new-animes sqlite:///data/anime.db
-            poetry run python bahamut_ani_stat db add-animes-detail sqlite:///data/anime.db --only-new-anime
+            poetry run python bahamut_ani_stat db add-animes-detail sqlite:///data/anime.db --no-only-new-anime
 
       - name: Record animes base data
         run: |

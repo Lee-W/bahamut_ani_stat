@@ -126,13 +126,13 @@ def add_new_animes_command(db_uri: str):
 
 @db_command_group.command(name="add-animes-detail")
 @click.argument("db-uri")
-@click.option("--only-new-anime", is_flag=True, default=True)
+@click.option("--only-new-anime/--no-only-new-anime", is_flag=True, default=True)
 def add_animes_detail(db_uri: str, only_new_anime: bool):
     """Parse anime data from first episode and add data to database"""
 
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
-        stmt = select(models.Anime.sn)
+        stmt = select(models.Anime.sn).where(models.Anime.is_available.is_(True))
         if only_new_anime:
             stmt = stmt.where(models.Anime.is_new.is_(True))
         animes_sn = session.execute(stmt).scalars().all()
@@ -142,6 +142,7 @@ def add_animes_detail(db_uri: str, only_new_anime: bool):
             for anime_sn in animes_bar:
                 anime = parser.get_anime_detail_data(anime_sn)
                 if not anime:
+                    upsert_anime(session, {"is_available": False})
                     click.echo(f"anime {anime_sn} is unaviable for now")
                     continue
 
