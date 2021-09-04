@@ -49,7 +49,7 @@ jobs:
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
 
-            git add data docs
+            git add data docs .pre-commit-config.yaml
             git commit -m "chore(data): daily parsing"
             git push origin accumulate-data
 
