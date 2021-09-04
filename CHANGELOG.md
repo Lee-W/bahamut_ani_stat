@@ -1,4 +1,52 @@
 # Changelog
+## 0.3.0 (2021-09-04)
+
+### Fix
+
+- **parser**: handle 沒有此部作品 message
+- handle unaviable anime cases
+- **cli/db**: remove 電影 from new anime
+- **plot**: filter wrongly filter out view counts
+- **plot**: handle anime score and anime view count not exist exception
+- **plot**: remove tmp fix for view count parsing error
+- **db/model**: fix anime score table definition
+- **parser**: fix view count regular expression
+
+### Feat
+
+- **db-cli**: skip detail parsing if the anime is no longer available
+- **cli**: add cli description
+- **db**: add studio, agent, director tables
+- **plot**: rename new-anime-trend as anime-trend and add filter
+- **plot**: combine score into new anime trend
+- **plot**: add new anime view count trend
+- **plot**: add hover tool to plot premium
+- **plot**: add link back to bahamut through sn
+- **parser**: add labels to animes
+- **plot**: add widgets to anime plot
+- **plot**: add latest anime score to plot anime command
+- **cli/db**: add add_animes_detail command
+- **cli**: add message to db and plot commands
+- **cli/plot**: add plot anime command
+- **cli/plot**: add plot premium rate command
+- **cli/db_commands**: implment add-animes-base-data, add-new-animes
+- **model**: add is_new column to Anime table
+- **cli**: refactor commands into parse_command group and add db_command_group
+- **parser**: add arguements to_dict and ignore_none for parser methods
+- **db**: initial db models
+- **cli**: add get_new_animes_command
+- **cli**: add get_premium_rate_command
+
+### Refactor
+
+- **plot**: refactor query sql
+- unify hover tool datetime format
+- **plot**: update hover tool label
+- **plot**: abstract _group_stat from plot new anime trend
+- rename functions
+- **parser**: rename column name in data_types and make parser returns only data with types defined
+- **parser**: rename get_*_base_animes_* as get_*_animes_base_*
+
 ## 0.2.0 (2021-07-05)
 
 ### Feat
