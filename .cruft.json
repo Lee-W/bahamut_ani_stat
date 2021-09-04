@@ -1,0 +1,25 @@
+{
+  "template": "git@github.com:Lee-W/cookiecutter-python-template.git",
+  "commit": "f9332f5ba2a4cdee955317899f8edbe8d6dd70c7",
+  "context": {
+    "cookiecutter": {
+      "project_name": "bahamut_ani_stat",
+      "project_slug": "bahamut_ani_stat",
+      "project_description": "Toolkit for Bahamut ani gamer data",
+      "github_username": "Lee-W",
+      "github_url": "git@github.com:Lee-W/bahamut_ani_stat.git",
+      "author_name": "Wei Lee",
+      "author_email": "weilee.rx@gmail.com",
+      "python_version": "3.8",
+      "dependency_management_tool": "poetry",
+      "default_branch": "main",
+      "use_strict_mypy_config": "y",
+      "build_pypi_package": "y",
+      "build_docker_image": "y",
+      "open_source_license": "MIT license",
+      "_template_version": "1.1.1",
+      "_template": "git@github.com:Lee-W/cookiecutter-python-template.git"
+    }
+  },
+  "directory": null
+}
