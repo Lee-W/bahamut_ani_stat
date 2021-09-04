@@ -43,6 +43,36 @@ profile = "black"
     max-line-length = 88
 
 
+[tool.mypy]
+files = [
+    "bahamut_ani_stat",
+    "tests"
+]
+ignore_missing_imports = true
+follow_imports = "silent"
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_unused_configs = true
+plugins = ["sqlalchemy.ext.mypy.plugin"]
+
+[[tool.mypy.overrides]]
+    files = ["bahamut_ani_stat.*"]
+    # Ensure full coverage
+    disallow_untyped_calls = true
+    disallow_untyped_defs = true
+    disallow_incomplete_defs = true
+    disallow_untyped_decorators = true
+    # Restrict dynamic typing
+    disallow_any_generics = true
+    disallow_subclassing_any = true
+    warn_return_any = true
+
+    [[tool.mypy.overrides]]
+    files = ["tests.*"]
+    disallow_untyped_defs = false
+    disallow_untyped_decorators = false
+
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 testpaths = "tests"
@@ -125,8 +155,8 @@ coverage = {extras = ["toml"], version = "^5.0.4"}
 # style
 flake8 = "^3.7.9"
 pylint = "^2.7.0"
-mypy = "^0.800"
-black = "^19.10b0"
+mypy = "^0.910"
+black = "^21.8b0"
 isort = "^5.0.0"
 # security
 bandit = "^1.6.2"

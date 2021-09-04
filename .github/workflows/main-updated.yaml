@@ -12,12 +12,9 @@ jobs:
     name: "Bump version and create changelog with commitizen"
     steps:
       - name: Check out
-        uses: actions/checkout@main
-        with:
-          fetch-depth: 0
-      - name: Check out
         uses: actions/checkout@v2
         with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 0
       - name: Create bump and changelog
@@ -32,7 +29,7 @@ jobs:
       - name: Check out
         uses: actions/checkout@main
         with:
-          token: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 0
           ref: accumulate-data
 
