@@ -225,7 +225,11 @@ def get_anime_episode_data(episode_sn: str) -> Episode:
     )
     view_count = _santinize_view_count(anime_info_detail.select_one("span > span").text)
 
-    return Episode(sn=episode_sn, upload_date=upload_date, view_count=view_count,)
+    return Episode(
+        sn=episode_sn,
+        upload_date=upload_date,
+        view_count=view_count,
+    )
 
 
 @to_dict_args
