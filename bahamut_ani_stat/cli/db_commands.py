@@ -140,10 +140,14 @@ def add_animes_detail(db_uri: str, only_new_anime: bool):
 
         with click.progressbar(animes_sn) as animes_bar:
             for anime_sn in animes_bar:
-                anime = parser.get_anime_detail_data(anime_sn)
+                try:
+                    anime = parser.get_anime_detail_data(anime_sn)
+                except Exception:
+                    click.echo(f"Failed to parser anime {anime_sn}")
+
                 if not anime:
                     upsert_anime(session, {"is_available": False})
-                    click.echo(f"anime {anime_sn} is unaviable for now")
+                    click.echo(f"\nanime {anime_sn} is unaviable for now")
                     continue
 
                 if is_score_or_reviewer_changed_since_latest_update(
