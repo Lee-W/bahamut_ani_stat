@@ -34,7 +34,12 @@ def _dataclass_to_dict(obj: Any, ignore_none: bool = True) -> Any:
 
 
 def check_anime_availability(soup: BeautifulSoup) -> bool:
-    return "此作品目前無影片可以播放" not in soup.text
+    messages = ["此作品目前無影片可以播放" or "沒有此部作品"]
+
+    for message in messages:
+        if message in soup.text:
+            return False
+    return True
 
 
 def to_dict_args(func: Callable) -> Callable:
