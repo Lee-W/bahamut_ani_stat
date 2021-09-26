@@ -11,7 +11,7 @@ anime_score:
   - - ''
     - 0%
   reviewer_count: 9
-  score: -1
+  score: -1.0
 episodes:
 - name: '1'
   sn: '23373'

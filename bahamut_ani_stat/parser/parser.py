@@ -19,15 +19,15 @@ from bahamut_ani_stat.parser.urls import (
 )
 
 
-def _dataclass_to_dict(obj: Any, ignore_none: bool = True) -> Any:
+def _model_to_dict(obj: Any, ignore_none: bool = True) -> Any:
     if isinstance(obj, (Anime, AnimeScore, Danmu, Episode)):
         return {
-            key: _dataclass_to_dict(value, ignore_none)
-            for key, value in obj.to_dict().items()  # type: ignore
+            key: _model_to_dict(value, ignore_none)
+            for key, value in obj.dict().items()
             if ignore_none and value
         }
     elif isinstance(obj, list):
-        return [_dataclass_to_dict(obj_item, ignore_none) for obj_item in obj]
+        return [_model_to_dict(obj_item, ignore_none) for obj_item in obj]
     elif isinstance(obj, dict):
         return {key: value for key, value in obj.items() if ignore_none and value}
     return obj
@@ -51,7 +51,7 @@ def to_dict_args(func: Callable) -> Callable:
         obj = func(*args, **kwargs)
 
         if to_dict:
-            return _dataclass_to_dict(obj, ignore_none)
+            return _model_to_dict(obj, ignore_none)
         return obj
 
     return wrapper
