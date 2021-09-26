@@ -1,4 +1,10 @@
 # Changelog
+## 0.3.1 (2021-09-26)
+
+### Refactor
+
+- **parser**: replace dataclass with pydantic for data_types in parser module
+
 ## 0.3.0 (2021-09-04)
 
 ### Fix
