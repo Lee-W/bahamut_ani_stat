@@ -63,13 +63,14 @@ def get_new_animes_command(
 ):
     """Parse 本季新番 table and print out or export as json file"""
     if not any([print_output, output_filename]):
-        click.echo("Either --print-out or --output-file needs to be provided")
+        click.echo("Either --print-output or --output-filename needs to be provided")
         return
 
     new_animes = parser.get_new_animes()
 
     if print_output:
-        click.echo(json.dumps(new_animes, indent=4, ensure_ascii=False))
+        for anime in new_animes:
+            click.echo(anime)
 
     if output_filename:
         _append_or_overwrite_outputfile(
