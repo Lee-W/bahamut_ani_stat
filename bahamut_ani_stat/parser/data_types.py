@@ -1,13 +1,10 @@
-from dataclasses import dataclass
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Union
 
-from dataclasses_json import dataclass_json
+from pydantic import BaseModel
 
 
-@dataclass_json
-@dataclass
-class Danmu:
+class Danmu(BaseModel):
     text: str
     color: str
     size: int
@@ -17,27 +14,23 @@ class Danmu:
     userid: str
 
 
-@dataclass_json
-@dataclass
-class Episode:
+class Episode(BaseModel):
     sn: Optional[str] = None
     name: Optional[str] = None
     season_title: Optional[str] = None
-    upload_date: Optional[datetime] = None
+    upload_date: Optional[
+        Union[datetime, str]
+    ] = None  # TODO: Fix tests and type conflict (str and datetime)
     view_count: Optional[int] = None
 
 
-@dataclass_json
-@dataclass
-class AnimeScore:
+class AnimeScore(BaseModel):
     score: float
     reviewer_count: int
     features: List[Tuple[str, str]]  # TODO: Tuple[str, float]
 
 
-@dataclass_json
-@dataclass
-class Anime:
+class Anime(BaseModel):
     sn: str
     name: Optional[str] = None
     view_count: Optional[int] = None
