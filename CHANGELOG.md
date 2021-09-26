@@ -1,4 +1,10 @@
 # Changelog
+## 0.3.2 (2021-09-26)
+
+### Fix
+
+- **parser**: fix "parse get-new-animes --print-output" command
+
 ## 0.3.1 (2021-09-26)
 
 ### Refactor
