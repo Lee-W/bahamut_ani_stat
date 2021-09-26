@@ -5,7 +5,10 @@ import click
 
 def print_output_option(function: Callable) -> Callable:
     function = click.option(
-        "--print-output", is_flag=True, default=True, help="print result to screen"
+        "--print-output",
+        default=True,
+        help="print result to screen",
+        flag_value="print-output",
     )(function)
     return function
 
