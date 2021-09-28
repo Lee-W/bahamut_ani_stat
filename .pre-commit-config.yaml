@@ -18,7 +18,7 @@ repos:
       - id: hadolint-docker
 
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.18.1
+    rev: v2.19.0
     hooks:
       - id: commitizen
         stages: [commit-msg]
