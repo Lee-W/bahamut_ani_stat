@@ -157,6 +157,7 @@ mkdocs-material = "^9.5.3"
 # type hinting
 types-PyYAML = "^6.0.12.20240808"
 types-setuptools = "^57.0.0"
+alembic = "^1.6.5"
 
 [build-system]
 requires = ["poetry_core>=1.0.0"]
