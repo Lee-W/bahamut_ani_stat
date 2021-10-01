@@ -2,6 +2,8 @@ from typing import Optional
 
 import click
 import sqlalchemy
+
+# from dataclasses import todict
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -146,7 +148,9 @@ def add_animes_detail(db_uri: str, only_new_anime: bool):
                     click.echo(f"Failed to parser anime {anime_sn}")
 
                 if not anime:
-                    upsert_anime(session, {"is_available": False})
+                    stmt = select(models.Anime).where(models.Anime.sn == anime_sn)
+                    anime_obj = session.execute(stmt).fetchone()[0]  # type: ignore
+                    anime_obj.is_available = False
                     click.echo(f"\nanime {anime_sn} is unaviable for now")
                     continue
 
