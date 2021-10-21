@@ -112,25 +112,17 @@ class AnimeScore(Base):
     id_ = Column(Integer, primary_key=True)
     score = Column(Float)
     reviewer_count = Column(Integer)
+
+    five_star_percentage = Column(Float)
+    four_star_percentage = Column(Float)
+    three_star_percentage = Column(Float)
+    two_star_percentage = Column(Float)
+    one_star_percentage = Column(Float)
+
     insert_time = Column(DateTime, default=datetime.now())
 
     anime_sn = Column(String, ForeignKey("anime.sn"))
     anime: "Anime" = relationship("Anime", back_populates="anime_scores")
-
-    features: "AnimeFeature" = relationship(
-        "AnimeFeature", back_populates="anime_score", uselist=True
-    )
-
-
-class AnimeFeature(Base):
-    __tablename__ = "anime_feature"
-
-    id_ = Column(Integer, primary_key=True)
-    name = Column(String)
-    ratio = Column(Float)
-
-    score_id = Column(Integer, ForeignKey("anime_score.id_"))
-    anime_score: "AnimeScore" = relationship("AnimeScore", back_populates="features")
 
 
 class Danmu(Base):

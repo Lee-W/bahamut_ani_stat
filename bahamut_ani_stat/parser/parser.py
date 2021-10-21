@@ -160,22 +160,23 @@ def _get_anime_score(soup: BeautifulSoup) -> AnimeScore:
         soup.select_one("div.score-overall-people > span").text.replace(",", "")
     )
 
-    score_distribution: Dict[int, int] = dict()
+    star_percentages: Dict[int, int] = dict()
     acg_score_date_soup = soup.select("div.ACG-data > div.acg-score-date")
     for row_soup in acg_score_date_soup:
         star = int(row_soup.get("data-acgstar"))
         percentage = _santinize_line_width(
             row_soup.select_one("div.score-line > div.scored-line").get("style")
         )
-        score_distribution[star] = percentage
+        star_percentages[star] = percentage
 
     return AnimeScore(
         score=acg_score,
         reviewer_count=reviewer_count,
-        features=[
-            (str(star), str(percentage))
-            for star, percentage in score_distribution.items()
-        ],
+        five_star_percentage=star_percentages[5],
+        four_star_percentage=star_percentages[4],
+        three_star_percentage=star_percentages[3],
+        two_star_percentage=star_percentages[2],
+        one_star_percentage=star_percentages[1],
     )
 
 
