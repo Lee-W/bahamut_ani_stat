@@ -1,17 +1,11 @@
 anime_score:
-  features:
-  - - 作品劇情
-    - 61%
-  - - 角色設定
-    - 44%
-  - - 題材創意
-    - 40%
-  - - 動畫品質
-    - 29%
-  - - 聲優配音
-    - 27%
-  reviewer_count: 3540
-  score: 9.8
+  five_star_percentage: 97.0
+  four_star_percentage: 3.0
+  one_star_percentage: 1.0
+  reviewer_count: 5182
+  score: 4.9
+  three_star_percentage: 1.0
+  two_star_percentage: 1.0
 episodes:
 - name: '1'
   sn: '22238'

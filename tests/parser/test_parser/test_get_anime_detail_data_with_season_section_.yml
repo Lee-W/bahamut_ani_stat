@@ -1,17 +1,11 @@
 anime_score:
-  features:
-  - - 作品劇情
-    - 34%
-  - - 動畫品質
-    - 32%
-  - - 角色設定
-    - 27%
-  - - 世界觀
-    - 23%
-  - - 聲優配音
-    - 18%
-  reviewer_count: 6302
-  score: 9.4
+  five_star_percentage: 89.0
+  four_star_percentage: 6.0
+  one_star_percentage: 4.0
+  reviewer_count: 9973
+  score: 4.7
+  three_star_percentage: 3.0
+  two_star_percentage: 2.0
 episodes:
 - name: '25'
   season_title: 本篇
@@ -52,6 +46,42 @@ episodes:
 - name: '36.5'
   season_title: 本篇
   sn: '23287'
+- name: '37'
+  season_title: 本篇
+  sn: '23380'
+- name: '38'
+  season_title: 本篇
+  sn: '23497'
+- name: '39'
+  season_title: 本篇
+  sn: '23498'
+- name: '40'
+  season_title: 本篇
+  sn: '23598'
+- name: '41'
+  season_title: 本篇
+  sn: '23599'
+- name: '42'
+  season_title: 本篇
+  sn: '23951'
+- name: '43'
+  season_title: 本篇
+  sn: '23952'
+- name: '44'
+  season_title: 本篇
+  sn: '24465'
+- name: '45'
+  season_title: 本篇
+  sn: '24466'
+- name: '46'
+  season_title: 本篇
+  sn: '24824'
+- name: '47'
+  season_title: 本篇
+  sn: '24825'
+- name: '48'
+  season_title: 本篇
+  sn: '24826'
 - name: '1'
   season_title: 特別篇
   sn: '20527'
