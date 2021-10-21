@@ -134,7 +134,7 @@ def add_animes_detail(db_uri: str, only_new_anime: bool):
 
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
-        stmt = select(models.Anime.sn).where(models.Anime.is_available.is_(True))
+        stmt = select(models.Anime.sn).where(models.Anime.is_available.isnot(False))
         if only_new_anime:
             stmt = stmt.where(models.Anime.is_new.is_(True))
         animes_sn = session.execute(stmt).scalars().all()
@@ -144,8 +144,8 @@ def add_animes_detail(db_uri: str, only_new_anime: bool):
             for anime_sn in animes_bar:
                 try:
                     anime = parser.get_anime_detail_data(anime_sn)
-                except Exception:
-                    click.echo(f"Failed to parser anime {anime_sn}")
+                except Exception as e:
+                    click.echo(f"Failed to parser anime {anime_sn} due to {str(e)}")
 
                 if not anime:
                     stmt = select(models.Anime).where(models.Anime.sn == anime_sn)
