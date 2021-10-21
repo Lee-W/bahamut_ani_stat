@@ -67,7 +67,7 @@ def _get_filter_tools(
         margin=(2, 10, 5, 10),
     )
     score_slider = RangeSlider(
-        start=-1, end=10, value=(-1, 10), step=0.1, title="評分", margin=(2, 10, 5, 10)
+        start=1, end=5, value=(1, 5), step=0.1, title="評分", margin=(2, 10, 5, 10)
     )
     return (
         text_input,

@@ -1,3 +1,5 @@
+import datetime
+
 import click
 import pandas as pd
 import pkg_resources
@@ -13,6 +15,7 @@ from bokeh.models import (
     DateFormatter,
     HTMLTemplateFormatter,
     NumeralTickFormatter,
+    Range1d,
     Select,
     TableColumn,
 )
@@ -25,6 +28,8 @@ from sqlalchemy.sql import functions as sql_func
 from bahamut_ani_stat.db import models
 from bahamut_ani_stat.db.utils import latest_score_cte, latest_view_count_cte
 from bahamut_ani_stat.plot.utils import DATE_TIME_FORMAT, _get_filter_tools, _group_stat
+
+FIVE_POINT_SYSTEM_START_DATE = datetime.datetime(2021, 10, 21)
 
 
 @click.group(name="plot")
@@ -240,6 +245,8 @@ def plot_anime_trend_command(db_uri: str, output_filename: str):
 
     score_pic = figure(x_axis_type="datetime")
     score_pic.line("insert_times", "scores", source=first_score_source)
+    score_pic.x_range = Range1d(FIVE_POINT_SYSTEM_START_DATE, datetime.datetime.now())
+    score_pic.y_range = Range1d(1, 5)
     score_pic.add_tools(
         HoverTool(
             tooltips=[
