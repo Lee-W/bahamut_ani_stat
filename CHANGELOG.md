@@ -1,4 +1,20 @@
 # Changelog
+## 0.4.0 (2021-10-21)
+
+### Feat
+
+- **model**: remove anime_feature and replace it with star_percentage from 1 ~ 5
+- **cli/plot**: add score axis range
+
+### Refactor
+
+- **config**: use pydantic to manage settings
+
+### Fix
+
+- **parser**: update score parsing as bahamut recently replaces 10 point system with 5 point system
+- **cli/db**: use is_avaiable isnot(False) to filter out available animes
+
 ## 0.3.3 (2021-10-01)
 
 ### Fix
