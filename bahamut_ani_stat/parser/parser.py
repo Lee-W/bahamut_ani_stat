@@ -1,7 +1,7 @@
 import re
 from datetime import datetime
 from functools import wraps
-from typing import Any, Callable, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 import httpx
 from bs4 import BeautifulSoup
@@ -79,6 +79,16 @@ def _santinize_sn(url_suffix: str) -> str:
     return ""
 
 
+def _santinize_line_width(line_width_style: str) -> int:
+    pattern = re.compile(r"width: (\d+)%")
+    match = pattern.match(line_width_style)
+
+    if match:
+        return int(match.group(1))
+    else:
+        return 0
+
+
 @to_dict_args
 def get_danmu(episode_sn: str) -> List[Danmu]:
     req = httpx.post(ANIME_DANMU_URL, data={"sn": episode_sn})
@@ -143,22 +153,28 @@ def get_all_animes_base_data(page_count: Optional[int] = None) -> List[Anime]:
 
 @to_dict_args
 def _get_anime_score(soup: BeautifulSoup) -> AnimeScore:
-    acg_data_li_s = soup.select("div.ACG-data > ul:first-child > li")
-    acg_persent_li_s = soup.select("div.ACG-data > ul.ACG-persent > li")
-
-    acg_score_soup = soup.select_one("div.ACG-score")
-    try:
-        reviewer_count = int(acg_score_soup.span.extract().text[:-1])
-    except ValueError:
-        reviewer_count = -1
+    acg_score_soup = soup.select_one("div.score-overall-number")
     acg_score = float(acg_score_soup.text) if acg_score_soup.text != "--" else -1
+
+    reviewer_count = int(
+        soup.select_one("div.score-overall-people > span").text.replace(",", "")
+    )
+
+    score_distribution: Dict[int, int] = dict()
+    acg_score_date_soup = soup.select("div.ACG-data > div.acg-score-date")
+    for row_soup in acg_score_date_soup:
+        star = int(row_soup.get("data-acgstar"))
+        percentage = _santinize_line_width(
+            row_soup.select_one("div.score-line > div.scored-line").get("style")
+        )
+        score_distribution[star] = percentage
 
     return AnimeScore(
         score=acg_score,
         reviewer_count=reviewer_count,
         features=[
-            (str(data.text), str(percent.text))
-            for data, percent in zip(acg_data_li_s, acg_persent_li_s)
+            (str(star), str(percentage))
+            for star, percentage in score_distribution.items()
         ],
     )
 
