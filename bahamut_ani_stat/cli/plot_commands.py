@@ -33,14 +33,14 @@ FIVE_POINT_SYSTEM_START_DATE = datetime.datetime(2021, 10, 21)
 
 
 @click.group(name="plot")
-def plot_command_group():
+def plot_command_group() -> None:
     pass
 
 
 @plot_command_group.command(name="premium-rate")
 @click.argument("db-uri")
 @click.argument("output-filename", default="premium-rate.html")
-def plot_premium_rate_command(db_uri: str, output_filename: str):
+def plot_premium_rate_command(db_uri: str, output_filename: str) -> None:
     """Plot premium rate as trend chart"""
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
@@ -71,7 +71,7 @@ def plot_premium_rate_command(db_uri: str, output_filename: str):
 @plot_command_group.command(name="anime")
 @click.argument("db-uri")
 @click.argument("output-filename", default="anime.html")
-def plot_anime_command(db_uri: str, output_filename: str):
+def plot_anime_command(db_uri: str, output_filename: str) -> None:
     """Plot anime data from database as an interactive data table"""
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
@@ -93,7 +93,7 @@ def plot_anime_command(db_uri: str, output_filename: str):
         column_sources = df.to_dict(orient="list")
 
         stmt = select(sql_func.max(models.AnimeViewCount.view_count))
-        max_view_count = session.execute(stmt).scalars().first()
+        max_view_count: int = session.execute(stmt).scalars().first()  # type: ignore
 
     data_source = ColumnDataSource(column_sources)
 
@@ -172,7 +172,7 @@ def plot_anime_command(db_uri: str, output_filename: str):
 @plot_command_group.command(name="anime-trend")
 @click.argument("db-uri")
 @click.argument("output-filename", default="anime-trend.html")
-def plot_anime_trend_command(db_uri: str, output_filename: str):
+def plot_anime_trend_command(db_uri: str, output_filename: str) -> None:
     """Plot the score and view count trand for new animes"""
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
@@ -217,7 +217,7 @@ def plot_anime_trend_command(db_uri: str, output_filename: str):
         data_sources = ColumnDataSource(column_sources)
 
         stmt = select(sql_func.max(models.AnimeViewCount.view_count))
-        max_view_count = session.execute(stmt).scalars().first()
+        max_view_count: int = session.execute(stmt).scalars().first()  # type: ignore
 
     first_view_source, view_source_dict = _group_stat(view_count_results, "view_counts")
 

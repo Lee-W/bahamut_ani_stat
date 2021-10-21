@@ -10,7 +10,7 @@ from bahamut_ani_stat.parser import parser
 
 
 @click.group(name="parse")
-def parse_command_group():
+def parse_command_group() -> None:
     pass
 
 
@@ -60,7 +60,7 @@ def get_premium_rate_command(
 @options.outputfile_option
 def get_new_animes_command(
     print_output: bool, output_filename: str, handle_exist_output: str
-):
+) -> None:
     """Parse 本季新番 table and print out or export as json file"""
     if not any([print_output, output_filename]):
         click.echo("Either --print-output or --output-filename needs to be provided")

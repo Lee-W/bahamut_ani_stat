@@ -1,9 +1,9 @@
-from typing import Callable
+from typing import Any, Callable
 
 import click
 
 
-def print_output_option(function: Callable) -> Callable:
+def print_output_option(function: Callable[..., Any]) -> Callable[..., Any]:
     function = click.option(
         "--print-output",
         default=True,
@@ -13,7 +13,7 @@ def print_output_option(function: Callable) -> Callable:
     return function
 
 
-def outputfile_option(function: Callable) -> Callable:
+def outputfile_option(function: Callable[..., Any]) -> Callable[..., Any]:
     function = click.option(
         "--overwrite",
         "handle_exist_output",

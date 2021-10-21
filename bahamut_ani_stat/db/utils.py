@@ -1,4 +1,4 @@
-from typing import Dict, Set
+from typing import Any, Dict, Set
 
 import sqlalchemy
 from sqlalchemy import func, select, update
@@ -37,13 +37,13 @@ latest_view_count_cte = (
 )
 
 
-def create_tables(db_uri: str):
+def create_tables(db_uri: str) -> None:
     engine = sqlalchemy.create_engine(db_uri)
     with engine.connect():
         models.Base.metadata.create_all(engine)
 
 
-def upsert_anime(session: Session, attrs: Dict) -> None:
+def upsert_anime(session: Session, attrs: Dict[str, Any]) -> None:
     insert_stmt = insert(models.Anime).values(attrs)
     upsert_stmt = insert_stmt.on_conflict_do_update(
         index_elements=[models.Anime.sn], set_=attrs
@@ -51,7 +51,7 @@ def upsert_anime(session: Session, attrs: Dict) -> None:
     session.execute(upsert_stmt)
 
 
-def upsert_episode(session: Session, attrs: Dict) -> None:
+def upsert_episode(session: Session, attrs: Dict[str, Any]) -> None:
     insert_stmt = insert(models.Episode).values(attrs)
     upsert_stmt = insert_stmt.on_conflict_do_update(
         index_elements=[models.Episode.sn], set_=attrs
@@ -59,7 +59,7 @@ def upsert_episode(session: Session, attrs: Dict) -> None:
     session.execute(upsert_stmt)
 
 
-def clean_up_old_animes(session: Session, new_animes_sn: Set[str]):
+def clean_up_old_animes(session: Session, new_animes_sn: Set[str]) -> None:
     # Set is_new to False for old animes
     select_stmt = select(models.Anime.sn).where(models.Anime.is_new.is_(True))
     result = session.execute(select_stmt)
@@ -98,5 +98,7 @@ def is_score_or_reviewer_changed_since_latest_update(
     result = session.execute(stmt).first()
     if result:
         latest_score, latest_reviewer_count = result
-        return score != latest_score or reviewer_count != latest_reviewer_count
+        return bool(
+            (score != latest_score) or (reviewer_count != latest_reviewer_count)
+        )
     return True

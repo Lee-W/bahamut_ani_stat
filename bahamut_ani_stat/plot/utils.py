@@ -41,7 +41,7 @@ def _group_stat(
 
 
 def _get_filter_tools(
-    max_view_count,
+    max_view_count: float,
 ) -> Tuple[TextInput, Toggle, Toggle, RangeSlider, RangeSlider]:
     text_input = TextInput(placeholder="動畫名稱", height_policy="min")
     only_new_toggle = Toggle(

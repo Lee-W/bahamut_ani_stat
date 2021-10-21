@@ -20,13 +20,13 @@ from bahamut_ani_stat.parser import parser
 
 
 @click.group(name="db")
-def db_command_group():
+def db_command_group() -> None:
     pass
 
 
 @db_command_group.command(name="create-tables")
 @click.argument("db-uri")
-def create_tables_command(db_uri: str):
+def create_tables_command(db_uri: str) -> None:
     """Create tables if not yet exists"""
     create_tables(db_uri)
 
@@ -34,7 +34,7 @@ def create_tables_command(db_uri: str):
 @db_command_group.command(name="add-animes-base-data")
 @click.argument("db-uri")
 @click.option("--page", default=None, type=int)
-def add_animes_base_data_command(db_uri: str, page: Optional[int]):
+def add_animes_base_data_command(db_uri: str, page: Optional[int]) -> None:
     """Parse 所有動畫 page and add animes data to database"""
     animes = parser.get_all_animes_base_data(page)
 
@@ -65,7 +65,7 @@ def add_animes_base_data_command(db_uri: str, page: Optional[int]):
 
 @db_command_group.command(name="add-premium-rate")
 @click.argument("db-uri")
-def add_premium_rate_command(db_uri: str):
+def add_premium_rate_command(db_uri: str) -> None:
     """Add latest premium rate to database"""
 
     premium_rate = parser.get_premium_rate()
@@ -88,7 +88,7 @@ def add_premium_rate_command(db_uri: str):
 
 @db_command_group.command(name="add-new-animes")
 @click.argument("db-uri")
-def add_new_animes_command(db_uri: str):
+def add_new_animes_command(db_uri: str) -> None:
     """Parse new anime data from 本季新番 table and add them to database"""
 
     new_animes = parser.get_new_animes()
@@ -129,7 +129,7 @@ def add_new_animes_command(db_uri: str):
 @db_command_group.command(name="add-animes-detail")
 @click.argument("db-uri")
 @click.option("--only-new-anime/--no-only-new-anime", is_flag=True, default=True)
-def add_animes_detail(db_uri: str, only_new_anime: bool):
+def add_animes_detail(db_uri: str, only_new_anime: bool) -> None:
     """Parse anime data from first episode and add data to database"""
 
     engine = sqlalchemy.create_engine(db_uri)
