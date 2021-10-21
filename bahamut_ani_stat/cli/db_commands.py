@@ -160,10 +160,16 @@ def add_animes_detail(db_uri: str, only_new_anime: bool):
                     anime.anime_score.reviewer_count,
                     anime.sn,
                 ):
+                    anime_score = anime.anime_score
                     anime_score_obj = models.AnimeScore(
-                        score=anime.anime_score.score,
-                        reviewer_count=anime.anime_score.reviewer_count,
+                        score=anime_score.score,
+                        reviewer_count=anime_score.reviewer_count,
                         anime_sn=anime.sn,
+                        five_star_percentage=anime_score.five_star_percentage,
+                        four_star_percentage=anime_score.four_star_percentage,
+                        three_star_percentage=anime_score.three_star_percentage,
+                        two_star_percentage=anime_score.two_star_percentage,
+                        one_star_percentage=anime_score.one_star_percentage,
                     )
                     session.add(anime_score_obj)
 

@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Union
 
 from pydantic import BaseModel
 
@@ -27,7 +27,12 @@ class Episode(BaseModel):
 class AnimeScore(BaseModel):
     score: float
     reviewer_count: int
-    features: List[Tuple[str, str]]  # TODO: Tuple[str, float]
+
+    five_star_percentage: Optional[float] = None
+    four_star_percentage: Optional[float] = None
+    three_star_percentage: Optional[float] = None
+    two_star_percentage: Optional[float] = None
+    one_star_percentage: Optional[float] = None
 
 
 class Anime(BaseModel):
