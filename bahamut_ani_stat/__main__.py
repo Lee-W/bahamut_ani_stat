@@ -6,7 +6,7 @@ from bahamut_ani_stat.cli.plot_commands import plot_command_group
 
 
 @click.group()
-def main():
+def main() -> None:
     pass
 
 
