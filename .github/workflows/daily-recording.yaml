@@ -44,22 +44,22 @@ jobs:
             poetry run python bahamut_ani_stat plot premium-rate sqlite:///data/anime.db docs/assets/plots/premium-rate.html
             poetry run python bahamut_ani_stat plot anime-trend sqlite:///data/anime.db docs/assets/plots/new-anime-trend.html
 
-      - name: Push data
-        run: |
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-
-            git add data docs .pre-commit-config.yaml
-            git commit -m "chore(data): daily parsing" --no-verify
-            git push origin accumulate-data --no-verify
-
-      - name: Build docs
-        run: |
-          inv doc.build --no-local
-
-      - name: Push documentation to Github Page
-        uses: peaceiris/actions-gh-pages@v3.8.0
-        with:
-          personal_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./site
+      # - name: Push data
+      #   run: |
+      #       git config --local user.email "action@github.com"
+      #       git config --local user.name "GitHub Action"
+      #
+      #       git add data docs .pre-commit-config.yaml
+      #       git commit -m "chore(data): daily parsing" --no-verify
+      #       git push origin accumulate-data --no-verify
+      #
+      # - name: Build docs
+      #   run: |
+      #     inv doc.build --no-local
+      #
+      # - name: Push documentation to Github Page
+      #   uses: peaceiris/actions-gh-pages@v3.8.0
+      #   with:
+      #     personal_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      #     publish_branch: gh-pages
+      #     publish_dir: ./site

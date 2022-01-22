@@ -99,6 +99,7 @@ def get_premium_rate(soup: Optional[BeautifulSoup] = None) -> float:
     if not soup:
         req = httpx.get(GAMMER_ANIME_BASE_URL)
         soup = BeautifulSoup(req.text, features=settings.bs4_parser)
+    print(soup)
     return float(soup.select_one("div.premium-info__title > span.number").text)
 
 

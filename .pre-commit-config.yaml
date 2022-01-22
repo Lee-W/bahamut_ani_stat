@@ -1,28 +1,28 @@
 default_stages: [push]
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
-    hooks:
-      - id: end-of-file-fixer
-        exclude: "[data|docs/plots]/.*"
-      - id: trailing-whitespace
-        args: [--markdown-linebreak-ext=md]
-        exclude: "[data|docs/plots]/.*"
-      - id: check-case-conflict
-      - id: check-merge-conflict
-      - id: no-commit-to-branch
-
-  - repo: https://github.com/hadolint/hadolint
-    rev: v2.8.0
-    hooks:
-      - id: hadolint-docker
-
-  - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.20.4
-    hooks:
-      - id: commitizen
-        stages: [commit-msg]
-
+  # - repo: https://github.com/pre-commit/pre-commit-hooks
+  #   rev: v4.1.0
+  #   hooks:
+  #     - id: end-of-file-fixer
+  #       exclude: "[data|docs/plots]/.*"
+  #     - id: trailing-whitespace
+  #       args: [--markdown-linebreak-ext=md]
+  #       exclude: "[data|docs/plots]/.*"
+  #     - id: check-case-conflict
+  #     - id: check-merge-conflict
+  #     - id: no-commit-to-branch
+  #
+  # - repo: https://github.com/hadolint/hadolint
+  #   rev: v2.8.0
+  #   hooks:
+  #     - id: hadolint-docker
+  #
+  # - repo: https://github.com/commitizen-tools/commitizen
+  #   rev: v2.20.4
+  #   hooks:
+  #     - id: commitizen
+  #       stages: [commit-msg]
+  #
   - repo: local
     hooks:
       - id: style-reformat
