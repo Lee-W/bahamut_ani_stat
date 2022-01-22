@@ -13,7 +13,6 @@ jobs:
         uses: actions/checkout@main
         with:
           fetch-depth: 0
-          ref: accumulate-data
 
       - name: Set up Python 3.8
         uses: actions/setup-python@main
