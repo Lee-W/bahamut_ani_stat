@@ -96,6 +96,7 @@ def get_danmu(episode_sn: str) -> List[Danmu]:
 
 
 def get_premium_rate(soup: Optional[BeautifulSoup] = None) -> float:
+    print(soup)
     if not soup:
         req = httpx.get(GAMMER_ANIME_BASE_URL)
         soup = BeautifulSoup(req.text, features=settings.bs4_parser)
