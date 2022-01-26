@@ -1,4 +1,10 @@
 # Changelog
+## 0.4.1 (2022-01-26)
+
+### Fix
+
+- **plot**: remove five point system start date from x axis start point
+
 ## 0.4.0 (2021-10-21)
 
 ### Feat
