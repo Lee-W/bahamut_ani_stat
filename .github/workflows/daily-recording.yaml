@@ -52,14 +52,3 @@ jobs:
             git add data docs .pre-commit-config.yaml
             git commit -m "chore(data): daily parsing"
             git push origin accumulate-data
-
-      - name: Build docs
-        run: |
-          inv doc.build --no-local
-
-      - name: Push documentation to Github Page
-        uses: peaceiris/actions-gh-pages@v3.8.0
-        with:
-          personal_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./site

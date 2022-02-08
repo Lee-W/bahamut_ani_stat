@@ -1,0 +1,38 @@
+name: "Publish plots to GitHub Page"
+
+on:
+  push:
+    branches:
+    - 'accumulate-data'
+  workflow_dispatch:
+
+jobs:
+  plot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@main
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip poetry invoke
+          inv env.init-dev
+
+      - name: Build docs
+        run: |
+          inv doc.build --no-local
+
+      - name: Push documentation to Github Page
+        uses: peaceiris/actions-gh-pages@v3.8.0
+        with:
+          personal_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./site
