@@ -1,7 +1,7 @@
 default_stages: [push]
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.2.0
     hooks:
       - id: end-of-file-fixer
         exclude: "[data|docs/plots]/.*"
@@ -13,12 +13,12 @@ repos:
       - id: no-commit-to-branch
 
   - repo: https://github.com/hadolint/hadolint
-    rev: v2.8.0
+    rev: v2.10.0
     hooks:
       - id: hadolint-docker
 
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.20.4
+    rev: v2.24.0
     hooks:
       - id: commitizen
         stages: [commit-msg]
