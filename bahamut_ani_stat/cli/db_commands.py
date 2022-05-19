@@ -65,7 +65,7 @@ def add_animes_base_data_command(
                     )
                     session.add(anime_view_count_obj)
                 if random_sleep:
-                    sec = randint(1, 60)
+                    sec = randint(0, 10)
                     click.echo(f"\nSleep for {sec} seconds")
                     sleep(sec)
 
@@ -134,7 +134,7 @@ def add_new_animes_command(db_uri: str, random_sleep: bool) -> None:
                     session, {"sn": anime.episodes[0].sn, "anime_sn": anime.sn}
                 )
                 if random_sleep:
-                    sec = randint(1, 60)
+                    sec = randint(0, 10)
                     click.echo(f"\nSleep for {sec} seconds")
                     sleep(sec)
     click.echo("Fininsh adding new animes")
@@ -203,7 +203,7 @@ def add_animes_detail_command(
                     upsert_episode(session, epi_attrs)
 
                 if random_sleep:
-                    sec = randint(1, 60)
+                    sec = randint(0, 10)
                     click.echo(f"\nSleep for {sec} seconds")
                     sleep(sec)
     click.echo("Finish adding anime details")
