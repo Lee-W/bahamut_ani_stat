@@ -157,7 +157,7 @@ coverage = {extras = ["toml"], version = "^5.0.4"}
 flake8 = "^3.7.9"
 pylint = "^2.7.0"
 mypy = "^0.910"
-black = "^21.8b0"
+black = "^22.3.0"
 isort = "^5.0.0"
 # security
 bandit = "^1.6.2"
