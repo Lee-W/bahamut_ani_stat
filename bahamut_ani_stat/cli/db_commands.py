@@ -1,3 +1,5 @@
+from random import randint
+from time import sleep
 from typing import Optional
 
 import click
@@ -34,7 +36,10 @@ def create_tables_command(db_uri: str) -> None:
 @db_command_group.command(name="add-animes-base-data")
 @click.argument("db-uri")
 @click.option("--page", default=None, type=int)
-def add_animes_base_data_command(db_uri: str, page: Optional[int]) -> None:
+@click.option("--random-sleep", default=False, is_flag=True)
+def add_animes_base_data_command(
+    db_uri: str, page: Optional[int], random_sleep: bool
+) -> None:
     """Parse 所有動畫 page and add animes data to database"""
     animes = parser.get_all_animes_base_data(page)
 
@@ -59,6 +64,10 @@ def add_animes_base_data_command(db_uri: str, page: Optional[int]) -> None:
                         view_count=anime.view_count, anime_sn=anime.sn
                     )
                     session.add(anime_view_count_obj)
+                if random_sleep:
+                    sec = randint(1, 60)
+                    click.echo(f"\nSleep for {sec} seconds")
+                    sleep(sec)
 
     click.echo("Fininsh adding animes")
 
@@ -88,7 +97,8 @@ def add_premium_rate_command(db_uri: str) -> None:
 
 @db_command_group.command(name="add-new-animes")
 @click.argument("db-uri")
-def add_new_animes_command(db_uri: str) -> None:
+@click.option("--random-sleep", is_flag=True, default=False)
+def add_new_animes_command(db_uri: str, random_sleep: bool) -> None:
     """Parse new anime data from 本季新番 table and add them to database"""
 
     new_animes = parser.get_new_animes()
@@ -123,13 +133,24 @@ def add_new_animes_command(db_uri: str) -> None:
                 upsert_episode(
                     session, {"sn": anime.episodes[0].sn, "anime_sn": anime.sn}
                 )
+                if random_sleep:
+                    sec = randint(1, 60)
+                    click.echo(f"\nSleep for {sec} seconds")
+                    sleep(sec)
     click.echo("Fininsh adding new animes")
 
 
 @db_command_group.command(name="add-animes-detail")
 @click.argument("db-uri")
 @click.option("--only-new-anime/--no-only-new-anime", is_flag=True, default=True)
-def add_animes_detail(db_uri: str, only_new_anime: bool) -> None:
+@click.option(
+    "--random-sleep",
+    is_flag=True,
+    default=False,
+)
+def add_animes_detail_command(
+    db_uri: str, only_new_anime: bool, random_sleep: bool
+) -> None:
     """Parse anime data from first episode and add data to database"""
 
     engine = sqlalchemy.create_engine(db_uri)
@@ -180,4 +201,9 @@ def add_animes_detail(db_uri: str, only_new_anime: bool) -> None:
                         "anime_sn": anime.sn,
                     }
                     upsert_episode(session, epi_attrs)
+
+                if random_sleep:
+                    sec = randint(1, 60)
+                    click.echo(f"\nSleep for {sec} seconds")
+                    sleep(sec)
     click.echo("Finish adding anime details")
