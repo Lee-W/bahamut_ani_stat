@@ -1,4 +1,10 @@
 # Changelog
+## 0.5.0 (2022-05-19)
+
+### Feat
+
+- **db_command**: add random sleep flag
+
 ## 0.4.1 (2022-01-26)
 
 ### Fix
