@@ -1,4 +1,10 @@
 # Changelog
+## 0.6.0 (2022-05-19)
+
+### Feat
+
+- **db_commands**: set sleep upper bound to 10 and lower boung to 0
+
 ## 0.5.0 (2022-05-19)
 
 ### Feat
