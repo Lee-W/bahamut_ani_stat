@@ -1,4 +1,10 @@
 # Changelog
+## 0.7.0 (2022-09-18)
+
+### Feat
+
+- update from cruft template
+
 ## 0.6.0 (2022-05-19)
 
 ### Feat
