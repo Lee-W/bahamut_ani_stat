@@ -56,14 +56,14 @@ def test_get_danmu(httpx_mock: HTTPXMock, data_regression, shared_datadir):
 def test_get_anime_list_page_count(
     httpx_mock: HTTPXMock, data_regression, anime_list_data
 ):
-    httpx_mock.add_response(data=anime_list_data)
+    httpx_mock.add_response(text=anime_list_data)
     with httpx.Client():
         page_count = parser.get_anime_list_page_count()
         data_regression.check(page_count)
 
 
 def test_get_animes_base_data(httpx_mock: HTTPXMock, data_regression, anime_list_data):
-    httpx_mock.add_response(data=anime_list_data)
+    httpx_mock.add_response(text=anime_list_data)
     with httpx.Client():
         animes = parser.get_animes_base_data(to_dict=True, ignore_none=True)
         data_regression.check(animes)
@@ -73,7 +73,7 @@ def test_get_animes_base_data(httpx_mock: HTTPXMock, data_regression, anime_list
 def test_get_all_animes_base_data(
     httpx_mock: HTTPXMock, data_regression, anime_list_data
 ):
-    httpx_mock.add_response(data=anime_list_data)
+    httpx_mock.add_response(text=anime_list_data)
     with httpx.Client():
         animes = parser.get_all_animes_base_data(to_dict=True, ignore_none=True)
         data_regression.check(animes)
@@ -90,7 +90,7 @@ def test_get_all_animes_base_data(
     indirect=True,
 )
 def test_get_anime_detail_data(httpx_mock: HTTPXMock, data_regression, datadir_text):
-    httpx_mock.add_response(data=datadir_text)
+    httpx_mock.add_response(text=datadir_text)
     with httpx.Client():
         anime = parser.get_anime_detail_data("23373", to_dict=True, ignore_none=True)
         data_regression.check(anime)
@@ -107,14 +107,14 @@ def test_get_anime_detail_data(httpx_mock: HTTPXMock, data_regression, datadir_t
     indirect=True,
 )
 def test_get_anime_episode_data(httpx_mock: HTTPXMock, data_regression, datadir_text):
-    httpx_mock.add_response(data=datadir_text)
+    httpx_mock.add_response(text=datadir_text)
     with httpx.Client():
         ep_data = parser.get_anime_episode_data("23373", to_dict=True, ignore_none=True)
         data_regression.check(ep_data)
 
 
 def test_get_premium_rate(httpx_mock: HTTPXMock, data_regression, home_page_data):
-    httpx_mock.add_response(data=home_page_data)
+    httpx_mock.add_response(text=home_page_data)
     with httpx.Client():
         data_regression.check(parser.get_premium_rate())
 
@@ -129,7 +129,7 @@ def test_get_out_of_season_animes(
 
 
 def test_get_new_animes(httpx_mock: HTTPXMock, data_regression, home_page_data):
-    httpx_mock.add_response(data=home_page_data)
+    httpx_mock.add_response(text=home_page_data)
     with httpx.Client():
         new_animes = parser.get_new_animes(to_dict=True, ignore_none=True)
         data_regression.check(new_animes)
