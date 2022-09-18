@@ -1,6 +1,6 @@
 {
   "template": "git@github.com:Lee-W/cookiecutter-python-template.git",
-  "commit": "f86de41d3897e5ce437d36ad29603869a47b8b6c",
+  "commit": "628adf32eee89de9bcb4152d5b15744b1ae30397",
   "context": {
     "cookiecutter": {
       "project_name": "bahamut_ani_stat",
