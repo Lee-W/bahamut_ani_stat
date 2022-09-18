@@ -196,7 +196,7 @@ def get_anime_detail_data(anime_sn: str) -> Optional[Anime]:
             Episode(
                 season_title=None,
                 name="1",  # TODO: parse from class=anime_name
-                sn=req.url.params.get("sn"),  # type: ignore
+                sn=req.url.params.get("sn"),
             )
         )
     else:
