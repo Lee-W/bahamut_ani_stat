@@ -28,9 +28,9 @@ def isort_check(ctx):
 
 
 @task
-def commit_check(ctx):
+def commit_check(ctx, remote="origin"):
     """Check commit message through commitizen"""
-    result = ctx.run(f"{VENV_PREFIX} cz check --rev-range main..", warn=True)
+    result = ctx.run(f"{VENV_PREFIX} cz check --rev-range {remote}/main..", warn=True)
     if result.exited == 3:  # NO_COMMIT_FOUND
         exit(0)
     else:
