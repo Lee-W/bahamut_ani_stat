@@ -34,7 +34,7 @@ def _model_to_dict(obj: Any, ignore_none: bool = True) -> Any:
 
 
 def check_anime_availability(soup: BeautifulSoup) -> bool:
-    messages = ["此作品目前無影片可以播放" or "沒有此部作品"]
+    messages = ["此作品目前無影片可以播放", "沒有此部作品", "目前無此動畫或動畫授權已到期！"]
 
     for message in messages:
         if message in soup.text:
@@ -183,6 +183,9 @@ def _get_anime_score(soup: BeautifulSoup) -> AnimeScore:
 @to_dict_args
 def get_anime_detail_data(anime_sn: str) -> Optional[Anime]:
     req = httpx.get(ANIME_REF_URL, params={"sn": anime_sn})
+    if req.status_code == 301 and req.next_request:
+        req = httpx.get(req.next_request.url)
+
     soup = BeautifulSoup(req.text, features=settings.bs4_parser)
 
     if not check_anime_availability(soup):
