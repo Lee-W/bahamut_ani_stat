@@ -1,4 +1,10 @@
 # Changelog
+## 0.7.1 (2022-09-28)
+
+### Fix
+
+- **parser**: get next_request after receive 301 from ANIME_REF_URL
+
 ## 0.7.0 (2022-09-18)
 
 ### Feat
