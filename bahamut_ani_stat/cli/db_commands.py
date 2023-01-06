@@ -143,21 +143,31 @@ def add_new_animes_command(db_uri: str, random_sleep: bool) -> None:
 @db_command_group.command(name="add-animes-detail")
 @click.argument("db-uri")
 @click.option("--only-new-anime/--no-only-new-anime", is_flag=True, default=True)
-@click.option(
-    "--random-sleep",
-    is_flag=True,
-    default=False,
-)
+@click.option("--only-old-anime/--no-only-old-anime", is_flag=True, default=False)
+@click.option("--random-sleep", is_flag=True, default=False)
 def add_animes_detail_command(
-    db_uri: str, only_new_anime: bool, random_sleep: bool
+    db_uri: str, only_new_anime: bool, only_old_anime: bool, random_sleep: bool
 ) -> None:
     """Parse anime data from first episode and add data to database"""
+
+    if only_new_anime and only_old_anime:
+        click.echo(
+            click.style(
+                "Error: only_new_anime {only_new_anime} and "
+                "only_old_anime {only_old_anime} are mutually exclusive"
+            )
+        )
+        return
 
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
         stmt = select(models.Anime.sn).where(models.Anime.is_available.isnot(False))
+
         if only_new_anime:
             stmt = stmt.where(models.Anime.is_new.is_(True))
+        elif only_old_anime:
+            stmt = stmt.where(models.Anime.is_new.is_(False))
+
         animes_sn = session.execute(stmt).scalars().all()
         click.echo(f"Adding detail data for {len(animes_sn)} animes to {db_uri}")
 
