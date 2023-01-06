@@ -1,13 +1,12 @@
 name: "Daily recording"
 
 on:
-  schedule:
-    - cron: "0 1 * * *"
   workflow_dispatch:
 
 jobs:
   daily-recording:
     runs-on: ubuntu-22.04
+    continue-on-error: true
     steps:
       - name: Check out
         uses: actions/checkout@main
@@ -32,7 +31,8 @@ jobs:
       - name: Record new anime data
         run: |
             poetry run python bahamut_ani_stat db add-new-animes sqlite:///data/anime.db --random-sleep
-            poetry run python bahamut_ani_stat db add-animes-detail sqlite:///data/anime.db --no-only-new-anime --random-sleep
+            poetry run python bahamut_ani_stat db add-animes-detail sqlite:///data/anime.db --only-new-anime --random-sleep
+            poetry run python bahamut_ani_stat db add-animes-detail sqlite:///data/anime.db --only-old-anime --random-sleep
 
       - name: Record animes base data
         run: |
