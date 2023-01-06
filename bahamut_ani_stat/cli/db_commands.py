@@ -145,8 +145,13 @@ def add_new_animes_command(db_uri: str, random_sleep: bool) -> None:
 @click.option("--only-new-anime/--no-only-new-anime", is_flag=True, default=True)
 @click.option("--only-old-anime/--no-only-old-anime", is_flag=True, default=False)
 @click.option("--random-sleep", is_flag=True, default=False)
+@click.option("--retry-limit", default=3, type=int)
 def add_animes_detail_command(
-    db_uri: str, only_new_anime: bool, only_old_anime: bool, random_sleep: bool
+    db_uri: str,
+    only_new_anime: bool,
+    only_old_anime: bool,
+    random_sleep: bool,
+    retry_limit: int,
 ) -> None:
     """Parse anime data from first episode and add data to database"""
 
@@ -178,7 +183,7 @@ def add_animes_detail_command(
 
                 click.echo(f"\nParsing anime '{anime_obj.name}' ({anime_sn})")
 
-                retry_limit, retry_count = 3, 0
+                retry_count = 0
                 while retry_count <= retry_limit:
                     try:
                         anime = parser.get_anime_detail_data(anime_sn)
@@ -197,7 +202,7 @@ def add_animes_detail_command(
                             sleep(sec)
                         retry_count += 1
                         click.echo(
-                            click.style(f"{retry_count} time retry"), fg="yellow"
+                            click.style(f"{retry_count} time retry", fg="yellow")
                         )
                     except Exception as e:
                         click.echo(
