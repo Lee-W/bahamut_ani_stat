@@ -163,16 +163,49 @@ def add_animes_detail_command(
 
         with click.progressbar(animes_sn) as animes_bar:
             for anime_sn in animes_bar:
-                try:
-                    anime = parser.get_anime_detail_data(anime_sn)
-                except Exception as e:
-                    click.echo(f"Failed to parser anime {anime_sn} due to {str(e)}")
+                stmt = select(models.Anime).where(models.Anime.sn == anime_sn)
+                anime_obj = session.execute(stmt).fetchone()[0]  # type: ignore
+
+                click.echo(f"\nParsing anime '{anime_obj.name}' ({anime_sn})")
+
+                retry_limit, retry_count = 3, 0
+                while retry_count <= retry_limit:
+                    try:
+                        anime = parser.get_anime_detail_data(anime_sn)
+                        break
+                    except AttributeError as e:
+                        click.echo(
+                            click.style(
+                                f"Failed to parser {anime_obj.name} ({anime_sn}) due to {str(e)} "
+                                "(most likely due to parsing too frequently)",
+                                fg="red",
+                            )
+                        )
+                        if "'NoneType' object has no attribute 'text'" == str(e):
+                            sec = randint(0, 10)
+                            click.echo(f"\nSleep for {sec} seconds")
+                            sleep(sec)
+                        retry_count += 1
+                        click.echo(
+                            click.style(f"{retry_count} time retry"), fg="yellow"
+                        )
+                    except Exception as e:
+                        click.echo(
+                            click.style(
+                                f"Failed to parser {anime_obj.name} ({anime_sn}) due to {str(e)} "
+                                "(most likely due to parsing too frequently)",
+                                fg="red",
+                            )
+                        )
 
                 if not anime:
-                    stmt = select(models.Anime).where(models.Anime.sn == anime_sn)
-                    anime_obj = session.execute(stmt).fetchone()[0]  # type: ignore
                     anime_obj.is_available = False
-                    click.echo(f"\nanime {anime_sn} is unaviable for now")
+                    click.echo(
+                        click.style(
+                            f"\nanime '{anime_obj.name}' ({anime_sn}) is unaviable for now",
+                            fg="yellow",
+                        )
+                    )
                     continue
 
                 if is_score_or_reviewer_changed_since_latest_update(
@@ -206,4 +239,5 @@ def add_animes_detail_command(
                     sec = randint(0, 10)
                     click.echo(f"\nSleep for {sec} seconds")
                     sleep(sec)
+
     click.echo("Finish adding anime details")
