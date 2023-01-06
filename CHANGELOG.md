@@ -1,4 +1,16 @@
 # Changelog
+## 0.8.0 (2023-01-06)
+
+### Feat
+
+- **cli/db**: make retry_limit an option
+- **cli/db**: add only-old-anime flag
+- **cli/db**: add retry mechanism
+
+### Fix
+
+- **parser**: fix review count xpath
+
 ## 0.7.1 (2022-09-28)
 
 ### Fix
