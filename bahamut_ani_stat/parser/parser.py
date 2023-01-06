@@ -157,7 +157,9 @@ def _get_anime_score(soup: BeautifulSoup) -> AnimeScore:
     acg_score = float(acg_score_soup.text) if acg_score_soup.text != "--" else -1
 
     reviewer_count = int(
-        soup.select_one("div.score-overall-people > span").text.replace(",", "")
+        soup.select_one("div.score-overall-people")
+        .text.replace(",", "")
+        .replace("人評價", "")
     )
 
     star_percentages: Dict[int, int] = dict()
