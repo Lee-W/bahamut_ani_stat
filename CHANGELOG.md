@@ -105,10 +105,10 @@
 - **cli**: add message to db and plot commands
 - **cli/plot**: add plot anime command
 - **cli/plot**: add plot premium rate command
-- **cli/db_commands**: implment add-animes-base-data, add-new-animes
+- **cli/db_commands**: implement add-animes-base-data, add-new-animes
 - **model**: add is_new column to Anime table
 - **cli**: refactor commands into parse_command group and add db_command_group
-- **parser**: add arguements to_dict and ignore_none for parser methods
+- **parser**: add arguments to_dict and ignore_none for parser methods
 - **db**: initial db models
 - **cli**: add get_new_animes_command
 - **cli**: add get_premium_rate_command
@@ -128,7 +128,7 @@
 ### Feat
 
 - **parser**: use lxml as bs4 parser
-- **parse**: implement method to parse ani gamer statitics and anime intro
+- **parse**: implement method to parse ani gamer statistics and anime intro
 
 ## 0.1.0 (2021-07-05)
 

@@ -5,7 +5,7 @@ from tasks.common import VENV_PREFIX
 
 @task
 def clean(ctx):
-    """Remove virtual environement"""
+    """Remove virtual environment"""
     ctx.run("poetry env remove 3.8", warn=True)
 
 

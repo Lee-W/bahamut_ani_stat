@@ -14,5 +14,5 @@ def run(ctx, allow_no_tests=False):
 
 @task
 def cov(ctx):
-    """Run test covreage check"""
+    """Run test coverage check"""
     ctx.run(f"{VENV_PREFIX} pytest --cov=bahamut_ani_stat tests/", pty=True)

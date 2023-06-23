@@ -12,11 +12,12 @@ jobs:
     name: "Bump version and create changelog with commitizen"
     steps:
       - name: Check out
-        uses: actions/checkout@v2
+        uses: actions/checkout@main
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 0
           persist-credentials: false
+
       - name: Create bump and changelog
         uses: commitizen-tools/commitizen-action@master
         with:
@@ -36,7 +37,7 @@ jobs:
       - name: Set up Python 3.8
         uses: actions/setup-python@v3.0.0
         with:
-          python-version: 3.8
+          python-version: "3.8"
 
       - name: Install dependencies
         run: |

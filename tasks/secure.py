@@ -6,7 +6,7 @@ from tasks.common import VENV_PREFIX
 @task
 def check_package(ctx):
     """Check package security"""
-    ctx.run("poetry run safety check", warn=True)
+    ctx.run(f"{VENV_PREFIX} pip-audit", warn=True)
 
 
 @task
@@ -17,5 +17,5 @@ def bandit(ctx):
 
 @task(pre=[check_package, bandit], default=True)
 def run(ctx):
-    """Check security check throguh safety and bandit"""
+    """Check security check through safety and bandit"""
     pass
