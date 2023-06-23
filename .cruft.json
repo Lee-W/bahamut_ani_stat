@@ -1,6 +1,6 @@
 {
   "template": "git@github.com:Lee-W/cookiecutter-python-template.git",
-  "commit": "628adf32eee89de9bcb4152d5b15744b1ae30397",
+  "commit": "4624db98373e9456ed421599484fb7c7d5b7bee2",
   "context": {
     "cookiecutter": {
       "project_name": "bahamut_ani_stat",
@@ -17,7 +17,7 @@
       "build_pypi_package": "y",
       "build_docker_image": "y",
       "open_source_license": "MIT license",
-      "_template_version": "1.1.1",
+      "_template_version": "1.6.0",
       "_template": "git@github.com:Lee-W/cookiecutter-python-template.git"
     }
   },

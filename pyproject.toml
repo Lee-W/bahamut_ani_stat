@@ -7,40 +7,19 @@ version_files = [
 ]
 
 
-[tool.black]
+[tool.ruff]
 line-length = 88
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-)/
-'''
+ignore = [
+    "E501",
+    "D1",
+    "D415",
+]
 
+[tool.ruff.isort]
+known-first-party = ["tests"]
 
-[tool.isort]
-profile = "black"
-
-
-[tool.pylint]
-    [tool.pylint.messages_control]
-    disable = [
-        "bad-continuation",
-        "missing-function-docstring",
-        "missing-module-docstring",
-        "invalid-name"
-    ]
-
-    [tool.pylint.format]
-    max-line-length = 88
+[tool.ruff.pydocstyle]
+convention = "google"
 
 
 [tool.mypy]
@@ -74,7 +53,7 @@ plugins = ["sqlalchemy.ext.mypy.plugin"]
 
 
 [tool.pytest.ini_options]
-minversion = "6.0"
+minversion = "7.2.0"
 testpaths = "tests"
 addopts = "--strict-markers"
 norecursedirs = [
@@ -147,34 +126,33 @@ pydantic = "^1.8.2"
 # task management
 invoke = "^1.4.1"
 # test
-pytest = "^6.0.1"
+pytest = "^7.2.0"
 pytest-cov = "^2.8.1"
 pytest-mock = "^3.0.0"
 pytest-xdist = "^1.31.0"
+pytest-regressions = "^2.2.0"
+pytest-httpx = "^0.21.0"
+pytest-datadir = "^1.3.1"
 hypothesis = "^5.8.0"
+pytest-sugar = "^0.9.4"
 coverage = {extras = ["toml"], version = "^5.0.4"}
 # style
-flake8 = "^3.7.9"
-pylint = "^2.7.0"
+ruff = "^0.0.262"
 mypy = "^0.950"
-black = "^22.3.0"
-isort = "^5.0.0"
+black = ">=22.10.0"
 # security
 bandit = "^1.6.2"
-safety = "^1.8.7"
+pip-audit = "^2.4.5"
 # git
-commitizen = "^2.4.0"
+commitizen = "^3.0.0"
 pre-commit = "^2.2.0"
 # documentation
 mkdocs = "^1.2.3"
 mkdocs-material = "^7.0.6"
-pytest-regressions = "^2.2.0"
-pytest-httpx = "^0.21.0"
-pytest-datadir = "^1.3.1"
+# type hinting
 types-PyYAML = "^5.4.3"
 types-setuptools = "^57.0.0"
-pytest-sugar = "^0.9.4"
 
 [build-system]
-requires = ["poetry>=1.0.0"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
