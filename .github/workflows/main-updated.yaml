@@ -49,7 +49,7 @@ jobs:
           inv doc.build --no-local
 
       - name: Push documentation to Github Page
-        uses: peaceiris/actions-gh-pages@v3.8.0
+        uses: peaceiris/actions-gh-pages@v3.9.3
         with:
           personal_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           publish_branch: gh-pages
