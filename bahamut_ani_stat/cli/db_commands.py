@@ -47,7 +47,7 @@ def add_animes_base_data_command(
 
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
-        with click.progressbar(animes) as animes_bar:
+        with click.progressbar(animes) as animes_bar:  # type: ignore
             for anime in animes_bar:
                 upsert_anime(
                     session,
@@ -110,7 +110,7 @@ def add_new_animes_command(db_uri: str, random_sleep: bool) -> None:
     with Session(engine) as session, session.begin():
         clean_up_old_animes(session, new_animes_sn)
 
-        with click.progressbar(new_animes) as animes_bar:
+        with click.progressbar(new_animes) as animes_bar:  # type: ignore
             for anime in animes_bar:
                 upsert_anime(
                     session,
