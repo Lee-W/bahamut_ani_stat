@@ -148,7 +148,7 @@ commitizen = "^3.0.0"
 pre-commit = "^2.2.0"
 # documentation
 mkdocs = "^1.2.3"
-mkdocs-material = "^7.0.6"
+mkdocs-material = "^9.5.3"
 # type hinting
 types-PyYAML = "^5.4.3"
 types-setuptools = "^57.0.0"
