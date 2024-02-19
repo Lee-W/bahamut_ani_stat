@@ -18,9 +18,9 @@ class Episode(BaseModel):
     sn: Optional[str] = None
     name: Optional[str] = None
     season_title: Optional[str] = None
-    upload_date: Optional[
-        Union[datetime, str]
-    ] = None  # TODO: Fix tests and type conflict (str and datetime)
+    upload_date: Optional[Union[datetime, str]] = (
+        None  # TODO: Fix tests and type conflict (str and datetime)
+    )
     view_count: Optional[int] = None
 
 

@@ -133,7 +133,9 @@ def plot_anime_command(db_uri: str, output_filename: str) -> None:
         TableColumn(field="score", title="評分"),
         TableColumn(field="view_count", title="觀看人次"),
         TableColumn(field="is_new", title="是否為新番"),
-        TableColumn(field="release_time", title="動畫播出時間", formatter=DateFormatter()),
+        TableColumn(
+            field="release_time", title="動畫播出時間", formatter=DateFormatter()
+        ),
         TableColumn(
             field="sn",
             title="sn",
