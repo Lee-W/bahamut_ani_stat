@@ -150,7 +150,7 @@ pre-commit = "^2.2.0"
 mkdocs = "^1.2.3"
 mkdocs-material = "^9.5.3"
 # type hinting
-types-PyYAML = "^5.4.3"
+types-PyYAML = "^6.0.12"
 types-setuptools = "^57.0.0"
 
 [build-system]
