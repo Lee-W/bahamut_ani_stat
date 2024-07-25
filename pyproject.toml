@@ -114,7 +114,7 @@ python = "^3.8"
 httpx = "^0.23.0"
 bs4 = "^0.0.1"
 tqdm = "^4.61.1"
-dataclasses-json = "^0.5.4"
+dataclasses-json = ">=0.5.4,<0.7.0"
 lxml = "^4.6.3"
 click = "^8.0.1"
 SQLAlchemy = {extras = ["mypy"], version = "^1.4.20"}
