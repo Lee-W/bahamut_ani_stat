@@ -1,6 +1,11 @@
-from typing import Any, Callable
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any
 
 import click
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 
 def print_output_option(function: Callable[..., Any]) -> Callable[..., Any]:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from invoke import task
 
 from tasks.common import COMMON_TARGETS_AS_STR, VENV_PREFIX
@@ -18,10 +20,7 @@ def mypy(ctx):
 @task
 def commit_check(ctx, remote="origin"):
     """Check commit message through commitizen"""
-    ctx.run(
-        f"{VENV_PREFIX} cz -nr 3 check --rev-range {remote}/main..",
-        warn=True
-    )
+    ctx.run(f"{VENV_PREFIX} cz -nr 3 check --rev-range {remote}/main..", warn=True)
 
 
 @task(pre=[ruff, mypy, commit_check], default=True)

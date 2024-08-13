@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 from datetime import datetime
-from typing import List
 
 from sqlalchemy import (
     Boolean,
@@ -11,7 +12,7 @@ from sqlalchemy import (
     String,
     Table,
 )
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import Mapped, declarative_base, relationship
 
 Base = declarative_base()
 
@@ -44,24 +45,24 @@ class Anime(Base):
     target_audience = Column(String, nullable=True)
 
     agent_id = Column(Integer, ForeignKey("agent.id_"))
-    agent: "Agent" = relationship("Agent", back_populates="animes")
-    directors: List["Director"] = relationship(
+    agent: Mapped[Agent] = relationship("Agent", back_populates="animes")
+    directors: list[Director] = relationship(
         "Director", back_populates="animes", secondary=anime_director_association
     )
-    studios: List["Studio"] = relationship(
+    studios: list[Studio] = relationship(
         "Studio", back_populates="animes", secondary=anime_studio_association
     )
 
-    anime_view_counts: List["AnimeViewCount"] = relationship(
+    anime_view_counts: list[AnimeViewCount] = relationship(
         "AnimeViewCount", back_populates="anime", uselist=True
     )
-    anime_scores: List["AnimeScore"] = relationship(
+    anime_scores: list[AnimeScore] = relationship(
         "AnimeScore", back_populates="anime", uselist=True
     )
-    episodes: List["Episode"] = relationship(
+    episodes: list[Episode] = relationship(
         "Episode", back_populates="anime", uselist=True
     )
-    danmus: List["Danmu"] = relationship("Danmu", back_populates="anime", uselist=True)
+    danmus: list[Danmu] = relationship("Danmu", back_populates="anime", uselist=True)
 
 
 class Director(Base):
@@ -70,7 +71,7 @@ class Director(Base):
     id_ = Column(Integer, primary_key=True)
     name = Column(Integer, unique=True)
 
-    animes: "Anime" = relationship(
+    animes: Anime = relationship(
         "Anime", back_populates="directors", secondary=anime_director_association
     )
 
@@ -81,7 +82,7 @@ class Agent(Base):
     id_ = Column(Integer, primary_key=True)
     name = Column(Integer, unique=True)
 
-    animes: "Anime" = relationship("Anime", back_populates="agent", uselist=True)
+    animes: Anime = relationship("Anime", back_populates="agent", uselist=True)
 
 
 class Studio(Base):
@@ -90,7 +91,7 @@ class Studio(Base):
     id_ = Column(Integer, primary_key=True)
     name = Column(Integer, unique=True)
 
-    animes: "Anime" = relationship(
+    animes: Anime = relationship(
         "Anime", back_populates="studios", secondary=anime_studio_association
     )
 
@@ -103,7 +104,7 @@ class AnimeViewCount(Base):
     insert_time = Column(DateTime, default=datetime.now())
 
     anime_sn = Column(String, ForeignKey("anime.sn"))
-    anime: "Anime" = relationship("Anime", back_populates="anime_view_counts")
+    anime: Anime = relationship("Anime", back_populates="anime_view_counts")
 
 
 class AnimeScore(Base):
@@ -122,7 +123,7 @@ class AnimeScore(Base):
     insert_time = Column(DateTime, default=datetime.now())
 
     anime_sn = Column(String, ForeignKey("anime.sn"))
-    anime: "Anime" = relationship("Anime", back_populates="anime_scores")
+    anime: Anime = relationship("Anime", back_populates="anime_scores")
 
 
 class Danmu(Base):
@@ -137,7 +138,7 @@ class Danmu(Base):
     userid = Column(String)
 
     anime_sn = Column(String, ForeignKey("anime.sn"))
-    anime: "Anime" = relationship("Anime", back_populates="danmus")
+    anime: Anime = relationship("Anime", back_populates="danmus")
 
 
 class Episode(Base):
@@ -149,9 +150,9 @@ class Episode(Base):
     upload_date = Column(DateTime, nullable=True)
 
     anime_sn = Column(String, ForeignKey("anime.sn"))
-    anime: "Anime" = relationship("Anime", back_populates="episodes")
+    anime: Anime = relationship("Anime", back_populates="episodes")
 
-    episode_view_counts: "EpisodeViewCount" = relationship(
+    episode_view_counts: EpisodeViewCount = relationship(
         "EpisodeViewCount", back_populates="episode", uselist=True
     )
 
@@ -164,7 +165,7 @@ class EpisodeViewCount(Base):
     insert_time = Column(DateTime, default=datetime.now())
 
     episode_sn = Column(String, ForeignKey("episode.sn"))
-    episode: "Episode" = relationship("Episode", back_populates="episode_view_counts")
+    episode: Episode = relationship("Episode", back_populates="episode_view_counts")
 
 
 class PremiumRate(Base):

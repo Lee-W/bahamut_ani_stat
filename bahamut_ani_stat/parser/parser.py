@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import re
 from datetime import datetime
 from functools import wraps
-from typing import Any, Callable, Dict, List, Optional
+from typing import TYPE_CHECKING, Any
 
 import httpx
 from bs4 import BeautifulSoup
@@ -17,6 +19,9 @@ from bahamut_ani_stat.parser.urls import (
     GAMMER_ANIME_BASE_URL,
 )
 from bahamut_ani_stat.settings import settings
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 
 def _model_to_dict(obj: Any, ignore_none: bool = True) -> Any:
@@ -94,12 +99,12 @@ def _santinize_line_width(line_width_style: str) -> int:
 
 
 @to_dict_args
-def get_danmu(episode_sn: str) -> List[Danmu]:
+def get_danmu(episode_sn: str) -> list[Danmu]:
     req = httpx.post(ANIME_DANMU_URL, data={"sn": episode_sn})
     return [Danmu(**danmu) for danmu in req.json()]
 
 
-def get_premium_rate(soup: Optional[BeautifulSoup] = None) -> float:
+def get_premium_rate(soup: BeautifulSoup | None = None) -> float:
     if not soup:
         req = httpx.get(GAMMER_ANIME_BASE_URL)
         soup = BeautifulSoup(req.text, features=settings.bs4_parser)
@@ -114,13 +119,13 @@ def get_anime_list_page_count() -> int:
 
 
 @to_dict_args
-def get_animes_base_data(page_number: int = 1) -> List[Anime]:
+def get_animes_base_data(page_number: int = 1) -> list[Anime]:
     req = httpx.get(ANIME_LIST_URL, params={"page": page_number, "sort": 1})
     soup = BeautifulSoup(req.text, features=settings.bs4_parser)
 
     theme_list_main_a_s = soup.select("div.theme-list-block > a.theme-list-main")
 
-    animes_data: List[Anime] = list()
+    animes_data: list[Anime] = list()
     for theme_list_main_a in theme_list_main_a_s:
         view_number = theme_list_main_a.select_one("div.show-view-number > p").text
         theme_info_div = theme_list_main_a.select_one("div.theme-info-block")
@@ -145,7 +150,7 @@ def get_animes_base_data(page_number: int = 1) -> List[Anime]:
 
 
 @to_dict_args
-def get_all_animes_base_data(page_count: Optional[int] = None) -> List[Anime]:
+def get_all_animes_base_data(page_count: int | None = None) -> list[Anime]:
     if not page_count:
         page_count = get_anime_list_page_count()
 
@@ -166,7 +171,7 @@ def _get_anime_score(soup: BeautifulSoup) -> AnimeScore:
         .replace("人評價", "")
     )
 
-    star_percentages: Dict[int, int] = dict()
+    star_percentages: dict[int, int] = dict()
     acg_score_date_soup = soup.select("div.ACG-data > div.acg-score-date")
     for row_soup in acg_score_date_soup:
         star = int(row_soup.get("data-acgstar"))
@@ -187,7 +192,7 @@ def _get_anime_score(soup: BeautifulSoup) -> AnimeScore:
 
 
 @to_dict_args
-def get_anime_detail_data(anime_sn: str) -> Optional[Anime]:
+def get_anime_detail_data(anime_sn: str) -> Anime | None:
     req = httpx.get(ANIME_REF_URL, params={"sn": anime_sn})
     if req.status_code == 301 and req.next_request:
         req = httpx.get(req.next_request.url)
@@ -198,7 +203,7 @@ def get_anime_detail_data(anime_sn: str) -> Optional[Anime]:
         return None
 
     season_section = soup.select_one("section.season")
-    episodes_data: List[Episode] = list()
+    episodes_data: list[Episode] = list()
     if not season_section:
         # new anime
         episodes_data.append(
@@ -259,7 +264,7 @@ def get_anime_episode_data(episode_sn: str) -> Episode:
 
 
 @to_dict_args
-def get_new_animes() -> List[Anime]:
+def get_new_animes() -> list[Anime]:
     req = httpx.get(GAMMER_ANIME_BASE_URL)
     soup = BeautifulSoup(req.text, features=settings.bs4_parser)
     new_anime_block = soup.select_one("div.newanime-wrap.timeline-ver")
@@ -310,7 +315,7 @@ def get_new_animes() -> List[Anime]:
 
 
 @to_dict_args
-def get_out_of_season_animes(offset: int = 1, limit: int = 10) -> List[Anime]:
+def get_out_of_season_animes(offset: int = 1, limit: int = 10) -> list[Anime]:
     req = httpx.get(
         ANIME_OUT_OF_SEASON_MORE_URL, params={"offset": offset, "limit": limit}
     )

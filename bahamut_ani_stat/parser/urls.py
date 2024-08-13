@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from urllib.parse import urljoin
 
 GAMMER_ANIME_BASE_URL = "https://ani.gamer.com.tw/"

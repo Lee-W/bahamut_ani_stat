@@ -1,6 +1,7 @@
+from __future__ import annotations
+
 from random import randint
 from time import sleep
-from typing import Optional
 
 import click
 import sqlalchemy
@@ -38,7 +39,7 @@ def create_tables_command(db_uri: str) -> None:
 @click.option("--page", default=None, type=int)
 @click.option("--random-sleep", default=False, is_flag=True)
 def add_animes_base_data_command(
-    db_uri: str, page: Optional[int], random_sleep: bool
+    db_uri: str, page: int | None, random_sleep: bool
 ) -> None:
     """Parse 所有動畫 page and add animes data to database"""
     animes = parser.get_all_animes_base_data(page)

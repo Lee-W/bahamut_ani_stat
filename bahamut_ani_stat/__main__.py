@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import click
 
 from bahamut_ani_stat.cli.db_commands import db_command_group

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 import os
 from datetime import datetime
@@ -24,7 +26,7 @@ def _append_or_overwrite_outputfile(
         }
     ]
     if handle_exist_output == "append" and os.path.exists(output_filename):
-        with open(output_filename, "r") as input_file:
+        with open(output_filename) as input_file:
             original_data = json.load(input_file)
 
         result = original_data[:] + result

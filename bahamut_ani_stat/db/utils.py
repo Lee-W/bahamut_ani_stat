@@ -1,11 +1,15 @@
-from typing import Any, Dict, Set
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any
 
 import sqlalchemy
 from sqlalchemy import func, select, update
 from sqlalchemy.dialects.sqlite import insert
-from sqlalchemy.orm import Session
 
 from bahamut_ani_stat.db import models
+
+if TYPE_CHECKING:
+    from sqlalchemy.orm import Session
 
 # pre-defined CTE
 
@@ -43,7 +47,7 @@ def create_tables(db_uri: str) -> None:
         models.Base.metadata.create_all(engine)
 
 
-def upsert_anime(session: Session, attrs: Dict[str, Any]) -> None:
+def upsert_anime(session: Session, attrs: dict[str, Any]) -> None:
     insert_stmt = insert(models.Anime).values(attrs)
     upsert_stmt = insert_stmt.on_conflict_do_update(
         index_elements=[models.Anime.sn], set_=attrs
@@ -51,7 +55,7 @@ def upsert_anime(session: Session, attrs: Dict[str, Any]) -> None:
     session.execute(upsert_stmt)
 
 
-def upsert_episode(session: Session, attrs: Dict[str, Any]) -> None:
+def upsert_episode(session: Session, attrs: dict[str, Any]) -> None:
     insert_stmt = insert(models.Episode).values(attrs)
     upsert_stmt = insert_stmt.on_conflict_do_update(
         index_elements=[models.Episode.sn], set_=attrs
@@ -59,7 +63,7 @@ def upsert_episode(session: Session, attrs: Dict[str, Any]) -> None:
     session.execute(upsert_stmt)
 
 
-def clean_up_old_animes(session: Session, new_animes_sn: Set[str]) -> None:
+def clean_up_old_animes(session: Session, new_animes_sn: set[str]) -> None:
     # Set is_new to False for old animes
     select_stmt = select(models.Anime.sn).where(models.Anime.is_new.is_(True))
     result = session.execute(select_stmt)

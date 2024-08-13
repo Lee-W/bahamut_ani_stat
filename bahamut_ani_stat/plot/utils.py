@@ -1,17 +1,26 @@
-from itertools import groupby
-from typing import Dict, List, Optional, Tuple
+from __future__ import annotations
 
-from bokeh.models import ColumnDataSource, RangeSlider, TextInput, Toggle
-from sqlalchemy.engine import Row
+from itertools import groupby
+from typing import TYPE_CHECKING
+
+from bokeh.models import (  # type: ignore
+    ColumnDataSource,
+    RangeSlider,
+    TextInput,
+    Toggle,
+)
+
+if TYPE_CHECKING:
+    from sqlalchemy.engine import Row
 
 DATE_TIME_FORMAT = "{%Y-%m-%d %H:%M:%S}"
 
 
 def _group_stat(
-    results: List[Row],
+    results: list[Row],
     stat_type: str,
-    initial_key: Optional[str] = None,
-) -> Tuple[ColumnDataSource, Dict[str, ColumnDataSource]]:
+    initial_key: str | None = None,
+) -> tuple[ColumnDataSource, dict[str, ColumnDataSource]]:
     """Group anime scores or anime view counts"""
 
     sources_dict = dict()
@@ -42,7 +51,7 @@ def _group_stat(
 
 def _get_filter_tools(
     max_view_count: float,
-) -> Tuple[TextInput, Toggle, Toggle, RangeSlider, RangeSlider]:
+) -> tuple[TextInput, Toggle, Toggle, RangeSlider, RangeSlider]:
     text_input = TextInput(placeholder="動畫名稱", height_policy="min")
     only_new_toggle = Toggle(
         label="只顯示新番",
