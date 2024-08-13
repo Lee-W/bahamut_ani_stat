@@ -1,6 +1,6 @@
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.8.0"
+version = "0.8.1"
 tag_format = "$version"
 version_files = ["pyproject.toml:version"]
 
@@ -108,7 +108,7 @@ omit = ['env/*', 'venv/*', '*/virtualenv/*', '*/virtualenvs/*', '*/tests/*']
 
 [tool.poetry]
 name = "bahamut_ani_stat"
-version = "0.8.0"
+version = "0.8.1"
 authors = ["Wei Lee <weilee.rx@gmail.com>"]
 description = "Toolkit for Bahamut ani gamer data"
 license = "MIT license"

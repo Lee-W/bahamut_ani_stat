@@ -1,4 +1,10 @@
 # Changelog
+## 0.8.1 (2024-08-13)
+
+### Fix
+
+- update deps with breaking changes and change the existing implementation accordingly
+
 ## 0.8.0 (2023-01-06)
 
 ### Feat
