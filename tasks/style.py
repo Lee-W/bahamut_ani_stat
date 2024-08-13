@@ -6,19 +6,13 @@ from tasks.common import COMMON_TARGETS_AS_STR, VENV_PREFIX
 @task
 def ruff(ctx):
     """Check style through ruff"""
-    ctx.run(f"{VENV_PREFIX} ruff {COMMON_TARGETS_AS_STR}")
+    ctx.run(f"{VENV_PREFIX} ruff check {COMMON_TARGETS_AS_STR}")
 
 
 @task
 def mypy(ctx):
     """Check style through mypy"""
     ctx.run(f"{VENV_PREFIX} mypy")
-
-
-@task
-def black_check(ctx):
-    """Check style through black"""
-    ctx.run(f"{VENV_PREFIX} black --check {COMMON_TARGETS_AS_STR}")
 
 
 @task
@@ -30,18 +24,13 @@ def commit_check(ctx, remote="origin"):
     )
 
 
-@task(pre=[ruff, mypy, black_check, commit_check], default=True)
+@task(pre=[ruff, mypy, commit_check], default=True)
 def run(ctx):
     """Check style through linter (Note that pylint is not included)"""
     pass
 
 
-@task
-def black(ctx):
-    ctx.run(f"{VENV_PREFIX} black {COMMON_TARGETS_AS_STR}")
-
-
-@task(pre=[ruff, black])
-def reformat(ctx):
-    """Reformat python files through black and isort"""
+@task(pre=[ruff])
+def format(ctx):
+    """Reformat python files through ruff"""
     pass

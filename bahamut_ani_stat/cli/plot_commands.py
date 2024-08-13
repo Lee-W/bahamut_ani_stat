@@ -91,7 +91,7 @@ def plot_anime_command(db_uri: str, output_filename: str) -> None:
         stmt = select(sql_func.max(models.AnimeViewCount.view_count))
         max_view_count: int = session.execute(stmt).scalars().first()  # type: ignore
 
-    data_source = ColumnDataSource(column_sources)
+    data_source = ColumnDataSource(data=column_sources)
 
     output_file(filename=output_filename, title="動畫瘋所有動畫")
 
@@ -126,8 +126,7 @@ def plot_anime_command(db_uri: str, output_filename: str) -> None:
             "bahamut_ani_stat.plot", "static/datatable-anime-filter.js"
         ).decode("utf-8"),
     )
-    view = CDSView(source=data_source, filters=[anime_js_filter])
-
+    view = CDSView(filter=anime_js_filter)
     columns = [
         TableColumn(field="name", title="動畫名稱"),
         TableColumn(field="score", title="評分"),
@@ -161,7 +160,7 @@ def plot_anime_command(db_uri: str, output_filename: str) -> None:
         column(row(text_input, only_new_toggle, ignore_wip_toggle), height=50),
         column(row(view_counter_silider, score_slider), height=50),
         data_table,
-        sizing_mode="stretch_width",
+        sizing_mode="stretch_both",
     )
     save(result)
     click.echo(f"Export anime plot to {output_filename}")
