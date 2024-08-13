@@ -34,7 +34,11 @@ def _model_to_dict(obj: Any, ignore_none: bool = True) -> Any:
 
 
 def check_anime_availability(soup: BeautifulSoup) -> bool:
-    messages = ["此作品目前無影片可以播放", "沒有此部作品", "目前無此動畫或動畫授權已到期！"]
+    messages = [
+        "此作品目前無影片可以播放",
+        "沒有此部作品",
+        "目前無此動畫或動畫授權已到期！",
+    ]
 
     for message in messages:
         if message in soup.text:
