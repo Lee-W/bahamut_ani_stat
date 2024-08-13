@@ -1,10 +1,12 @@
+from __future__ import annotations
+
 import click
 import pandas as pd
 import pkg_resources
 import sqlalchemy
 from bokeh.io import output_file, save
 from bokeh.layouts import column, row
-from bokeh.models import (
+from bokeh.models import (  # type: ignore
     CDSView,
     ColumnDataSource,
     CustomJS,
@@ -242,7 +244,7 @@ def plot_anime_trend_command(db_uri: str, output_filename: str) -> None:
 
     score_pic = figure(x_axis_type="datetime")
     score_pic.line("insert_times", "scores", source=first_score_source)
-    score_pic.y_range = Range1d(1, 5)
+    score_pic.y_range = Range1d(1, 5)  # type: ignore
     score_pic.add_tools(
         HoverTool(
             tooltips=[

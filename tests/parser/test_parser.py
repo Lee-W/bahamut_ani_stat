@@ -1,12 +1,16 @@
+from __future__ import annotations
+
 import json
-from typing import List
+from typing import TYPE_CHECKING
 
 import httpx
 import pytest
 import yaml
-from pytest_httpx import HTTPXMock
 
 from bahamut_ani_stat.parser import parser
+
+if TYPE_CHECKING:
+    from pytest_httpx import HTTPXMock
 
 yaml.SafeDumper.yaml_representers[None] = (  # type: ignore
     lambda self, data: yaml.representer.SafeRepresenter.represent_str(
@@ -16,29 +20,29 @@ yaml.SafeDumper.yaml_representers[None] = (  # type: ignore
 )
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def datadir_text(request, shared_datadir) -> str:
     return (shared_datadir / request.param).read_text()
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def anime_list_data(shared_datadir) -> str:
     return (shared_datadir / "animeList.html").read_text()
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def home_page_data(shared_datadir) -> str:
     return (shared_datadir / "homePage.html").read_text()
 
 
-@pytest.fixture(scope="function")
-def out_of_season_data(shared_datadir) -> List:
+@pytest.fixture()
+def out_of_season_data(shared_datadir) -> list:
     return json.loads((shared_datadir / "animeOutOfSeasonMore.html").read_text())
 
 
 @pytest.mark.parametrize(
-    "view_count_str, expected",
-    (("101.1萬", 1011000), ("10萬", 100000), ("1213", 1213), ("統計中", -1)),
+    ("view_count_str", "expected"),
+    [("101.1萬", 1011000), ("10萬", 100000), ("1213", 1213), ("統計中", -1)],
 )
 def test_santinize_view_count(view_count_str: str, expected: int):
     assert parser._santinize_view_count(view_count_str) == expected
@@ -69,7 +73,7 @@ def test_get_animes_base_data(httpx_mock: HTTPXMock, data_regression, anime_list
         data_regression.check(animes)
 
 
-@pytest.mark.slow
+@pytest.mark.slow()
 def test_get_all_animes_base_data(
     httpx_mock: HTTPXMock, data_regression, anime_list_data
 ):
@@ -81,11 +85,11 @@ def test_get_all_animes_base_data(
 
 @pytest.mark.parametrize(
     "datadir_text",
-    (
+    [
         "animeVideo.html",
         "animeVideo_new_anime.html",
         "animeVideo_with_season_section.html",
-    ),
+    ],
     ids=("standard", "new_anime", "with_season_section"),
     indirect=True,
 )
@@ -98,11 +102,11 @@ def test_get_anime_detail_data(httpx_mock: HTTPXMock, data_regression, datadir_t
 
 @pytest.mark.parametrize(
     "datadir_text",
-    (
+    [
         "animeVideo.html",
         "animeVideo_new_anime.html",
         "animeVideo_with_season_section.html",
-    ),
+    ],
     ids=("standard", "new_anime", "with_season_section"),
     indirect=True,
 )

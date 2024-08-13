@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from invoke import task
 
 from tasks.common import VENV_PREFIX
