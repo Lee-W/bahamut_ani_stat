@@ -7,11 +7,32 @@ version_files = ["pyproject.toml:version"]
 
 [tool.ruff]
 line-length = 88
+target-version = "py39"
 
 [tool.ruff.lint]
 ignore = ["E501", "D1", "D415"]
+extend-select = [
+    # Enable entire ruff rule section
+    "I",     # Missing required import (auto-fixable)
+    "UP",    # Pyupgrade
+    "ASYNC", # subset of flake8-async rules
+    "TCH",   # Rules around TYPE_CHECKING blocks
+    "FA100",
+    "G",     # flake8-logging-format rules
+    "LOG",   # flake8-logging rules, most of them autofixable
+    "PT",    # flake8-pytest-style rules
+    "TID25", # flake8-tidy-imports rules
+    "E",     # pycodestyle rules
+    "W",     # pycodestyle rules
+]
+
+[tool.ruff.lint.pyupgrade]
+# Preserve types, even if a file imports `from __future__ import annotations`.
+keep-runtime-typing = true
 
 [tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]
+combine-as-imports = true
 known-first-party = ["tests"]
 
 [tool.ruff.lint.pydocstyle]
