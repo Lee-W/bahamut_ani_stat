@@ -22,6 +22,7 @@ from bahamut_ani_stat.settings import settings
 
 if TYPE_CHECKING:
     from collections.abc import Callable
+    pass
 
 
 def _model_to_dict(obj: Any, ignore_none: bool = True) -> Any:
