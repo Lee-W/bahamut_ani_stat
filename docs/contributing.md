@@ -39,6 +39,7 @@ inv env.init-dev
 ```
 
 ### Step 7. Work on your new feature
+
 Note that this project follows [conventional-commit](https://www.conventionalcommits.org/en/v1.0.0/) and bumps version based on it. Use the following command to commit your changes.
 
 ```sh
@@ -46,6 +47,7 @@ inv git.commit
 ```
 
 ### Step 8. Run test cases
+
 Make sure all test cases pass.
 
 ```sh
@@ -53,6 +55,7 @@ inv test
 ```
 
 ### Step 9. Run test coverage
+
 Check the test coverage and see where you can add test cases.
 
 ```sh
@@ -61,13 +64,14 @@ inv test.cov
 
 ### Step 10. Reformat source code
 
-Format your code through `black` and `isort`.
+Format your code through `ruff`.
 
 ```sh
-inv style.reformat
+inv style.format
 ```
 
 ### Step 11. Run style check
+
 Make sure your coding style passes all enforced linters.
 
 ```sh
