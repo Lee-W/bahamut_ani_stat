@@ -8,11 +8,11 @@ from pytest_httpx import HTTPXMock
 
 from bahamut_ani_stat.parser import parser
 
-yaml.SafeDumper.yaml_representers[
-    None  # type: ignore
-] = lambda self, data: yaml.representer.SafeRepresenter.represent_str(
-    self,  # type: ignore
-    str(data),
+yaml.SafeDumper.yaml_representers[None] = (  # type: ignore
+    lambda self, data: yaml.representer.SafeRepresenter.represent_str(
+        self,  # type: ignore
+        str(data),
+    )
 )
 
 
