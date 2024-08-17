@@ -20,22 +20,22 @@ yaml.SafeDumper.yaml_representers[None] = (  # type: ignore
 )
 
 
-@pytest.fixture()
+@pytest.fixture
 def datadir_text(request, shared_datadir) -> str:
     return (shared_datadir / request.param).read_text()
 
 
-@pytest.fixture()
+@pytest.fixture
 def anime_list_data(shared_datadir) -> str:
     return (shared_datadir / "animeList.html").read_text()
 
 
-@pytest.fixture()
+@pytest.fixture
 def home_page_data(shared_datadir) -> str:
     return (shared_datadir / "homePage.html").read_text()
 
 
-@pytest.fixture()
+@pytest.fixture
 def out_of_season_data(shared_datadir) -> list:
     return json.loads((shared_datadir / "animeOutOfSeasonMore.html").read_text())
 
@@ -73,7 +73,7 @@ def test_get_animes_base_data(httpx_mock: HTTPXMock, data_regression, anime_list
         data_regression.check(animes)
 
 
-@pytest.mark.slow()
+@pytest.mark.slow
 def test_get_all_animes_base_data(
     httpx_mock: HTTPXMock, data_regression, anime_list_data
 ):
