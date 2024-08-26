@@ -144,7 +144,7 @@ pytest-sugar = "^1.0.0"
 coverage = { extras = ["toml"], version = "^7.0.0" }
 # style
 ruff = "^0.6.2"
-mypy = "^1.11.1"
+mypy = "^1.11.2"
 # securitykk
 bandit = "^1.7.9"
 pip-audit = "^2.7.3"
