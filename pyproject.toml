@@ -123,7 +123,7 @@ tqdm = "^4.61.1"
 dataclasses-json = "^0.5.4"
 lxml = "^5.0.0"
 click = "^8.0.1"
-SQLAlchemy = { extras = ["mypy"], version = "^1.4.0" }
+SQLAlchemy = { extras = ["mypy"], version = ">=1.4,<3.0" }
 bokeh = "^3.0.0"
 pandas = "^2.0.0"
 pydantic = "^2.0.0"
