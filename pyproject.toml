@@ -134,7 +134,7 @@ setuptools = ">=72.1,<75.0"
 # task management
 invoke = "^2.0.0"
 # test
-pytest = "^8.2.1"
+pytest = "^8.3.3"
 pytest-cov = "^5.0.0"
 pytest-mock = "^3.0.0"
 pytest-regressions = "^2.5.0"
