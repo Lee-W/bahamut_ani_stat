@@ -1221,13 +1221,13 @@ pyyaml = ">=5.1"
 
 [[package]]
 name = "mkdocs-material"
-version = "9.5.35"
+version = "9.5.43"
 description = "Documentation that simply works"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "mkdocs_material-9.5.35-py3-none-any.whl", hash = "sha256:44e069d87732d29f4a2533ae0748fa0e67e270043270c71f04d0fba11a357b24"},
-    {file = "mkdocs_material-9.5.35.tar.gz", hash = "sha256:0d233d7db067ac896bf22ee7950eebf2b1eaf26c155bb27382bf4174021cc117"},
+    {file = "mkdocs_material-9.5.43-py3-none-any.whl", hash = "sha256:4aae0664c456fd12837a3192e0225c17960ba8bf55d7f0a7daef7e4b0b914a34"},
+    {file = "mkdocs_material-9.5.43.tar.gz", hash = "sha256:83be7ff30b65a1e4930dfa4ab911e75780a3afc9583d162692e434581cb46979"},
 ]
 
 [package.dependencies]
@@ -2881,4 +2881,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "89a6365653c3beaf1728c55068e3e240f3d2d07de6738c20ea0f90e2cdb9526d"
+content-hash = "749ba015a25341501cdf19ed63163b3a49a4016bcb20cb03bdd6f28db48d3fad"
