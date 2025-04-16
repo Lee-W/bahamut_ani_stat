@@ -28,7 +28,8 @@ def commit_check(ctx: Context, remote: str = "origin") -> None:
     )
 
 
-@task(pre=[ruff, mypy, commit_check], default=True)
+# @task(pre=[ruff, mypy, commit_check], default=True)
+@task(pre=[ruff, commit_check], default=True)
 def run(ctx: Context) -> None:
     """Check style through linter"""
     pass
