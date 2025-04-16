@@ -57,9 +57,7 @@ def test_get_danmu(httpx_mock: HTTPXMock, data_regression, shared_datadir):
         data_regression.check(danmus)
 
 
-def test_get_anime_list_page_count(
-    httpx_mock: HTTPXMock, data_regression, anime_list_data
-):
+def test_get_anime_list_page_count(httpx_mock: HTTPXMock, data_regression, anime_list_data):
     httpx_mock.add_response(text=anime_list_data)
     with httpx.Client():
         page_count = parser.get_anime_list_page_count()
@@ -74,9 +72,7 @@ def test_get_animes_base_data(httpx_mock: HTTPXMock, data_regression, anime_list
 
 
 @pytest.mark.slow
-def test_get_all_animes_base_data(
-    httpx_mock: HTTPXMock, data_regression, anime_list_data
-):
+def test_get_all_animes_base_data(httpx_mock: HTTPXMock, data_regression, anime_list_data):
     httpx_mock.add_response(text=anime_list_data)
     with httpx.Client():
         animes = parser.get_all_animes_base_data(to_dict=True, ignore_none=True)
@@ -123,9 +119,7 @@ def test_get_premium_rate(httpx_mock: HTTPXMock, data_regression, home_page_data
         data_regression.check(parser.get_premium_rate())
 
 
-def test_get_out_of_season_animes(
-    httpx_mock: HTTPXMock, data_regression, out_of_season_data
-):
+def test_get_out_of_season_animes(httpx_mock: HTTPXMock, data_regression, out_of_season_data):
     httpx_mock.add_response(json=out_of_season_data)
     with httpx.Client():
         animes = parser.get_out_of_season_animes(to_dict=True, ignore_none=True)

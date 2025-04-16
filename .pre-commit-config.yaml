@@ -3,8 +3,8 @@ default_install_hook_types:
   - commit-msg
   - pre-push
 default_stages:
-  - commit
-  - push
+  - pre-commit
+  - pre-push
 
 repos:
   - repo: meta
@@ -13,7 +13,7 @@ repos:
       - id: check-useless-excludes
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.6.0
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
@@ -28,20 +28,20 @@ repos:
       - id: detect-private-key
 
   - repo: https://github.com/asottile/blacken-docs
-    rev: 1.14.0
+    rev: 1.18.0
     hooks:
       - id: blacken-docs
-        additional_dependencies: [black>=22.10]
+        additional_dependencies: [black>=24.1.1]
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.5
+    rev: v2.3.0
     hooks:
       - id: codespell
         name: Run codespell to check for common misspellings in files
         language: python
         types: [text]
-        exclude: ^poetry.lock$
-        args: ["--write-changes", "--ignore-words-list", "asend"]
+        exclude: ^uv.lock$
+        args: ["--write-changes", "--ignore-words", "spelling_wordlist.txt"]
 
   - repo: https://github.com/hadolint/hadolint
     rev: v2.12.1-beta
@@ -53,37 +53,41 @@ repos:
     hooks:
       - id: commitizen
         stages: [commit-msg]
+      - id: commitizen-branch
+        stages:
+          - post-commit
+          - pre-push
 
   - repo: local
     hooks:
       - id: style-format
         name: style-format
-        stages: [commit]
+        stages: [pre-commit]
         language: system
         pass_filenames: false
-        entry: inv style.format
+        entry: uv run inv style.format
         types: [python]
 
       - id: style-check
         name: style-check
-        stages: [push]
+        stages: [pre-push]
         language: system
         pass_filenames: false
-        entry: inv style
+        entry: uv run inv style
         types: [python]
 
       - id: security-check
         name: security-check
-        stages: [push]
+        stages: [pre-push]
         language: system
         pass_filenames: false
-        entry: inv secure
+        entry: uv run inv secure
         types: [python]
 
       - id: test
         name: test
-        stages: [push]
+        stages: [pre-push]
         language: system
         pass_filenames: false
-        entry: inv test
+        entry: uv run inv test
         types: [python]

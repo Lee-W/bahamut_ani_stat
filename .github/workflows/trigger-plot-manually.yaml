@@ -13,21 +13,22 @@ jobs:
           fetch-depth: 0
           ref: accumulate-data
 
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v5.2.0
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.9"
+          enable-cache: true
+          version: "latest"
 
       - name: Install dependencies
         run: |
-          python -m pip install -U pip poetry invoke
-          inv env.init-dev
+          uv tool install invoke
+          inv env.init-dev --no-pre-commit
 
       - name: Plot data
         run: |
-            poetry run python bahamut_ani_stat plot anime sqlite:///data/anime.db docs/assets/plots/anime.html
-            poetry run python bahamut_ani_stat plot premium-rate sqlite:///data/anime.db docs/assets/plots/premium-rate.html
-            poetry run python bahamut_ani_stat plot anime-trend sqlite:///data/anime.db docs/assets/plots/new-anime-trend.html
+            uv run python bahamut_ani_stat plot anime sqlite:///data/anime.db docs/assets/plots/anime.html
+            uv run python bahamut_ani_stat plot premium-rate sqlite:///data/anime.db docs/assets/plots/premium-rate.html
+            uv run python bahamut_ani_stat plot anime-trend sqlite:///data/anime.db docs/assets/plots/new-anime-trend.html
 
       - name: Push data
         run: |
@@ -43,7 +44,7 @@ jobs:
           inv doc.build --no-local
 
       - name: Push documentation to Github Page
-        uses: peaceiris/actions-gh-pages@v3.9.3
+        uses: peaceiris/actions-gh-pages@v4.0.0
         with:
           personal_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           publish_branch: gh-pages
