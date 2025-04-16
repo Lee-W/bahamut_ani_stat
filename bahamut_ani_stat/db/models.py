@@ -56,12 +56,8 @@ class Anime(Base):
     anime_view_counts: list[AnimeViewCount] = relationship(
         "AnimeViewCount", back_populates="anime", uselist=True
     )
-    anime_scores: list[AnimeScore] = relationship(
-        "AnimeScore", back_populates="anime", uselist=True
-    )
-    episodes: list[Episode] = relationship(
-        "Episode", back_populates="anime", uselist=True
-    )
+    anime_scores: list[AnimeScore] = relationship("AnimeScore", back_populates="anime", uselist=True)
+    episodes: list[Episode] = relationship("Episode", back_populates="anime", uselist=True)
     danmus: list[Danmu] = relationship("Danmu", back_populates="anime", uselist=True)
 
 
@@ -71,9 +67,7 @@ class Director(Base):
     id_ = Column(Integer, primary_key=True)
     name = Column(Integer, unique=True)
 
-    animes: Anime = relationship(
-        "Anime", back_populates="directors", secondary=anime_director_association
-    )
+    animes: Anime = relationship("Anime", back_populates="directors", secondary=anime_director_association)
 
 
 class Agent(Base):
@@ -91,9 +85,7 @@ class Studio(Base):
     id_ = Column(Integer, primary_key=True)
     name = Column(Integer, unique=True)
 
-    animes: Anime = relationship(
-        "Anime", back_populates="studios", secondary=anime_studio_association
-    )
+    animes: Anime = relationship("Anime", back_populates="studios", secondary=anime_studio_association)
 
 
 class AnimeViewCount(Base):

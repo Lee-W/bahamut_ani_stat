@@ -5,7 +5,7 @@ nav:
   - Contributing: contributing.md
   - Plots: plots.md
 theme:
-  name: 'material'
+  name: "material"
 repo_url: https://github.com/Lee-W/bahamut_ani_stat
 remote_branch: gh-pages
 remote_name: origin

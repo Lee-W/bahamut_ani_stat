@@ -1,35 +1,46 @@
 from __future__ import annotations
 
-from invoke import task
+from invoke.context import Context
+from invoke.tasks import task
 
 from tasks.common import COMMON_TARGETS_AS_STR, VENV_PREFIX
 
 
 @task
-def ruff(ctx):
+def ruff(ctx: Context, fix: bool = True) -> None:
     """Check style through ruff"""
-    ctx.run(f"{VENV_PREFIX} ruff check {COMMON_TARGETS_AS_STR}")
+    arguments = " --fix" if fix else ""
+    ctx.run(f"{VENV_PREFIX} ruff check {COMMON_TARGETS_AS_STR} {arguments}")
 
 
 @task
-def mypy(ctx):
+def mypy(ctx: Context) -> None:
     """Check style through mypy"""
     ctx.run(f"{VENV_PREFIX} mypy")
 
 
 @task
-def commit_check(ctx, remote="origin"):
+def commit_check(ctx: Context, remote: str = "origin") -> None:
     """Check commit message through commitizen"""
-    ctx.run(f"{VENV_PREFIX} cz -nr 3 check --rev-range {remote}/main..", warn=True)
+    ctx.run(
+        f"{VENV_PREFIX} cz -nr 3 check --rev-range {remote}/main..",
+        warn=True,
+    )
 
 
 @task(pre=[ruff, mypy, commit_check], default=True)
-def run(ctx):
-    """Check style through linter (Note that pylint is not included)"""
+def run(ctx: Context) -> None:
+    """Check style through linter"""
     pass
 
 
-@task(pre=[ruff])
-def format(ctx):
+@task
+def ruff_format(ctx: Context) -> None:
+    """Format Python code through ruff"""
+    ctx.run(f"{VENV_PREFIX} ruff format {COMMON_TARGETS_AS_STR}")
+
+
+@task(pre=[ruff_format])
+def format(ctx: Context) -> None:
     """Reformat python files through ruff"""
     pass

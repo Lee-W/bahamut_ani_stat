@@ -23,13 +23,16 @@ git checkout -b [YOUR FEATURE]
 ### Step 5. Install prerequisite
 
 ```sh
-python -m pip install pipx
-python -m pipx install poetry invoke
-python -m pipx ensurepath
+
+# Step 1: Install uv on macOS and Linux.
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# Step 1: Install uv on Windows.
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+uv tool install invoke
 ```
 
-* [pipx](https://github.com/pipxproject/pipx): for python tool management
-* [poetry](https://python-poetry.org/): for dependency management
+* [uv](https://github.com/astral-sh/uv)
 * [invoke](https://github.com/pyinvoke/invoke): for task management
 
 ### Step 6. Create your local Python virtual environment and install dependencies
@@ -76,12 +79,6 @@ Make sure your coding style passes all enforced linters.
 
 ```sh
 inv style
-```
-
-[Optional] Check your coding style through `pylint`. Note that you do not have to fix all the issues warned by `pylint`.
-
-```sh
-inv style.pylint
 ```
 
 ### Step 12. Run security check
