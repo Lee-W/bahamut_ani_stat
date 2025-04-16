@@ -10,7 +10,7 @@
       "github_url": "git@github.com:Lee-W/bahamut_ani_stat.git",
       "author_name": "Wei Lee",
       "author_email": "weilee.rx@gmail.com",
-      "python_version": "3.8",
+      "python_version": "3.12",
       "dependency_management_tool": "poetry",
       "default_branch": "main",
       "use_strict_mypy_config": "y",
