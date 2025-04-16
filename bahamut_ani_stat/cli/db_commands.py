@@ -38,9 +38,7 @@ def create_tables_command(db_uri: str) -> None:
 @click.argument("db-uri")
 @click.option("--page", default=None, type=int)
 @click.option("--random-sleep", default=False, is_flag=True)
-def add_animes_base_data_command(
-    db_uri: str, page: int | None, random_sleep: bool
-) -> None:
+def add_animes_base_data_command(db_uri: str, page: int | None, random_sleep: bool) -> None:
     """Parse 所有動畫 page and add animes data to database"""
     animes = parser.get_all_animes_base_data(page)
 
@@ -58,9 +56,7 @@ def add_animes_base_data_command(
                         "release_time": anime.release_time,
                     },
                 )
-                if is_view_count_changed_since_latest_update(
-                    session, anime.view_count, anime.sn
-                ):
+                if is_view_count_changed_since_latest_update(session, anime.view_count, anime.sn):
                     anime_view_count_obj = models.AnimeViewCount(
                         view_count=anime.view_count, anime_sn=anime.sn
                     )
@@ -83,9 +79,7 @@ def add_premium_rate_command(db_uri: str) -> None:
 
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
-        stmt = select(models.PremiumRate.premium_rate).order_by(
-            models.PremiumRate.insert_time.desc()
-        )
+        stmt = select(models.PremiumRate.premium_rate).order_by(models.PremiumRate.insert_time.desc())
         latest_premium_rate = session.execute(stmt).scalars().first()
 
         if premium_rate != latest_premium_rate:
@@ -123,17 +117,13 @@ def add_new_animes_command(db_uri: str, random_sleep: bool) -> None:
                     },
                 )
 
-                if is_view_count_changed_since_latest_update(
-                    session, anime.view_count, anime.sn
-                ):
+                if is_view_count_changed_since_latest_update(session, anime.view_count, anime.sn):
                     anime_view_count_obj = models.AnimeViewCount(
                         view_count=anime.view_count, anime_sn=anime.sn
                     )
                     session.add(anime_view_count_obj)
 
-                upsert_episode(
-                    session, {"sn": anime.episodes[0].sn, "anime_sn": anime.sn}
-                )
+                upsert_episode(session, {"sn": anime.episodes[0].sn, "anime_sn": anime.sn})
                 if random_sleep:
                     sec = randint(0, 10)
                     click.echo(f"\nSleep for {sec} seconds")
@@ -202,9 +192,7 @@ def add_animes_detail_command(
                             click.echo(f"\nSleep for {sec} seconds")
                             sleep(sec)
                         retry_count += 1
-                        click.echo(
-                            click.style(f"{retry_count} time retry", fg="yellow")
-                        )
+                        click.echo(click.style(f"{retry_count} time retry", fg="yellow"))
                     except Exception as e:
                         click.echo(
                             click.style(

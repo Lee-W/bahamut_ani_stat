@@ -49,17 +49,13 @@ def create_tables(db_uri: str) -> None:
 
 def upsert_anime(session: Session, attrs: dict[str, Any]) -> None:
     insert_stmt = insert(models.Anime).values(attrs)
-    upsert_stmt = insert_stmt.on_conflict_do_update(
-        index_elements=[models.Anime.sn], set_=attrs
-    )
+    upsert_stmt = insert_stmt.on_conflict_do_update(index_elements=[models.Anime.sn], set_=attrs)
     session.execute(upsert_stmt)
 
 
 def upsert_episode(session: Session, attrs: dict[str, Any]) -> None:
     insert_stmt = insert(models.Episode).values(attrs)
-    upsert_stmt = insert_stmt.on_conflict_do_update(
-        index_elements=[models.Episode.sn], set_=attrs
-    )
+    upsert_stmt = insert_stmt.on_conflict_do_update(index_elements=[models.Episode.sn], set_=attrs)
     session.execute(upsert_stmt)
 
 
@@ -70,17 +66,11 @@ def clean_up_old_animes(session: Session, new_animes_sn: set[str]) -> None:
     original_new_animes_sn = result.scalars().all()
     old_anime_sn = set(original_new_animes_sn) - set(new_animes_sn)
 
-    update_stmt = (
-        update(models.Anime)
-        .where(models.Anime.sn.in_(old_anime_sn))
-        .values(is_new=False)
-    )
+    update_stmt = update(models.Anime).where(models.Anime.sn.in_(old_anime_sn)).values(is_new=False)
     session.execute(update_stmt)
 
 
-def is_view_count_changed_since_latest_update(
-    session: Session, view_count: float, anime_sn: str
-) -> bool:
+def is_view_count_changed_since_latest_update(session: Session, view_count: float, anime_sn: str) -> bool:
     stmt = (
         select(models.AnimeViewCount.view_count)
         .filter_by(anime_sn=anime_sn)
@@ -102,7 +92,5 @@ def is_score_or_reviewer_changed_since_latest_update(
     result = session.execute(stmt).first()
     if result:
         latest_score, latest_reviewer_count = result
-        return bool(
-            (score != latest_score) or (reviewer_count != latest_reviewer_count)
-        )
+        return bool((score != latest_score) or (reviewer_count != latest_reviewer_count))
     return True

@@ -20,9 +20,7 @@ class Episode(BaseModel):
     sn: Optional[str] = None
     name: Optional[str] = None
     season_title: Optional[str] = None
-    upload_date: Union[datetime, Optional[str]] = (
-        None  # TODO: Fix tests and type conflict (str and datetime)
-    )
+    upload_date: Union[datetime, Optional[str]] = None  # TODO: Fix tests and type conflict (str and datetime)
     view_count: Optional[int] = None
 
 
@@ -42,7 +40,7 @@ class Anime(BaseModel):
     name: Optional[str] = None
     view_count: Optional[int] = None
     release_time: Optional[datetime] = None
-    metadata: Optional[dict[str, str]]= None
+    metadata: Optional[dict[str, str]] = None
     upload_hour: Optional[str] = None
     labels: Optional[list[str]] = None
 

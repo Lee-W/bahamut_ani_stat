@@ -1,6 +1,6 @@
 {
   "template": "git@github.com:Lee-W/cookiecutter-python-template.git",
-  "commit": "4624db98373e9456ed421599484fb7c7d5b7bee2",
+  "commit": "7f95891c20bc199acd36171466891a85f0813368",
   "context": {
     "cookiecutter": {
       "project_name": "bahamut_ani_stat",
@@ -11,13 +11,32 @@
       "author_name": "Wei Lee",
       "author_email": "weilee.rx@gmail.com",
       "python_version": "3.12",
-      "dependency_management_tool": "poetry",
+      "dependency_management_tool": "uv",
       "default_branch": "main",
       "use_strict_mypy_config": "y",
       "build_pypi_package": "y",
       "build_docker_image": "y",
       "open_source_license": "MIT license",
-      "_template_version": "1.6.0",
+      "auto_detect_update_from_cruft_template": false,
+      "_template_version": "3.0.0",
+      "_actions_checkout_version": "v4",
+      "_actions_setup_python_version": "v5",
+      "_setup_uv_version": "v5",
+      "_package_versions": {
+        "invoke": "2.2.0",
+        "pytest": "8.3.4",
+        "coverage": "7.6.10",
+        "pytest_cov": "6.0.0",
+        "pytest_mock": "3.14.0",
+        "mypy": "1.14.1",
+        "ruff": "0.9.2",
+        "bandit": "1.2.2",
+        "pip_audit": "2.7.3",
+        "commitizen": "4.1.0",
+        "pre_commit": "4.0.1",
+        "mkdocs": "1.6.1",
+        "mkdocs_material": "9.5.50"
+      },
       "_template": "git@github.com:Lee-W/cookiecutter-python-template.git"
     }
   },

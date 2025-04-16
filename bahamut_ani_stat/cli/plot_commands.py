@@ -97,9 +97,7 @@ def plot_anime_command(db_uri: str, output_filename: str) -> None:
 
     output_file(filename=output_filename, title="動畫瘋所有動畫")
 
-    emit_js = CustomJS(
-        args={"data_source": data_source}, code="data_source.change.emit()"
-    )
+    emit_js = CustomJS(args={"data_source": data_source}, code="data_source.change.emit()")
 
     (
         text_input,
@@ -134,9 +132,7 @@ def plot_anime_command(db_uri: str, output_filename: str) -> None:
         TableColumn(field="score", title="評分"),
         TableColumn(field="view_count", title="觀看人次"),
         TableColumn(field="is_new", title="是否為新番"),
-        TableColumn(
-            field="release_time", title="動畫播出時間", formatter=DateFormatter()
-        ),
+        TableColumn(field="release_time", title="動畫播出時間", formatter=DateFormatter()),
         TableColumn(
             field="sn",
             title="sn",
@@ -223,9 +219,7 @@ def plot_anime_trend_command(db_uri: str, output_filename: str) -> None:
     anime_name_list = list(view_source_dict.keys())
     first_anime = anime_name_list[0]
 
-    first_score_source, score_source_dict = _group_stat(
-        score_results, "scores", first_anime
-    )
+    first_score_source, score_source_dict = _group_stat(score_results, "scores", first_anime)
 
     output_file(filename=output_filename, title="動畫瘋觀看、評分趨勢")
 
@@ -288,9 +282,9 @@ def plot_anime_trend_command(db_uri: str, output_filename: str) -> None:
             "text_input": text_input,
             "data_source": data_sources,
         },
-        code=pkg_resources.resource_string(
-            "bahamut_ani_stat.plot", "static/dropdown-anime-filter.js"
-        ).decode("utf-8"),
+        code=pkg_resources.resource_string("bahamut_ani_stat.plot", "static/dropdown-anime-filter.js").decode(
+            "utf-8"
+        ),
     )
 
     text_input.js_on_change("value", filter_js)
