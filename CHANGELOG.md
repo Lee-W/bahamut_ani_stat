@@ -1,4 +1,10 @@
 # Changelog
+## 0.9.0 (2025-05-07)
+
+### Feat
+
+- **cruft**: update dep tool as uv and python version to 3.12
+
 ## 0.8.1 (2024-08-13)
 
 ### Fix

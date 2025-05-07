@@ -1,6 +1,6 @@
 [project]
 name = "bahamut_ani_stat"
-version = "0.8.1"
+version = "0.9.0"
 authors = [{ name = "Wei Lee", email = "weilee.rx@gmail.com" }]
 description = "Toolkit for Bahamut ani gamer data"
 license = { file = "LICENSE" }
@@ -74,7 +74,7 @@ build-backend = "hatchling.build"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.8.1"
+version = "0.9.0"
 tag_format = "$version"
 version_files = ["pyproject.toml:version"]
 
