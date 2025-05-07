@@ -40,6 +40,11 @@ jobs:
           enable-cache: true
           version: "latest"
 
+      - name: Install dependencies
+        run: |
+          uv tool install invoke
+          inv env.init-dev --groups-to-install doc --no-pre-commit
+
       - name: Build docs
         run: |
           inv doc.build
