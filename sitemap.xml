@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>http://127.0.0.1:8000/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <loc>https://lee-w.github.io/bahamut_ani_stat/</loc>
+         <lastmod>2025-05-08</lastmod>
     </url>
     <url>
-         <loc>http://127.0.0.1:8000/contributing/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <loc>https://lee-w.github.io/bahamut_ani_stat/contributing/</loc>
+         <lastmod>2025-05-08</lastmod>
     </url>
     <url>
-         <loc>http://127.0.0.1:8000/plots/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <loc>https://lee-w.github.io/bahamut_ani_stat/plots/</loc>
+         <lastmod>2025-05-08</lastmod>
     </url>
 </urlset>
