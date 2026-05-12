@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import importlib.resources
+import json
+import os
+from itertools import groupby
 
 import click
 import pandas as pd
@@ -28,7 +31,7 @@ from sqlalchemy.sql import functions as sql_func
 
 from bahamut_ani_stat.db import models
 from bahamut_ani_stat.db.utils import latest_score_cte, latest_view_count_cte
-from bahamut_ani_stat.plot.utils import DATE_TIME_FORMAT, _get_filter_tools, _group_stat
+from bahamut_ani_stat.plot.utils import DATE_TIME_FORMAT, _get_filter_tools
 
 
 @click.group(name="plot")
@@ -166,39 +169,75 @@ def plot_anime_command(db_uri: str, output_filename: str) -> None:
     click.echo(f"Export anime plot to {output_filename}")
 
 
-@plot_command_group.command(name="anime-trend")
+@plot_command_group.command(name="anime-trend-data")
 @click.argument("db-uri")
-@click.argument("output-filename", default="anime-trend.html")
-def plot_anime_trend_command(db_uri: str, output_filename: str) -> None:
-    """Plot the score and view count trand for new animes"""
+@click.argument("output-dir", default="docs/assets/data/anime_trend")
+def plot_anime_trend_data_command(db_uri: str, output_dir: str) -> None:
+    """Generate per-anime JSON files for lazy-loading in the trend chart"""
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
-        score_stmt = (
+        view_stmt = (
             select(
                 models.Anime.sn,
-                models.Anime.name,
-                models.AnimeScore.score,
-                models.AnimeScore.insert_time,
-            )
-            .join(models.AnimeScore)
-            .order_by(models.Anime.sn, models.AnimeScore.insert_time)
-        )
-        score_results = session.execute(score_stmt).fetchall()
-
-        view_conut_stmt = (
-            select(
-                models.Anime.sn,
-                models.Anime.name,
                 models.AnimeViewCount.view_count,
                 models.AnimeViewCount.insert_time,
             )
             .join(models.AnimeViewCount)
             .order_by(models.Anime.sn, models.AnimeViewCount.insert_time)
         )
-        view_count_results = session.execute(view_conut_stmt).fetchall()
+        view_rows = session.execute(view_stmt).fetchall()
 
+        score_stmt = (
+            select(
+                models.Anime.sn,
+                models.AnimeScore.score,
+                models.AnimeScore.insert_time,
+            )
+            .join(models.AnimeScore)
+            .order_by(models.Anime.sn, models.AnimeScore.insert_time)
+        )
+        score_rows = session.execute(score_stmt).fetchall()
+
+    view_by_sn: dict[str, dict[str, list[object]]] = {}
+    for sn, group in groupby(view_rows, key=lambda r: r[0]):
+        rows = list(group)
+        view_by_sn[sn] = {
+            "view_counts": [r[1] for r in rows],
+            "insert_times": [int(r[2].timestamp() * 1000) for r in rows],
+        }
+
+    score_by_sn: dict[str, dict[str, list[object]]] = {}
+    for sn, group in groupby(score_rows, key=lambda r: r[0]):  # type: ignore[assignment]
+        rows = list(group)
+        score_by_sn[sn] = {
+            "scores": [r[1] for r in rows],
+            "insert_times": [int(r[2].timestamp() * 1000) for r in rows],
+        }
+
+    os.makedirs(output_dir, exist_ok=True)
+    all_sn = set(view_by_sn) | set(score_by_sn)
+    for sn in all_sn:
+        payload = {
+            "view_counts": view_by_sn.get(sn, {"view_counts": [], "insert_times": []}),
+            "scores": score_by_sn.get(sn, {"scores": [], "insert_times": []}),
+        }
+        with open(os.path.join(output_dir, f"{sn}.json"), "w", encoding="utf-8") as f:
+            json.dump(payload, f)
+
+    click.echo(f"Wrote {len(all_sn)} anime JSON files to {output_dir}")
+
+
+@plot_command_group.command(name="anime-trend")
+@click.argument("db-uri")
+@click.argument("output-filename", default="anime-trend.html")
+@click.option("--data-path", default="assets/data/anime_trend", help="Relative path prefix for JSON data files")
+def plot_anime_trend_command(db_uri: str, output_filename: str, data_path: str) -> None:
+    """Plot the score and view count trend for new animes (lazy-loads per-anime JSON)"""
+    engine = sqlalchemy.create_engine(db_uri)
+    with Session(engine) as session, session.begin():
         stmt = (
             select(
+                models.Anime.sn,
                 models.Anime.name,
                 models.Anime.is_new,
                 latest_view_count_cte.c.view_count,
@@ -217,12 +256,39 @@ def plot_anime_trend_command(db_uri: str, output_filename: str) -> None:
         stmt = select(sql_func.max(models.AnimeViewCount.view_count))
         max_view_count: int = session.execute(stmt).scalars().first() or 0
 
-    first_view_source, view_source_dict = _group_stat(view_count_results, "view_counts")
+        # Fetch initial data for the first anime in the list
+        first_sn: str = df["sn"].iloc[0] if not df.empty else ""
+        first_name: str = df["name"].iloc[0] if not df.empty else ""
 
-    anime_name_list = list(view_source_dict.keys())
-    first_anime = anime_name_list[0]
+        view_stmt = (
+            select(models.AnimeViewCount.view_count, models.AnimeViewCount.insert_time)
+            .where(models.AnimeViewCount.anime_sn == first_sn)
+            .order_by(models.AnimeViewCount.insert_time)
+        )
+        view_rows = session.execute(view_stmt).fetchall()
 
-    first_score_source, score_source_dict = _group_stat(score_results, "scores", first_anime)
+        score_stmt = (
+            select(models.AnimeScore.score, models.AnimeScore.insert_time)
+            .where(models.AnimeScore.anime_sn == first_sn)
+            .order_by(models.AnimeScore.insert_time)
+        )
+        score_rows = session.execute(score_stmt).fetchall()
+
+    name_to_sn: dict[str, str] = dict(zip(df["name"].tolist(), df["sn"].tolist()))
+    anime_name_list: list[str] = df["name"].tolist()
+
+    first_view_source = ColumnDataSource(
+        {
+            "view_counts": [r[0] for r in view_rows],
+            "insert_times": [r[1] for r in view_rows],
+        }
+    )
+    first_score_source = ColumnDataSource(
+        {
+            "scores": [r[0] for r in score_rows],
+            "insert_times": [r[1] for r in score_rows],
+        }
+    )
 
     output_file(filename=output_filename, title="動畫瘋觀看、評分趨勢")
 
@@ -252,15 +318,15 @@ def plot_anime_trend_command(db_uri: str, output_filename: str) -> None:
         )
     )
 
-    ani_select = Select(title="作品", value=first_anime, options=anime_name_list)
+    ani_select = Select(title="作品", value=first_name, options=anime_name_list)
     ani_select.js_on_change(
         "value",
         CustomJS(
             args={
-                "view_counts_source_dict": view_source_dict,
                 "view_source": first_view_source,
-                "score_source_dict": score_source_dict,
                 "score_source": first_score_source,
+                "name_to_sn": name_to_sn,
+                "data_path": data_path,
             },
             code=importlib.resources.files("bahamut_ani_stat.plot")
             .joinpath("static/new-anime-source-update-dropdown.js")

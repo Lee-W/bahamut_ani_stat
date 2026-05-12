@@ -1,18 +1,24 @@
-console.log(cb_obj.value);
+const name = cb_obj.value;
 
-if (cb_obj.value != "無符合條件之作品") {
-    view_source.data["insert_times"] = view_counts_source_dict[cb_obj.value].data["insert_times"];
-    view_source.data["view_counts"] = view_counts_source_dict[cb_obj.value].data["view_counts"];
-
-    score_source.data["scores"] = score_source_dict[cb_obj.value].data["scores"];
-    score_source.data["insert_times"] = score_source_dict[cb_obj.value].data["insert_times"];
+if (name === "無符合條件之作品") {
+    view_source.data = { insert_times: [], view_counts: [] };
+    score_source.data = { insert_times: [], scores: [] };
+    view_source.change.emit();
+    score_source.change.emit();
 } else {
-    view_source.data["insert_times"] = [];
-    view_source.data["view_counts"] = [];
-
-    score_source.data["scores"] = [];
-    score_source.data["insert_times"] = [];
+    const sn = name_to_sn[name];
+    fetch(data_path + "/" + sn + ".json")
+        .then(r => r.json())
+        .then(d => {
+            view_source.data = {
+                insert_times: d.view_counts.insert_times,
+                view_counts: d.view_counts.view_counts,
+            };
+            score_source.data = {
+                insert_times: d.scores.insert_times,
+                scores: d.scores.scores,
+            };
+            view_source.change.emit();
+            score_source.change.emit();
+        });
 }
-
-view_source.change.emit();
-score_source.change.emit();
