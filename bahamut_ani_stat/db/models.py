@@ -2,31 +2,25 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from sqlalchemy import (
-    Boolean,
-    Column,
-    DateTime,
-    Float,
-    ForeignKey,
-    Integer,
-    String,
-    Table,
-)
-from sqlalchemy.orm import Mapped, declarative_base, relationship
+from sqlalchemy import Column, ForeignKey, Integer, String, Table
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
-Base = declarative_base()
+
+class Base(DeclarativeBase):
+    pass
+
 
 anime_studio_association = Table(
     "anime_studio_association",
     Base.metadata,
-    Column("anime_sn", Integer, ForeignKey("anime.sn")),
+    Column("anime_sn", String, ForeignKey("anime.sn")),
     Column("studio_id", Integer, ForeignKey("studio.id_")),
 )
 
 anime_director_association = Table(
     "anime_director_association",
     Base.metadata,
-    Column("anime_sn", Integer, ForeignKey("anime.sn")),
+    Column("anime_sn", String, ForeignKey("anime.sn")),
     Column("director_id", Integer, ForeignKey("director.id_")),
 )
 
@@ -34,135 +28,139 @@ anime_director_association = Table(
 class Anime(Base):
     __tablename__ = "anime"
 
-    sn = Column(String, primary_key=True)
-    name = Column(String, nullable=True)
-    release_time = Column(DateTime, nullable=True)
-    upload_hour = Column(String, nullable=True)
-    is_new = Column(Boolean, default=False)
-    is_available = Column(Boolean, default=True)
+    sn: Mapped[str] = mapped_column(String, primary_key=True)
+    name: Mapped[str | None]
+    release_time: Mapped[datetime | None]
+    upload_hour: Mapped[str | None]
+    is_new: Mapped[bool] = mapped_column(default=False)
+    is_available: Mapped[bool] = mapped_column(default=True)
 
-    genre = Column(String, nullable=True)
-    target_audience = Column(String, nullable=True)
+    genre: Mapped[str | None]
+    target_audience: Mapped[str | None]
 
-    agent_id = Column(Integer, ForeignKey("agent.id_"))
-    agent: Mapped[Agent] = relationship("Agent", back_populates="animes")
-    directors: list[Director] = relationship(
+    agent_id: Mapped[int | None] = mapped_column(ForeignKey("agent.id_"))
+    agent: Mapped[Agent | None] = relationship("Agent", back_populates="animes")
+    directors: Mapped[list[Director]] = relationship(
         "Director", back_populates="animes", secondary=anime_director_association
     )
-    studios: list[Studio] = relationship(
+    studios: Mapped[list[Studio]] = relationship(
         "Studio", back_populates="animes", secondary=anime_studio_association
     )
 
-    anime_view_counts: list[AnimeViewCount] = relationship(
-        "AnimeViewCount", back_populates="anime", uselist=True
+    anime_view_counts: Mapped[list[AnimeViewCount]] = relationship(
+        "AnimeViewCount", back_populates="anime"
     )
-    anime_scores: list[AnimeScore] = relationship("AnimeScore", back_populates="anime", uselist=True)
-    episodes: list[Episode] = relationship("Episode", back_populates="anime", uselist=True)
-    danmus: list[Danmu] = relationship("Danmu", back_populates="anime", uselist=True)
+    anime_scores: Mapped[list[AnimeScore]] = relationship("AnimeScore", back_populates="anime")
+    episodes: Mapped[list[Episode]] = relationship("Episode", back_populates="anime")
+    danmus: Mapped[list[Danmu]] = relationship("Danmu", back_populates="anime")
 
 
 class Director(Base):
     __tablename__ = "director"
 
-    id_ = Column(Integer, primary_key=True)
-    name = Column(Integer, unique=True)
+    id_: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str | None] = mapped_column(String, unique=True)
 
-    animes: Anime = relationship("Anime", back_populates="directors", secondary=anime_director_association)
+    animes: Mapped[list[Anime]] = relationship(
+        "Anime", back_populates="directors", secondary=anime_director_association
+    )
 
 
 class Agent(Base):
     __tablename__ = "agent"
 
-    id_ = Column(Integer, primary_key=True)
-    name = Column(Integer, unique=True)
+    id_: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str | None] = mapped_column(String, unique=True)
 
-    animes: Anime = relationship("Anime", back_populates="agent", uselist=True)
+    animes: Mapped[list[Anime]] = relationship("Anime", back_populates="agent")
 
 
 class Studio(Base):
     __tablename__ = "studio"
 
-    id_ = Column(Integer, primary_key=True)
-    name = Column(Integer, unique=True)
+    id_: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str | None] = mapped_column(String, unique=True)
 
-    animes: Anime = relationship("Anime", back_populates="studios", secondary=anime_studio_association)
+    animes: Mapped[list[Anime]] = relationship(
+        "Anime", back_populates="studios", secondary=anime_studio_association
+    )
 
 
 class AnimeViewCount(Base):
     __tablename__ = "anime_view_count"
 
-    id_ = Column(Integer, primary_key=True)
-    view_count = Column(Integer)
-    insert_time = Column(DateTime, default=datetime.now)
+    id_: Mapped[int] = mapped_column(primary_key=True)
+    view_count: Mapped[int | None]
+    insert_time: Mapped[datetime] = mapped_column(default=datetime.now)
 
-    anime_sn = Column(String, ForeignKey("anime.sn"))
-    anime: Anime = relationship("Anime", back_populates="anime_view_counts")
+    anime_sn: Mapped[str | None] = mapped_column(ForeignKey("anime.sn"))
+    anime: Mapped[Anime] = relationship("Anime", back_populates="anime_view_counts")
 
 
 class AnimeScore(Base):
     __tablename__ = "anime_score"
 
-    id_ = Column(Integer, primary_key=True)
-    score = Column(Float)
-    reviewer_count = Column(Integer)
+    id_: Mapped[int] = mapped_column(primary_key=True)
+    score: Mapped[float]
+    reviewer_count: Mapped[int]
 
-    five_star_percentage = Column(Float)
-    four_star_percentage = Column(Float)
-    three_star_percentage = Column(Float)
-    two_star_percentage = Column(Float)
-    one_star_percentage = Column(Float)
+    five_star_percentage: Mapped[float | None]
+    four_star_percentage: Mapped[float | None]
+    three_star_percentage: Mapped[float | None]
+    two_star_percentage: Mapped[float | None]
+    one_star_percentage: Mapped[float | None]
 
-    insert_time = Column(DateTime, default=datetime.now)
+    insert_time: Mapped[datetime] = mapped_column(default=datetime.now)
 
-    anime_sn = Column(String, ForeignKey("anime.sn"))
-    anime: Anime = relationship("Anime", back_populates="anime_scores")
+    anime_sn: Mapped[str | None] = mapped_column(ForeignKey("anime.sn"))
+    anime: Mapped[Anime] = relationship("Anime", back_populates="anime_scores")
 
 
 class Danmu(Base):
     __tablename__ = "danmu"
 
-    sn = Column(Integer, primary_key=True)
-    text = Column(String)
-    color = Column(String(10))
-    size = Column(Integer)
-    position = Column(Integer)
-    time = Column(DateTime)
-    userid = Column(String)
+    sn: Mapped[int] = mapped_column(primary_key=True)
+    text: Mapped[str | None]
+    color: Mapped[str | None] = mapped_column(String(10))
+    size: Mapped[int | None]
+    position: Mapped[int | None]
+    time: Mapped[datetime | None]
+    userid: Mapped[str | None]
 
-    anime_sn = Column(String, ForeignKey("anime.sn"))
-    anime: Anime = relationship("Anime", back_populates="danmus")
+    anime_sn: Mapped[str | None] = mapped_column(ForeignKey("anime.sn"))
+    anime: Mapped[Anime] = relationship("Anime", back_populates="danmus")
 
 
 class Episode(Base):
     __tablename__ = "episode"
 
-    sn = Column(String, primary_key=True)
-    name = Column(String, nullable=True)
-    season_title = Column(String, nullable=True)
-    upload_date = Column(DateTime, nullable=True)
+    sn: Mapped[str] = mapped_column(String, primary_key=True)
+    name: Mapped[str | None]
+    season_title: Mapped[str | None]
+    upload_date: Mapped[datetime | None]
 
-    anime_sn = Column(String, ForeignKey("anime.sn"))
-    anime: Anime = relationship("Anime", back_populates="episodes")
+    anime_sn: Mapped[str | None] = mapped_column(ForeignKey("anime.sn"))
+    anime: Mapped[Anime] = relationship("Anime", back_populates="episodes")
 
-    episode_view_counts: EpisodeViewCount = relationship(
-        "EpisodeViewCount", back_populates="episode", uselist=True
+    episode_view_counts: Mapped[list[EpisodeViewCount]] = relationship(
+        "EpisodeViewCount", back_populates="episode"
     )
 
 
 class EpisodeViewCount(Base):
     __tablename__ = "episode_view_count"
 
-    id_ = Column(Integer, primary_key=True)
-    view_count = Column(Integer)
-    insert_time = Column(DateTime, default=datetime.now)
+    id_: Mapped[int] = mapped_column(primary_key=True)
+    view_count: Mapped[int | None]
+    insert_time: Mapped[datetime] = mapped_column(default=datetime.now)
 
-    episode_sn = Column(String, ForeignKey("episode.sn"))
-    episode: Episode = relationship("Episode", back_populates="episode_view_counts")
+    episode_sn: Mapped[str | None] = mapped_column(ForeignKey("episode.sn"))
+    episode: Mapped[Episode] = relationship("Episode", back_populates="episode_view_counts")
 
 
 class PremiumRate(Base):
     __tablename__ = "premium_rate"
 
-    id_ = Column(Integer, primary_key=True)
-    premium_rate = Column(Float)
-    insert_time = Column(DateTime, default=datetime.now)
+    id_: Mapped[int] = mapped_column(primary_key=True)
+    premium_rate: Mapped[float | None]
+    insert_time: Mapped[datetime] = mapped_column(default=datetime.now)
