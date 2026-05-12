@@ -50,7 +50,7 @@ def plot_premium_rate_command(db_uri: str, output_filename: str) -> None:
         results = session.execute(stmt).scalars().all()
         data = {row.insert_time: row.premium_rate for row in results}
 
-    pr_series = pd.Series(data).interpolate(method="pad")
+    pr_series = pd.Series(data).ffill()
 
     output_file(filename=output_filename, title="動畫瘋付費比例趨勢")
     p = figure(  # type: ignore[call-arg]
