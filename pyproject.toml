@@ -71,8 +71,8 @@ build-backend = "hatchling.build"
 [tool.commitizen]
 name = "cz_conventional_commits"
 version = "0.10.0"
-tag_format = "$version"
-version_files = ["pyproject.toml:version"]
+version_scheme = "pep440"
+version_provider = "uv"
 
 [tool.mypy]
 files = ["bahamut_ani_stat", "tests"]
