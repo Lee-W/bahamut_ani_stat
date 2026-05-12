@@ -179,10 +179,10 @@ known-first-party = ["tests"]
 convention = "google"
 
 
-[tool.pytest.ini_options]
-minversion = "8.0.0"
-testpaths = "tests"
-addopts = "--strict-markers"
+[tool.pytest]
+minversion = "9.0.0"
+testpaths = ["tests"]
+addopts = ["--strict-markers"]
 norecursedirs = [
     ".*",
     "build",
