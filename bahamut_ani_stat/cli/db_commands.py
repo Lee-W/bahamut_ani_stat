@@ -136,12 +136,14 @@ def add_new_animes_command(db_uri: str, random_sleep: bool) -> None:
 @click.option("--only-new-anime/--no-only-new-anime", is_flag=True, default=True)
 @click.option("--only-old-anime/--no-only-old-anime", is_flag=True, default=False)
 @click.option("--random-sleep", is_flag=True, default=False)
+@click.option("--sleep", "sleep_sec", default=0, type=int, help="Fixed seconds to sleep between requests")
 @click.option("--retry-limit", default=3, type=int)
 def add_animes_detail_command(
     db_uri: str,
     only_new_anime: bool,
     only_old_anime: bool,
     random_sleep: bool,
+    sleep_sec: int,
     retry_limit: int,
 ) -> None:
     """Parse anime data from first episode and add data to database"""
@@ -239,8 +241,10 @@ def add_animes_detail_command(
                     }
                     upsert_episode(session, epi_attrs)
 
-                if random_sleep:
-                    sec = randint(0, 10)
+                if sleep_sec:
+                    sleep(sleep_sec)
+                elif random_sleep:
+                    sec = randint(2, 5)
                     click.echo(f"\nSleep for {sec} seconds")
                     sleep(sec)
 
