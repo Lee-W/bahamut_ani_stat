@@ -17,14 +17,8 @@ jobs:
           enable-cache: true
           version: "latest"
 
-      - name: Install dependencies
-        run: |
-          uv tool install invoke
-          inv env.init-dev --no-pre-commit
-
       - name: Build package
-        run: |
-          inv build.dist
+        run: uv build
 
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@release/v1

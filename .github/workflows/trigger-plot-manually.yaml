@@ -20,9 +20,7 @@ jobs:
           version: "latest"
 
       - name: Install dependencies
-        run: |
-          uv tool install invoke
-          inv env.init-dev --no-pre-commit
+        run: uv sync --group dev --group doc
 
       - name: Plot data
         run: |
@@ -41,8 +39,7 @@ jobs:
             git push origin accumulate-data
 
       - name: Build docs
-        run: |
-          inv doc.build --no-local
+        run: uv run poe doc-build-ci
 
       - name: Push documentation to Github Page
         uses: peaceiris/actions-gh-pages@v4.0.0

@@ -5,8 +5,6 @@ from time import sleep
 
 import click
 import sqlalchemy
-
-# from dataclasses import todict
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 

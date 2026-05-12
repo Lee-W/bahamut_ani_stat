@@ -43,24 +43,24 @@ Issues = "https://github.com/Lee-W/bahamut_ani_stat/issues"
 Changelog = "https://github.com/Lee-W/bahamut_ani_stat/blob/main/CHANGELOG.md"
 
 [dependency-groups]
-dev = ["invoke>=2.2.0"]
+dev = ["poethepoet>=0.45.0"]
 test = [
-    "coverage[toml]>=7.6.10",
-    "pytest-regressions>=2.7.0",
-    "pytest>=8.3.4",
-    "pytest-cov>=6.0.0",
-    "pytest-mock>=3.14.0",
-    "pytest-httpx>=0.30.0",
-    "pytest-datadir>=1.5.0",
-    "pytest-sugar>=1.0.0"
+    "coverage[toml]>=7.14.0",
+    "pytest-regressions>=2.10.0",
+    "pytest>=9.0.3",
+    "pytest-cov>=7.1.0",
+    "pytest-mock>=3.15.1",
+    "pytest-httpx>=0.36.2",
+    "pytest-datadir>=1.8.0",
+    "pytest-sugar>=1.1.1",
 ]
 style = [
-    "mypy>=2.0.0",
-    "ruff>=0.9.2",
-    "types-PyYAML>=6.0.12.20240917",
+    "mypy>=2.1.0",
+    "ruff>=0.15.12",
+    "types-PyYAML>=6.0.12.20260510",
 ]
-security = ["bandit>=1.2.2", "pip-audit>=2.7.3"]
-git = ["commitizen>=4.1.0", "prek>=0.3.13"]
+security = ["bandit>=1.9.4", "pip-audit>=2.10.0"]
+git = ["commitizen>=4.16.0", "prek>=0.3.13"]
 doc = ["mkdocs>=1.6.1", "mkdocs-material>=9.5.50"]
 
 [build-system]
@@ -101,9 +101,64 @@ disallow_untyped_defs = false
 disallow_untyped_decorators = false
 
 
+[tool.poe]
+executor = { type = "uv" }
+
+[tool.poe.tasks]
+# Setup
+clean-env = { cmd = "rm -rf .venv", help = "Remove virtual environment" }
+
+# Hooks
+hooks = { cmd = "prek run --all-files --hook-stage pre-push", help = "Run all prek hooks" }
+
+# Test
+test = { cmd = "pytest", help = "Run test suite" }
+test-cov = { cmd = "pytest --cov=bahamut_ani_stat tests/", help = "Run tests with coverage report" }
+
+# Style
+ruff-format = { cmd = "ruff format bahamut_ani_stat tests", help = "Format code with ruff" }
+ruff-fix = { cmd = "ruff check bahamut_ani_stat tests --fix", help = "Auto-fix lint issues with ruff" }
+lint = { cmd = "ruff check bahamut_ani_stat tests", help = "Check lint with ruff" }
+mypy = { cmd = "mypy", help = "Type-check with mypy" }
+commit-check = { cmd = "cz -nr 3 check --rev-range origin/main..", help = "Check commit messages since main" }
+
+# Security
+audit = { cmd = "pip-audit", help = "Audit dependencies for vulnerabilities" }
+bandit = { cmd = "bandit -r -iii -lll --ini .bandit", help = "Static security analysis with bandit" }
+
+# Git
+commit = { cmd = "cz commit", help = "Interactive conventional commit" }
+bump = { cmd = "cz bump -nr 3 --yes", help = "Bump version and update changelog" }
+
+# Build
+dist = { cmd = "uv build", help = "Build distribution packages" }
+clean = { cmd = "git clean -Xdf", help = "Remove all untracked files listed in .gitignore" }
+
+# Docs
+doc-build = { cmd = "mkdocs build --clean", env = { SITE_URL = "http://127.0.0.1:8000" }, help = "Build docs locally" }
+doc-build-ci = { cmd = "mkdocs build --clean", help = "Build docs for CI/deployment" }
+doc-serve = { cmd = "mkdocs serve", env = { SITE_URL = "http://127.0.0.1:8000" }, help = "Serve docs locally" }
+doc-deploy = { cmd = "mkdocs gh-deploy", help = "Deploy docs to GitHub Pages" }
+
+[tool.poe.tasks.setup]
+shell = "uv sync --all-groups && prek install -t pre-commit && prek install -t pre-push && prek install -t commit-msg"
+help = "Install all dependencies and set up git hooks"
+
+[tool.poe.tasks.format]
+sequence = ["ruff-format", "ruff-fix"]
+help = "Format and auto-fix code"
+
+[tool.poe.tasks.style]
+sequence = ["lint", "mypy"]
+help = "Run all style checks"
+
+[tool.poe.tasks.secure]
+sequence = ["audit", "bandit"]
+help = "Run all security checks"
+
 [tool.ruff]
 line-length = 110
-target-version = "py312"
+target-version = "py310"
 
 [tool.ruff.lint]
 extend-select = [
