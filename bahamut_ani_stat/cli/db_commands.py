@@ -54,7 +54,9 @@ def add_animes_base_data_command(db_uri: str, page_count: int | None, random_sle
                         "release_time": anime.release_time,
                     },
                 )
-                if is_view_count_changed_since_latest_update(session, anime.view_count, anime.sn):
+                if anime.view_count is not None and is_view_count_changed_since_latest_update(
+                    session, anime.view_count, anime.sn
+                ):
                     anime_view_count_obj = models.AnimeViewCount(
                         view_count=anime.view_count, anime_sn=anime.sn
                     )
@@ -115,16 +117,19 @@ def add_new_animes_command(db_uri: str, random_sleep: bool) -> None:
                         "sn": anime.sn,
                         "name": anime.name,
                         "upload_hour": anime.upload_hour,
-                        "is_new": True if "電影" not in anime.labels else False,
+                        "is_new": not (anime.labels and "電影" in anime.labels),
                     },
                 )
 
-                if is_view_count_changed_since_latest_update(session, anime.view_count, anime.sn):
+                if anime.view_count is not None and is_view_count_changed_since_latest_update(
+                    session, anime.view_count, anime.sn
+                ):
                     anime_view_count_obj = models.AnimeViewCount(
                         view_count=anime.view_count, anime_sn=anime.sn
                     )
                     session.add(anime_view_count_obj)
 
+                assert anime.episodes
                 upsert_episode(session, {"sn": anime.episodes[0].sn, "anime_sn": anime.sn})
                 if random_sleep:
                     sec = randint(0, 10)
@@ -218,7 +223,7 @@ def add_animes_detail_command(
                     )
                     continue
 
-                if is_score_or_reviewer_changed_since_latest_update(
+                if anime.anime_score is not None and is_score_or_reviewer_changed_since_latest_update(
                     session,
                     anime.anime_score.score,
                     anime.anime_score.reviewer_count,
@@ -237,7 +242,7 @@ def add_animes_detail_command(
                     )
                     session.add(anime_score_obj)
 
-                for episode in anime.episodes:
+                for episode in anime.episodes or []:
                     epi_attrs = {
                         "sn": episode.sn,
                         "name": episode.name,

@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import re
+from collections.abc import Callable
 from datetime import datetime
 from functools import wraps
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 import httpx
 from bs4 import BeautifulSoup
@@ -19,10 +20,6 @@ from bahamut_ani_stat.parser.urls import (
     GAMMER_ANIME_BASE_URL,
 )
 from bahamut_ani_stat.settings import settings
-
-if TYPE_CHECKING:
-    from collections.abc import Callable
-
 
 _CLIENT = httpx.Client(
     headers={
@@ -63,9 +60,9 @@ def check_anime_availability(soup: BeautifulSoup) -> bool:
     return True
 
 
-def to_dict_args(func: Callable) -> Callable:  # type: ignore
+def to_dict_args(func: Callable[..., Any]) -> Callable[..., Any]:
     @wraps(func)
-    def wrapper(*args, **kwargs):  # type: ignore
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
         to_dict = kwargs.pop("to_dict", None)
         ignore_none = kwargs.pop("ignore_none", None)
 
@@ -313,7 +310,6 @@ def get_out_of_season_animes(offset: int = 1, limit: int = 10) -> list[Anime]:
         anime_sn_s = [_sanitize_sn(s.get("href")) for s in soup.select("a.theme-list-main")]
         anime_view_counts = [_sanitize_view_count(s.text) for s in soup.select("div.show-view-number > p")]
         anime_names = [s.text for s in soup.select("p.theme-name")]
-        episode_upload_time_s = [s.text for s in soup.select("p.theme-time")]
         latest_episode_names = [s.text.strip() for s in soup.select("span.theme-number")]
 
         return [
@@ -321,13 +317,12 @@ def get_out_of_season_animes(offset: int = 1, limit: int = 10) -> list[Anime]:
                 sn=sn,
                 view_count=view_count,
                 name=name,
-                episodes=[Episode(upload_date=upload_date, name=epi_name)],
+                episodes=[Episode(name=epi_name)],
             )
-            for sn, view_count, name, upload_date, epi_name in zip(
+            for sn, view_count, name, epi_name in zip(
                 anime_sn_s,
                 anime_view_counts,
                 anime_names,
-                episode_upload_time_s,
                 latest_episode_names,
             )
         ]
