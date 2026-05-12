@@ -174,7 +174,7 @@ def add_animes_detail_command(
         with click.progressbar(animes_sn) as animes_bar:
             for anime_sn in animes_bar:
                 stmt = select(models.Anime).where(models.Anime.sn == anime_sn)
-                anime_obj = session.execute(stmt).fetchone()[0]  # type: ignore
+                anime_obj = session.execute(stmt).scalar_one()
 
                 click.echo(f"\nParsing anime '{anime_obj.name}' ({anime_sn})")
 
