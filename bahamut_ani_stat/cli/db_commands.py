@@ -46,7 +46,7 @@ def add_animes_base_data_command(db_uri: str, page_count: int | None, random_sle
 
     engine = sqlalchemy.create_engine(db_uri)
     with Session(engine) as session, session.begin():
-        with click.progressbar(animes) as animes_bar:  # type: ignore
+        with click.progressbar(animes) as animes_bar:
             for anime in animes_bar:
                 upsert_anime(
                     session,
@@ -98,7 +98,9 @@ def add_new_animes_command(db_uri: str, random_sleep: bool) -> None:
 
     new_animes = parser.get_new_animes()
     if not new_animes:
-        raise click.ClickException("Got 0 new animes — likely a parse failure. Aborting to avoid wiping is_new flags.")
+        raise click.ClickException(
+            "Got 0 new animes — likely a parse failure. Aborting to avoid wiping is_new flags."
+        )
 
     new_animes_sn = {anime.sn for anime in new_animes}
     click.echo(f"Adding {len(new_animes)} new animes to {db_uri}")
@@ -107,7 +109,7 @@ def add_new_animes_command(db_uri: str, random_sleep: bool) -> None:
     with Session(engine) as session, session.begin():
         clean_up_old_animes(session, new_animes_sn)
 
-        with click.progressbar(new_animes) as animes_bar:  # type: ignore
+        with click.progressbar(new_animes) as animes_bar:
             for anime in animes_bar:
                 upsert_anime(
                     session,
@@ -173,8 +175,8 @@ def add_animes_detail_command(
 
         with click.progressbar(animes_sn) as animes_bar:
             for anime_sn in animes_bar:
-                stmt = select(models.Anime).where(models.Anime.sn == anime_sn)
-                anime_obj = session.execute(stmt).scalar_one()
+                anime_stmt = select(models.Anime).where(models.Anime.sn == anime_sn)
+                anime_obj = session.execute(anime_stmt).scalar_one()
 
                 click.echo(f"\nParsing anime '{anime_obj.name}' ({anime_sn})")
 

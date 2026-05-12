@@ -47,9 +47,7 @@ class Anime(Base):
         "Studio", back_populates="animes", secondary=anime_studio_association
     )
 
-    anime_view_counts: Mapped[list[AnimeViewCount]] = relationship(
-        "AnimeViewCount", back_populates="anime"
-    )
+    anime_view_counts: Mapped[list[AnimeViewCount]] = relationship("AnimeViewCount", back_populates="anime")
     anime_scores: Mapped[list[AnimeScore]] = relationship("AnimeScore", back_populates="anime")
     episodes: Mapped[list[Episode]] = relationship("Episode", back_populates="anime")
     danmus: Mapped[list[Danmu]] = relationship("Danmu", back_populates="anime")
