@@ -1,4 +1,22 @@
 # Changelog
+## 0.10.0 (2026-05-12)
+
+### Feat
+
+- **plot**: lazy-load anime trend data via fetch
+- migrate to SQLAlchemy 2.x
+
+### Fix
+
+- **typing**: tighten type: ignore codes and fix Episode.upload_date type
+- correct _model_to_dict, anime variable init, and anime-trend join
+- fix multiple bugs and modernize codebase
+- fix new anime parsing broken by site HTML change and add request throttling
+
+### Refactor
+
+- rename --page to --page-count, fix double JSON parse, fix _sanitize typo
+
 ## 0.9.0 (2025-05-07)
 
 ### Feat
