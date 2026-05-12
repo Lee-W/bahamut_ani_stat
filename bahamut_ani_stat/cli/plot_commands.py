@@ -93,7 +93,7 @@ def plot_anime_command(db_uri: str, output_filename: str) -> None:
         column_sources = df.to_dict(orient="list")
 
         stmt = select(sql_func.max(models.AnimeViewCount.view_count))
-        max_view_count: int = session.execute(stmt).scalars().first()  # type: ignore
+        max_view_count: int = session.execute(stmt).scalars().first() or 0
 
     data_source = ColumnDataSource(data=column_sources)
 
@@ -215,7 +215,7 @@ def plot_anime_trend_command(db_uri: str, output_filename: str) -> None:
         data_sources = ColumnDataSource(column_sources)
 
         stmt = select(sql_func.max(models.AnimeViewCount.view_count))
-        max_view_count: int = session.execute(stmt).scalars().first()  # type: ignore
+        max_view_count: int = session.execute(stmt).scalars().first() or 0
 
     first_view_source, view_source_dict = _group_stat(view_count_results, "view_counts")
 
