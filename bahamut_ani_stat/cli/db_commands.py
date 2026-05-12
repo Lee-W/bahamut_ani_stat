@@ -36,11 +36,11 @@ def create_tables_command(db_uri: str) -> None:
 
 @db_command_group.command(name="add-animes-base-data")
 @click.argument("db-uri")
-@click.option("--page", default=None, type=int)
+@click.option("--page-count", default=None, type=int)
 @click.option("--random-sleep", default=False, is_flag=True)
-def add_animes_base_data_command(db_uri: str, page: int | None, random_sleep: bool) -> None:
+def add_animes_base_data_command(db_uri: str, page_count: int | None, random_sleep: bool) -> None:
     """Parse 所有動畫 page and add animes data to database"""
-    animes = parser.get_all_animes_base_data(page)
+    animes = parser.get_all_animes_base_data(page_count)
 
     click.echo(f"Adding {len(animes)} animes base data to {db_uri}")
 
