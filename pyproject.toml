@@ -61,7 +61,7 @@ style = [
     "types-PyYAML>=6.0.12.20240917",
 ]
 security = ["bandit>=1.2.2", "pip-audit>=2.7.3"]
-git = ["commitizen>=4.1.0", "pre-commit>=4.0.1"]
+git = ["commitizen>=4.1.0", "prek>=0.3.13"]
 doc = ["mkdocs>=1.6.1", "mkdocs-material>=9.5.50"]
 
 [build-system]

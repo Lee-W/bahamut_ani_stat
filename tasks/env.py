@@ -19,10 +19,10 @@ def init(ctx: Context) -> None:
 
 @task
 def setup_pre_commit_hook(ctx: Context) -> None:
-    """Setup pre-commit hook to automate check before git commit and git push"""
+    """Setup git hooks via prek"""
     ctx.run("git init")
     for hook_type in ("pre-commit", "pre-push", "commit-msg"):
-        ctx.run(f"{VENV_PREFIX} pre-commit install -t {hook_type}")
+        ctx.run(f"{VENV_PREFIX} prek install -t {hook_type}")
 
 
 @task(optional=["no-pre-commit"])
