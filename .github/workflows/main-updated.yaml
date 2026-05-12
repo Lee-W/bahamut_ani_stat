@@ -41,10 +41,10 @@ jobs:
           version: "latest"
 
       - name: Install dependencies
-        run: uv sync --group dev --group doc
+        run: uv sync --group doc
 
       - name: Build docs
-        run: uv run poe doc-build
+        run: uv run mkdocs build --clean
 
       - name: Push documentation to Github Page
         uses: peaceiris/actions-gh-pages@v4.0.0
