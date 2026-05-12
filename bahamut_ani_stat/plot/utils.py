@@ -3,7 +3,7 @@ from __future__ import annotations
 from itertools import groupby
 from typing import TYPE_CHECKING, Any
 
-from bokeh.models import (  # type: ignore
+from bokeh.models import (  # type: ignore[attr-defined]
     ColumnDataSource,
     RangeSlider,
     TextInput,

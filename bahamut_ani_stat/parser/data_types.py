@@ -19,7 +19,7 @@ class Episode(BaseModel):
     sn: str | None = None
     name: str | None = None
     season_title: str | None = None
-    upload_date: datetime | str | None = None  # TODO: Fix tests and type conflict (str and datetime)
+    upload_date: datetime | None = None
     view_count: int | None = None
 
 
