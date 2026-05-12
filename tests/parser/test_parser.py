@@ -75,7 +75,7 @@ def test_get_animes_base_data(httpx_mock: HTTPXMock, data_regression, anime_list
 def test_get_all_animes_base_data(httpx_mock: HTTPXMock, data_regression, anime_list_data):
     httpx_mock.add_response(text=anime_list_data)
     with httpx.Client():
-        animes = parser.get_all_animes_base_data(to_dict=True, ignore_none=True)
+        animes = parser.get_all_animes_base_data(page_count=1, to_dict=True, ignore_none=True)
         data_regression.check(animes)
 
 

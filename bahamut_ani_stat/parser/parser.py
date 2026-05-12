@@ -40,7 +40,7 @@ def _model_to_dict(obj: Any, ignore_none: bool = True) -> Any:
     if isinstance(obj, (Anime, AnimeScore, Danmu, Episode)):
         return {
             key: _model_to_dict(value, ignore_none)
-            for key, value in obj.dict().items()
+            for key, value in obj.model_dump().items()
             if ignore_none and value
         }
     elif isinstance(obj, list):
