@@ -1,6 +1,6 @@
 [project]
 name = "bahamut_ani_stat"
-version = "0.10.0"
+version = "0.10.1"
 authors = [{ name = "Wei Lee", email = "weilee.rx@gmail.com" }]
 description = "Toolkit for Bahamut ani gamer data"
 license = { file = "LICENSE" }

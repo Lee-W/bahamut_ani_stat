@@ -1,4 +1,10 @@
 # Changelog
+## 0.10.1 (2026-05-12)
+
+### Fix
+
+- plot premium rate error
+
 ## 0.10.0 (2026-05-12)
 
 ### Feat
