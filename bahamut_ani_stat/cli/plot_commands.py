@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+import importlib.resources
+
 import click
 import pandas as pd
-import pkg_resources
 import sqlalchemy
 from bokeh.io import output_file, save
 from bokeh.layouts import column, row
@@ -83,11 +84,12 @@ def plot_anime_command(db_uri: str, output_filename: str) -> None:
                 latest_score_cte.c.score,
             )
             .join(latest_view_count_cte)
-            .join(latest_score_cte)
+            .outerjoin(latest_score_cte)
             .order_by(latest_view_count_cte.c.view_count.desc())
         )
         results = session.execute(stmt)
         df = pd.DataFrame(results.fetchall(), columns=results.keys())
+        df["score"] = df["score"].fillna(-1)
         column_sources = df.to_dict(orient="list")
 
         stmt = select(sql_func.max(models.AnimeViewCount.view_count))
@@ -122,9 +124,9 @@ def plot_anime_command(db_uri: str, output_filename: str) -> None:
             "ignore_wip_toggle": ignore_wip_toggle,
             "text_input": text_input,
         },
-        code=pkg_resources.resource_string(
-            "bahamut_ani_stat.plot", "static/datatable-anime-filter.js"
-        ).decode("utf-8"),
+        code=importlib.resources.files("bahamut_ani_stat.plot")
+        .joinpath("static/datatable-anime-filter.js")
+        .read_text(encoding="utf-8"),
     )
     view = CDSView(filter=anime_js_filter)
     columns = [
@@ -259,9 +261,9 @@ def plot_anime_trend_command(db_uri: str, output_filename: str) -> None:
                 "score_source_dict": score_source_dict,
                 "score_source": first_score_source,
             },
-            code=pkg_resources.resource_string(
-                "bahamut_ani_stat.plot", "static/new-anime-source-update-dropdown.js"
-            ).decode("utf-8"),
+            code=importlib.resources.files("bahamut_ani_stat.plot")
+            .joinpath("static/new-anime-source-update-dropdown.js")
+            .read_text(encoding="utf-8"),
         ),
     )
 
@@ -282,9 +284,9 @@ def plot_anime_trend_command(db_uri: str, output_filename: str) -> None:
             "text_input": text_input,
             "data_source": data_sources,
         },
-        code=pkg_resources.resource_string("bahamut_ani_stat.plot", "static/dropdown-anime-filter.js").decode(
-            "utf-8"
-        ),
+        code=importlib.resources.files("bahamut_ani_stat.plot")
+        .joinpath("static/dropdown-anime-filter.js")
+        .read_text(encoding="utf-8"),
     )
 
     text_input.js_on_change("value", filter_js)

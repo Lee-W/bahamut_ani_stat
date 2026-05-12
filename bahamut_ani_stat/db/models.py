@@ -93,7 +93,7 @@ class AnimeViewCount(Base):
 
     id_ = Column(Integer, primary_key=True)
     view_count = Column(Integer)
-    insert_time = Column(DateTime, default=datetime.now())
+    insert_time = Column(DateTime, default=datetime.now)
 
     anime_sn = Column(String, ForeignKey("anime.sn"))
     anime: Anime = relationship("Anime", back_populates="anime_view_counts")
@@ -112,7 +112,7 @@ class AnimeScore(Base):
     two_star_percentage = Column(Float)
     one_star_percentage = Column(Float)
 
-    insert_time = Column(DateTime, default=datetime.now())
+    insert_time = Column(DateTime, default=datetime.now)
 
     anime_sn = Column(String, ForeignKey("anime.sn"))
     anime: Anime = relationship("Anime", back_populates="anime_scores")
@@ -154,7 +154,7 @@ class EpisodeViewCount(Base):
 
     id_ = Column(Integer, primary_key=True)
     view_count = Column(Integer)
-    insert_time = Column(DateTime, default=datetime.now())
+    insert_time = Column(DateTime, default=datetime.now)
 
     episode_sn = Column(String, ForeignKey("episode.sn"))
     episode: Episode = relationship("Episode", back_populates="episode_view_counts")
@@ -165,4 +165,4 @@ class PremiumRate(Base):
 
     id_ = Column(Integer, primary_key=True)
     premium_rate = Column(Float)
-    insert_time = Column(DateTime, default=datetime.now())
+    insert_time = Column(DateTime, default=datetime.now)

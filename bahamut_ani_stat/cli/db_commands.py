@@ -97,8 +97,10 @@ def add_new_animes_command(db_uri: str, random_sleep: bool) -> None:
     """Parse new anime data from 本季新番 table and add them to database"""
 
     new_animes = parser.get_new_animes()
-    new_animes_sn = {anime.sn for anime in new_animes}
+    if not new_animes:
+        raise click.ClickException("Got 0 new animes — likely a parse failure. Aborting to avoid wiping is_new flags.")
 
+    new_animes_sn = {anime.sn for anime in new_animes}
     click.echo(f"Adding {len(new_animes)} new animes to {db_uri}")
 
     engine = sqlalchemy.create_engine(db_uri)
