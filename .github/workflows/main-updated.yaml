@@ -19,7 +19,7 @@ jobs:
           persist-credentials: false
 
       - name: Create bump and changelog
-        uses: commitizen-tools/commitizen-action@master
+        uses: commitizen-tools/commitizen-action@0.27.1
         with:
           github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           branch: main

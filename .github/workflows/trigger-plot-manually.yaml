@@ -28,6 +28,7 @@ jobs:
         run: |
             uv run python bahamut_ani_stat plot anime sqlite:///data/anime.db docs/assets/plots/anime.html
             uv run python bahamut_ani_stat plot premium-rate sqlite:///data/anime.db docs/assets/plots/premium-rate.html
+            uv run python bahamut_ani_stat plot anime-trend-data sqlite:///data/anime.db docs/assets/data/anime_trend
             uv run python bahamut_ani_stat plot anime-trend sqlite:///data/anime.db docs/assets/plots/new-anime-trend.html
 
       - name: Push data
