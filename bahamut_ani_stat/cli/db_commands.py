@@ -178,6 +178,7 @@ def add_animes_detail_command(
 
                 click.echo(f"\nParsing anime '{anime_obj.name}' ({anime_sn})")
 
+                anime = None
                 retry_count = 0
                 while retry_count <= retry_limit:
                     try:
@@ -192,7 +193,7 @@ def add_animes_detail_command(
                             )
                         )
                         if "'NoneType' object has no attribute 'text'" == str(e):
-                            sec = randint(0, 10)
+                            sec = randint(2, 5)
                             click.echo(f"\nSleep for {sec} seconds")
                             sleep(sec)
                         retry_count += 1
@@ -205,6 +206,7 @@ def add_animes_detail_command(
                                 fg="red",
                             )
                         )
+                        break
 
                 if not anime:
                     anime_obj.is_available = False
