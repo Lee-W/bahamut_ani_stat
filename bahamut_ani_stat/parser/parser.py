@@ -23,7 +23,17 @@ from bahamut_ani_stat.settings import settings
 if TYPE_CHECKING:
     from collections.abc import Callable
 
-    pass
+
+_CLIENT = httpx.Client(
+    headers={
+        "User-Agent": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/124.0.0.0 Safari/537.36"
+        )
+    },
+    follow_redirects=True,
+)
 
 
 def _model_to_dict(obj: Any, ignore_none: bool = True) -> Any:
@@ -102,19 +112,19 @@ def _santinize_line_width(line_width_style: str) -> int:
 
 @to_dict_args
 def get_danmu(episode_sn: str) -> list[Danmu]:
-    req = httpx.post(ANIME_DANMU_URL, data={"sn": episode_sn})
+    req = _CLIENT.post(ANIME_DANMU_URL, data={"sn": episode_sn})
     return [Danmu(**danmu) for danmu in req.json()]
 
 
 def get_premium_rate(soup: BeautifulSoup | None = None) -> float:
     if not soup:
-        req = httpx.get(GAMMER_ANIME_BASE_URL)
+        req = _CLIENT.get(GAMMER_ANIME_BASE_URL)
         soup = BeautifulSoup(req.text, features=settings.bs4_parser)
     return float(soup.select_one("div.premium-info__title > span.number").text)
 
 
 def get_anime_list_page_count() -> int:
-    req = httpx.get(ANIME_LIST_URL)
+    req = _CLIENT.get(ANIME_LIST_URL)
     soup = BeautifulSoup(req.text, features=settings.bs4_parser)
     last_page_a = soup.select_one("div.page_number > a:nth-last-child(1)")
     return int(last_page_a.text)
@@ -122,7 +132,7 @@ def get_anime_list_page_count() -> int:
 
 @to_dict_args
 def get_animes_base_data(page_number: int = 1) -> list[Anime]:
-    req = httpx.get(ANIME_LIST_URL, params={"page": page_number, "sort": 1})
+    req = _CLIENT.get(ANIME_LIST_URL, params={"page": page_number, "sort": 1})
     soup = BeautifulSoup(req.text, features=settings.bs4_parser)
 
     theme_list_main_a_s = soup.select("div.theme-list-block > a.theme-list-main")
@@ -186,9 +196,7 @@ def _get_anime_score(soup: BeautifulSoup) -> AnimeScore:
 
 @to_dict_args
 def get_anime_detail_data(anime_sn: str) -> Anime | None:
-    req = httpx.get(ANIME_REF_URL, params={"sn": anime_sn})
-    if req.status_code == 301 and req.next_request:
-        req = httpx.get(req.next_request.url)
+    req = _CLIENT.get(ANIME_REF_URL, params={"sn": anime_sn})
 
     soup = BeautifulSoup(req.text, features=settings.bs4_parser)
 
@@ -239,7 +247,7 @@ def get_anime_detail_data(anime_sn: str) -> Anime | None:
 
 @to_dict_args
 def get_anime_episode_data(episode_sn: str) -> Episode:
-    req = httpx.get(ANIME_VIDEO_URL, params={"sn": episode_sn})
+    req = _CLIENT.get(ANIME_VIDEO_URL, params={"sn": episode_sn})
     soup = BeautifulSoup(req.text, features=settings.bs4_parser)
     anime_info_detail = soup.select_one("div.anime_info_detail")
     upload_date = datetime.strptime(anime_info_detail.select_one("p").text, "上架時間：%Y/%m/%d %H:%M")
@@ -254,14 +262,14 @@ def get_anime_episode_data(episode_sn: str) -> Episode:
 
 @to_dict_args
 def get_new_animes() -> list[Anime]:
-    req = httpx.get(GAMMER_ANIME_BASE_URL)
+    req = _CLIENT.get(GAMMER_ANIME_BASE_URL)
     soup = BeautifulSoup(req.text, features=settings.bs4_parser)
     new_anime_block = soup.select_one("div.newanime-wrap.timeline-ver")
 
     anime_sn_s = [s.get("data-animesn") for s in new_anime_block.select("div.newanime-date-area")[:-1]]
     episode_sn_s = [_santinize_sn(s.get("href")) for s in new_anime_block.select("a.anime-card-block")]
     anime_hours = [s.text for s in new_anime_block.select("div.anime-hours-block > span.anime-hours")]
-    anime_names = [s.text for s in new_anime_block.select("div.anime-name > p.anime-name_for-marquee")]
+    anime_names = [s.text.strip() for s in new_anime_block.select("div.anime-name-block > p.anime-name")]
     anime_view_counts = [
         _santinize_view_count(s.text) for s in new_anime_block.select("div.anime-watch-number > p")
     ]
@@ -292,7 +300,7 @@ def get_new_animes() -> list[Anime]:
 
 @to_dict_args
 def get_out_of_season_animes(offset: int = 1, limit: int = 10) -> list[Anime]:
-    req = httpx.get(ANIME_OUT_OF_SEASON_MORE_URL, params={"offset": offset, "limit": limit})
+    req = _CLIENT.get(ANIME_OUT_OF_SEASON_MORE_URL, params={"offset": offset, "limit": limit})
     req_data = req.json()
     if req_data["msg"] == "success":
         soup = BeautifulSoup(req.json()["data"], features=settings.bs4_parser)
