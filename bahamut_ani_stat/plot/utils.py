@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from itertools import groupby
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from bokeh.models import (  # type: ignore
     ColumnDataSource,
@@ -17,7 +17,7 @@ DATE_TIME_FORMAT = "{%Y-%m-%d %H:%M:%S}"
 
 
 def _group_stat(
-    results: list[Row],
+    results: list[Row[Any]],
     stat_type: str,
     initial_key: str | None = None,
 ) -> tuple[ColumnDataSource, dict[str, ColumnDataSource]]:

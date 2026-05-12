@@ -92,7 +92,9 @@ def _sanitize_view_count(view_count_str: str) -> int:
         return -1
 
 
-def _sanitize_sn(url_suffix: str) -> str:
+def _sanitize_sn(url_suffix: str | list[str] | None) -> str:
+    if not isinstance(url_suffix, str):
+        return ""
     pattern = re.compile(r".*\?sn=(\d+)")
     match = pattern.match(url_suffix)
     if match:
@@ -100,10 +102,11 @@ def _sanitize_sn(url_suffix: str) -> str:
     return ""
 
 
-def _sanitize_line_width(line_width_style: str) -> int:
+def _sanitize_line_width(line_width_style: str | list[str] | None) -> int:
+    if not isinstance(line_width_style, str):
+        return 0
     pattern = re.compile(r"width: (\d+)%")
     match = pattern.match(line_width_style)
-
     if match:
         return int(match.group(1))
     else:
@@ -120,14 +123,14 @@ def get_premium_rate(soup: BeautifulSoup | None = None) -> float:
     if not soup:
         req = _CLIENT.get(GAMMER_ANIME_BASE_URL)
         soup = BeautifulSoup(req.text, features=settings.bs4_parser)
-    return float(soup.select_one("div.premium-info__title > span.number").text)
+    return float(soup.select_one("div.premium-info__title > span.number").text)  # type: ignore[union-attr]
 
 
 def get_anime_list_page_count() -> int:
     req = _CLIENT.get(ANIME_LIST_URL)
     soup = BeautifulSoup(req.text, features=settings.bs4_parser)
     last_page_a = soup.select_one("div.page_number > a:nth-last-child(1)")
-    return int(last_page_a.text)
+    return int(last_page_a.text)  # type: ignore[union-attr]
 
 
 @to_dict_args
@@ -139,15 +142,15 @@ def get_animes_base_data(page_number: int = 1) -> list[Anime]:
 
     animes_data: list[Anime] = list()
     for theme_list_main_a in theme_list_main_a_s:
-        view_number = theme_list_main_a.select_one("div.show-view-number > p").text
+        view_number = theme_list_main_a.select_one("div.show-view-number > p").text  # type: ignore[union-attr]
         theme_info_div = theme_list_main_a.select_one("div.theme-info-block")
-        anime_labels = [s.text for s in theme_list_main_a.select_one("div.anime-label-block").select("span")]
+        anime_labels = [s.text for s in theme_list_main_a.select_one("div.anime-label-block").select("span")]  # type: ignore[union-attr]
 
         anime = Anime(
             sn=_sanitize_sn(theme_list_main_a.get("href")),
             view_count=_sanitize_view_count(view_number),
-            name=theme_info_div.select_one("p.theme-name").text,
-            release_time=datetime.strptime(theme_info_div.select_one("p.theme-time").text, "年份：%Y/%m"),
+            name=theme_info_div.select_one("p.theme-name").text,  # type: ignore[union-attr]
+            release_time=datetime.strptime(theme_info_div.select_one("p.theme-time").text, "年份：%Y/%m"),  # type: ignore[union-attr]
             labels=anime_labels,
         )
         animes_data.append(anime)
@@ -168,18 +171,18 @@ def get_all_animes_base_data(page_count: int | None = None) -> list[Anime]:
 @to_dict_args
 def _get_anime_score(soup: BeautifulSoup) -> AnimeScore:
     acg_score_soup = soup.select_one("div.score-overall-number")
-    acg_score = float(acg_score_soup.text) if acg_score_soup.text != "--" else -1
+    acg_score = float(acg_score_soup.text) if acg_score_soup and acg_score_soup.text != "--" else -1
 
     reviewer_count = int(
-        soup.select_one("div.score-overall-people").text.replace(",", "").replace("人評價", "")
+        soup.select_one("div.score-overall-people").text.replace(",", "").replace("人評價", "")  # type: ignore[union-attr]
     )
 
     star_percentages: dict[int, int] = dict()
     acg_score_date_soup = soup.select("div.ACG-data > div.acg-score-date")
     for row_soup in acg_score_date_soup:
-        star = int(row_soup.get("data-acgstar"))
+        star = int(row_soup.get("data-acgstar"))  # type: ignore[arg-type]
         percentage = _sanitize_line_width(
-            row_soup.select_one("div.score-line > div.scored-line").get("style")
+            row_soup.select_one("div.score-line > div.scored-line").get("style")  # type: ignore[union-attr]
         )
         star_percentages[star] = percentage
 
@@ -231,7 +234,7 @@ def get_anime_detail_data(anime_sn: str) -> Anime | None:
     data_type_li_s = soup.select("ul.data_type > li")
     anime_metadata = dict()
     for data_type_content in data_type_li_s:
-        key = data_type_content.span.extract().text
+        key = data_type_content.span.extract().text  # type: ignore[union-attr]
         value = data_type_content.text
         anime_metadata[key] = value
 
@@ -250,8 +253,8 @@ def get_anime_episode_data(episode_sn: str) -> Episode:
     req = _CLIENT.get(ANIME_VIDEO_URL, params={"sn": episode_sn})
     soup = BeautifulSoup(req.text, features=settings.bs4_parser)
     anime_info_detail = soup.select_one("div.anime_info_detail")
-    upload_date = datetime.strptime(anime_info_detail.select_one("p").text, "上架時間：%Y/%m/%d %H:%M")
-    view_count = _sanitize_view_count(anime_info_detail.select_one("span > span").text)
+    upload_date = datetime.strptime(anime_info_detail.select_one("p").text, "上架時間：%Y/%m/%d %H:%M")  # type: ignore[union-attr]
+    view_count = _sanitize_view_count(anime_info_detail.select_one("span > span").text)  # type: ignore[union-attr]
 
     return Episode(
         sn=episode_sn,
@@ -265,6 +268,8 @@ def get_new_animes() -> list[Anime]:
     req = _CLIENT.get(GAMMER_ANIME_BASE_URL)
     soup = BeautifulSoup(req.text, features=settings.bs4_parser)
     new_anime_block = soup.select_one("div.newanime-wrap.timeline-ver")
+    if new_anime_block is None:
+        return []
 
     anime_sn_s = [s.get("data-animesn") for s in new_anime_block.select("div.newanime-date-area")[:-1]]
     episode_sn_s = [_sanitize_sn(s.get("href")) for s in new_anime_block.select("a.anime-card-block")]

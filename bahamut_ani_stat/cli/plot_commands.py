@@ -53,7 +53,7 @@ def plot_premium_rate_command(db_uri: str, output_filename: str) -> None:
     pr_series = pd.Series(data).interpolate(method="pad")
 
     output_file(filename=output_filename, title="動畫瘋付費比例趨勢")
-    p = figure(
+    p = figure(  # type: ignore[call-arg]
         title="動畫瘋付費比例趨勢",
         x_axis_label="記錄時間",
         y_axis_label="付費比例",
@@ -230,7 +230,9 @@ def plot_anime_trend_data_command(db_uri: str, output_dir: str) -> None:
 @plot_command_group.command(name="anime-trend")
 @click.argument("db-uri")
 @click.argument("output-filename", default="anime-trend.html")
-@click.option("--data-path", default="assets/data/anime_trend", help="Relative path prefix for JSON data files")
+@click.option(
+    "--data-path", default="assets/data/anime_trend", help="Relative path prefix for JSON data files"
+)
 def plot_anime_trend_command(db_uri: str, output_filename: str, data_path: str) -> None:
     """Plot the score and view count trend for new animes (lazy-loads per-anime JSON)"""
     engine = sqlalchemy.create_engine(db_uri)
@@ -292,7 +294,7 @@ def plot_anime_trend_command(db_uri: str, output_filename: str, data_path: str) 
 
     output_file(filename=output_filename, title="動畫瘋觀看、評分趨勢")
 
-    view_pic = figure(x_axis_type="datetime")
+    view_pic = figure(x_axis_type="datetime")  # type: ignore[call-arg]
     view_pic.yaxis.formatter = NumeralTickFormatter(format="0,0")
     view_pic.add_tools(
         HoverTool(
@@ -305,7 +307,7 @@ def plot_anime_trend_command(db_uri: str, output_filename: str, data_path: str) 
     )
     view_pic.line("insert_times", "view_counts", source=first_view_source)
 
-    score_pic = figure(x_axis_type="datetime")
+    score_pic = figure(x_axis_type="datetime")  # type: ignore[call-arg]
     score_pic.line("insert_times", "scores", source=first_score_source)
     score_pic.y_range = Range1d(1, 5)  # type: ignore
     score_pic.add_tools(
