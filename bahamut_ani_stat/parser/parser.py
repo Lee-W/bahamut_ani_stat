@@ -41,12 +41,12 @@ def _model_to_dict(obj: Any, ignore_none: bool = True) -> Any:
         return {
             key: _model_to_dict(value, ignore_none)
             for key, value in obj.model_dump().items()
-            if ignore_none and value
+            if not ignore_none or value is not None
         }
     elif isinstance(obj, list):
         return [_model_to_dict(obj_item, ignore_none) for obj_item in obj]
     elif isinstance(obj, dict):
-        return {key: value for key, value in obj.items() if ignore_none and value}
+        return {key: value for key, value in obj.items() if not ignore_none or value is not None}
     return obj
 
 

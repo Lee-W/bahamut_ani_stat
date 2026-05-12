@@ -205,11 +205,12 @@ def plot_anime_trend_command(db_uri: str, output_filename: str) -> None:
                 latest_score_cte.c.score,
             )
             .join(latest_view_count_cte)
-            .join(latest_score_cte)
+            .outerjoin(latest_score_cte)
             .order_by(latest_view_count_cte.c.view_count.desc())
         )
         ani_results = session.execute(stmt)
         df = pd.DataFrame(ani_results.fetchall(), columns=ani_results.keys())
+        df["score"] = df["score"].fillna(-1)
         column_sources = df.to_dict(orient="list")
         data_sources = ColumnDataSource(column_sources)
 
