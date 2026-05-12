@@ -78,7 +78,7 @@ def to_dict_args(func: Callable) -> Callable:  # type: ignore
     return wrapper
 
 
-def _santinize_view_count(view_count_str: str) -> int:
+def _sanitize_view_count(view_count_str: str) -> int:
     pattern = re.compile(r"(\d+\.{0,1}\d*)(萬*)")
     match = pattern.match(view_count_str)
 
@@ -92,7 +92,7 @@ def _santinize_view_count(view_count_str: str) -> int:
         return -1
 
 
-def _santinize_sn(url_suffix: str) -> str:
+def _sanitize_sn(url_suffix: str) -> str:
     pattern = re.compile(r".*\?sn=(\d+)")
     match = pattern.match(url_suffix)
     if match:
@@ -100,7 +100,7 @@ def _santinize_sn(url_suffix: str) -> str:
     return ""
 
 
-def _santinize_line_width(line_width_style: str) -> int:
+def _sanitize_line_width(line_width_style: str) -> int:
     pattern = re.compile(r"width: (\d+)%")
     match = pattern.match(line_width_style)
 
@@ -144,8 +144,8 @@ def get_animes_base_data(page_number: int = 1) -> list[Anime]:
         anime_labels = [s.text for s in theme_list_main_a.select_one("div.anime-label-block").select("span")]
 
         anime = Anime(
-            sn=_santinize_sn(theme_list_main_a.get("href")),
-            view_count=_santinize_view_count(view_number),
+            sn=_sanitize_sn(theme_list_main_a.get("href")),
+            view_count=_sanitize_view_count(view_number),
             name=theme_info_div.select_one("p.theme-name").text,
             release_time=datetime.strptime(theme_info_div.select_one("p.theme-time").text, "年份：%Y/%m"),
             labels=anime_labels,
@@ -178,7 +178,7 @@ def _get_anime_score(soup: BeautifulSoup) -> AnimeScore:
     acg_score_date_soup = soup.select("div.ACG-data > div.acg-score-date")
     for row_soup in acg_score_date_soup:
         star = int(row_soup.get("data-acgstar"))
-        percentage = _santinize_line_width(
+        percentage = _sanitize_line_width(
             row_soup.select_one("div.score-line > div.scored-line").get("style")
         )
         star_percentages[star] = percentage
@@ -224,7 +224,7 @@ def get_anime_detail_data(anime_sn: str) -> Anime | None:
                     Episode(
                         season_title=sections_title.text if sections_title else None,
                         name=li_a.text,
-                        sn=_santinize_sn(li_a.get("href")),
+                        sn=_sanitize_sn(li_a.get("href")),
                     )
                 )
 
@@ -251,7 +251,7 @@ def get_anime_episode_data(episode_sn: str) -> Episode:
     soup = BeautifulSoup(req.text, features=settings.bs4_parser)
     anime_info_detail = soup.select_one("div.anime_info_detail")
     upload_date = datetime.strptime(anime_info_detail.select_one("p").text, "上架時間：%Y/%m/%d %H:%M")
-    view_count = _santinize_view_count(anime_info_detail.select_one("span > span").text)
+    view_count = _sanitize_view_count(anime_info_detail.select_one("span > span").text)
 
     return Episode(
         sn=episode_sn,
@@ -267,11 +267,11 @@ def get_new_animes() -> list[Anime]:
     new_anime_block = soup.select_one("div.newanime-wrap.timeline-ver")
 
     anime_sn_s = [s.get("data-animesn") for s in new_anime_block.select("div.newanime-date-area")[:-1]]
-    episode_sn_s = [_santinize_sn(s.get("href")) for s in new_anime_block.select("a.anime-card-block")]
+    episode_sn_s = [_sanitize_sn(s.get("href")) for s in new_anime_block.select("a.anime-card-block")]
     anime_hours = [s.text for s in new_anime_block.select("div.anime-hours-block > span.anime-hours")]
     anime_names = [s.text.strip() for s in new_anime_block.select("div.anime-name-block > p.anime-name")]
     anime_view_counts = [
-        _santinize_view_count(s.text) for s in new_anime_block.select("div.anime-watch-number > p")
+        _sanitize_view_count(s.text) for s in new_anime_block.select("div.anime-watch-number > p")
     ]
     animes_labels = [
         [ss.text for ss in s.select("span.label-edition")]
@@ -303,10 +303,10 @@ def get_out_of_season_animes(offset: int = 1, limit: int = 10) -> list[Anime]:
     req = _CLIENT.get(ANIME_OUT_OF_SEASON_MORE_URL, params={"offset": offset, "limit": limit})
     req_data = req.json()
     if req_data["msg"] == "success":
-        soup = BeautifulSoup(req.json()["data"], features=settings.bs4_parser)
+        soup = BeautifulSoup(req_data["data"], features=settings.bs4_parser)
 
-        anime_sn_s = [_santinize_sn(s.get("href")) for s in soup.select("a.theme-list-main")]
-        anime_view_counts = [_santinize_view_count(s.text) for s in soup.select("div.show-view-number > p")]
+        anime_sn_s = [_sanitize_sn(s.get("href")) for s in soup.select("a.theme-list-main")]
+        anime_view_counts = [_sanitize_view_count(s.text) for s in soup.select("div.show-view-number > p")]
         anime_names = [s.text for s in soup.select("p.theme-name")]
         episode_upload_time_s = [s.text for s in soup.select("p.theme-time")]
         latest_episode_names = [s.text.strip() for s in soup.select("span.theme-number")]

@@ -44,8 +44,8 @@ def out_of_season_data(shared_datadir) -> list:
     ("view_count_str", "expected"),
     [("101.1萬", 1011000), ("10萬", 100000), ("1213", 1213), ("統計中", -1)],
 )
-def test_santinize_view_count(view_count_str: str, expected: int):
-    assert parser._santinize_view_count(view_count_str) == expected
+def test_sanitize_view_count(view_count_str: str, expected: int):
+    assert parser._sanitize_view_count(view_count_str) == expected
 
 
 def test_get_danmu(httpx_mock: HTTPXMock, data_regression, shared_datadir):
