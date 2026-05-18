@@ -47,7 +47,7 @@ jobs:
         run: uv run mkdocs build --clean
 
       - name: Push documentation to Github Page
-        uses: peaceiris/actions-gh-pages@v4.0.0
+        uses: peaceiris/actions-gh-pages@v4.1.0
         with:
           personal_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           publish_branch: gh-pages
