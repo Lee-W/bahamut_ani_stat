@@ -1,4 +1,10 @@
 # Changelog
+## 0.10.2 (2026-07-08)
+
+### Fix
+
+- improve maintenance workflows and data writes
+
 ## 0.10.1 (2026-05-12)
 
 ### Fix
