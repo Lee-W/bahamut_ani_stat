@@ -17,9 +17,31 @@ Toolkit for Bahamut ani gamer data
 
 ## Usage
 
+Install the package and inspect the available CLI commands:
+
+```sh
+uvx --from bahamut_ani_stat bahamut-ani-stat --help
+```
+
+Common local development commands:
+
+```sh
+uv run bahamut-ani-stat parse get-premium-rate --print-output
+uv run bahamut-ani-stat db create-tables sqlite:///anime.db
+uv run bahamut-ani-stat db add-new-animes sqlite:///anime.db
+uv run bahamut-ani-stat db add-animes-detail sqlite:///anime.db
+uv run bahamut-ani-stat plot anime sqlite:///anime.db docs/assets/anime.html
+```
+
+The historical `anime.db` dataset is maintained on the `accumulate-data` branch. Daily data
+collection is currently driven outside this repository, so changes on `main` do not by themselves
+record new daily data.
 
 ## Contributing
 See [Contributing](contributing.md)
+
+## Maintenance
+See [Data maintenance](data-maintenance.md) and [Schema maintenance](schema-maintenance.md).
 
 ## Authors
 Wei Lee <weilee.rx@gmail.com>

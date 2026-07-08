@@ -16,7 +16,7 @@ dependencies = [
     "bokeh>=3.0.0",
     "pandas>=2.0.0",
     "pydantic>=2.0.0",
-    "pydantic-settings>=2.4.0",
+    "pydantic-settings>=2.14.2",
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -34,10 +34,10 @@ classifiers = [
 ]
 
 [project.scripts]
-pelican-stat = "bahamut_ani_stat.__main__:main"
+bahamut-ani-stat = "bahamut_ani_stat.__main__:main"
 
 [project.urls]
-Documentation = "https://github.com/Lee-W/bahamut_ani_stat/blob/docs/README.md"
+Documentation = "https://lee-w.github.io/bahamut_ani_stat/"
 Repository = "https://github.com/Lee-W/bahamut_ani_stat"
 Issues = "https://github.com/Lee-W/bahamut_ani_stat/issues"
 Changelog = "https://github.com/Lee-W/bahamut_ani_stat/blob/main/CHANGELOG.md"
@@ -70,7 +70,7 @@ build-backend = "hatchling.build"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.10.0"
+version = "0.10.1"
 version_scheme = "pep440"
 version_provider = "uv"
 

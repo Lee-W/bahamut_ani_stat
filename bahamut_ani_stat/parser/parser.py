@@ -30,6 +30,7 @@ _CLIENT = httpx.Client(
         )
     },
     follow_redirects=True,
+    timeout=httpx.Timeout(10.0),
 )
 
 

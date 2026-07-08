@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from random import randint
 from time import sleep
+from typing import cast
 
 import click
 import sqlalchemy
@@ -10,6 +11,7 @@ from sqlalchemy.orm import Session
 
 from bahamut_ani_stat.db import models
 from bahamut_ani_stat.db.utils import (
+    apply_anime_metadata,
     clean_up_old_animes,
     create_tables,
     is_score_or_reviewer_changed_since_latest_update,
@@ -18,6 +20,36 @@ from bahamut_ani_stat.db.utils import (
     upsert_episode,
 )
 from bahamut_ani_stat.parser import parser
+
+
+def _sleep_between_requests(random_sleep: bool, fixed_seconds: int = 0) -> None:
+    if fixed_seconds:
+        sleep(fixed_seconds)
+    elif random_sleep:
+        sec = randint(2, 5)  # nosec B311
+        click.echo(f"\nSleep for {sec} seconds")
+        sleep(sec)
+
+
+def _get_anime_detail_with_retry(
+    anime_sn: str, anime_name: str | None, retry_limit: int
+) -> parser.Anime | None:
+    for retry_count in range(retry_limit + 1):
+        try:
+            return cast(parser.Anime | None, parser.get_anime_detail_data(anime_sn))
+        except AttributeError as e:
+            click.echo(
+                click.style(
+                    f"Failed to parse {anime_name} ({anime_sn}) due to {e} "
+                    "(most likely due to parsing too frequently)",
+                    fg="red",
+                )
+            )
+            if retry_count == retry_limit:
+                break
+            _sleep_between_requests(random_sleep=True)
+            click.echo(click.style(f"{retry_count + 1} time retry", fg="yellow"))
+    raise click.ClickException(f"Failed to parse {anime_name} ({anime_sn}) after {retry_limit + 1} attempts")
 
 
 @click.group(name="db")
@@ -62,7 +94,7 @@ def add_animes_base_data_command(db_uri: str, page_count: int | None, random_sle
                     )
                     session.add(anime_view_count_obj)
                 if random_sleep:
-                    sec = randint(0, 10)
+                    sec = randint(0, 10)  # nosec B311
                     click.echo(f"\nSleep for {sec} seconds")
                     sleep(sec)
 
@@ -132,7 +164,7 @@ def add_new_animes_command(db_uri: str, random_sleep: bool) -> None:
                 assert anime.episodes
                 upsert_episode(session, {"sn": anime.episodes[0].sn, "anime_sn": anime.sn})
                 if random_sleep:
-                    sec = randint(0, 10)
+                    sec = randint(0, 10)  # nosec B311
                     click.echo(f"\nSleep for {sec} seconds")
                     sleep(sec)
     click.echo("Fininsh adding new animes")
@@ -183,45 +215,19 @@ def add_animes_detail_command(
 
                 click.echo(f"\nParsing anime '{anime_obj.name}' ({anime_sn})")
 
-                anime = None
-                retry_count = 0
-                while retry_count <= retry_limit:
-                    try:
-                        anime = parser.get_anime_detail_data(anime_sn)
-                        break
-                    except AttributeError as e:
-                        click.echo(
-                            click.style(
-                                f"Failed to parser {anime_obj.name} ({anime_sn}) due to {str(e)} "
-                                "(most likely due to parsing too frequently)",
-                                fg="red",
-                            )
-                        )
-                        if "'NoneType' object has no attribute 'text'" == str(e):
-                            sec = randint(2, 5)
-                            click.echo(f"\nSleep for {sec} seconds")
-                            sleep(sec)
-                        retry_count += 1
-                        click.echo(click.style(f"{retry_count} time retry", fg="yellow"))
-                    except Exception as e:
-                        click.echo(
-                            click.style(
-                                f"Failed to parser {anime_obj.name} ({anime_sn}) due to {str(e)} "
-                                "(most likely due to parsing too frequently)",
-                                fg="red",
-                            )
-                        )
-                        break
+                anime = _get_anime_detail_with_retry(anime_sn, anime_obj.name, retry_limit)
 
                 if not anime:
                     anime_obj.is_available = False
                     click.echo(
                         click.style(
-                            f"\nanime '{anime_obj.name}' ({anime_sn}) is unaviable for now",
+                            f"\nanime '{anime_obj.name}' ({anime_sn}) is unavailable for now",
                             fg="yellow",
                         )
                     )
                     continue
+
+                apply_anime_metadata(session, anime_obj, anime.metadata)
 
                 if anime.anime_score is not None and is_score_or_reviewer_changed_since_latest_update(
                     session,
@@ -250,11 +256,6 @@ def add_animes_detail_command(
                     }
                     upsert_episode(session, epi_attrs)
 
-                if sleep_sec:
-                    sleep(sleep_sec)
-                elif random_sleep:
-                    sec = randint(2, 5)
-                    click.echo(f"\nSleep for {sec} seconds")
-                    sleep(sec)
+                _sleep_between_requests(random_sleep=random_sleep, fixed_seconds=sleep_sec)
 
     click.echo("Finish adding anime details")
