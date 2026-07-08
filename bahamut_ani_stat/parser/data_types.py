@@ -45,7 +45,6 @@ class Anime(BaseModel):
 
     anime_score: AnimeScore | None = None
     episodes: list[Episode] | None = None
-    dammus: list[Danmu] | None = None
 
 
 Anime.model_rebuild()

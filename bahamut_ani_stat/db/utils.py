@@ -59,6 +59,46 @@ def upsert_episode(session: Session, attrs: dict[str, Any]) -> None:
     session.execute(upsert_stmt)
 
 
+def _get_or_create_by_name(session: Session, model: type[Any], name: str) -> Any:
+    stmt = select(model).where(model.name == name)
+    obj = session.execute(stmt).scalar_one_or_none()
+    if obj:
+        return obj
+
+    obj = model(name=name)
+    session.add(obj)
+    session.flush()
+    return obj
+
+
+def _split_metadata_names(value: str | None) -> list[str]:
+    if not value:
+        return []
+    normalized_value = value
+    for separator in ["、", "，", "／", "/", "×"]:
+        normalized_value = normalized_value.replace(separator, ",")
+    return [name.strip() for name in normalized_value.split(",") if name.strip()]
+
+
+def apply_anime_metadata(session: Session, anime: models.Anime, metadata: dict[str, str] | None) -> None:
+    if not metadata:
+        return
+
+    anime.genre = metadata.get("作品類型")
+    anime.target_audience = metadata.get("對象族群")
+
+    agent_name = metadata.get("台灣代理")
+    anime.agent = _get_or_create_by_name(session, models.Agent, agent_name) if agent_name else None
+    anime.directors = [
+        _get_or_create_by_name(session, models.Director, name)
+        for name in _split_metadata_names(metadata.get("導演監督"))
+    ]
+    anime.studios = [
+        _get_or_create_by_name(session, models.Studio, name)
+        for name in _split_metadata_names(metadata.get("製作廠商"))
+    ]
+
+
 def clean_up_old_animes(session: Session, new_animes_sn: set[str]) -> None:
     # Set is_new to False for old animes
     select_stmt = select(models.Anime.sn).where(models.Anime.is_new.is_(True))
