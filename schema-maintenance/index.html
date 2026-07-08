@@ -8,8 +8,10 @@
       
       
       
-        <link rel="canonical" href="https://lee-w.github.io/bahamut_ani_stat/plots/">
+        <link rel="canonical" href="https://lee-w.github.io/bahamut_ani_stat/schema-maintenance/">
       
+      
+        <link rel="prev" href="../data-maintenance/">
       
       
       
@@ -21,7 +23,7 @@
     
     
       
-        <title>Plots - 巴哈姆特動畫瘋 - 歷史資料</title>
+        <title>Schema maintenance - 巴哈姆特動畫瘋 - 歷史資料</title>
       
     
     
@@ -62,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#plots" class="md-skip">
+        <a href="#schema-maintenance" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Plots
+              Schema maintenance
             
           </span>
         </div>
@@ -296,10 +298,37 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../schema-maintenance/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema maintenance
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -315,6 +344,59 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#before-changing-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before Changing Models
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#required-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -339,6 +421,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#before-changing-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before Changing Models
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#required-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -357,12 +480,43 @@
   
 
 
-<h1 id="plots">Plots</h1>
-<ul>
-<li><a href="../assets/plots/anime.html">動畫列表</a></li>
-<li><a href="../assets/plots/premium-rate.html">付費比例</a></li>
-<li><a href="../assets/plots/new-anime-trend.html">動畫瘋觀看、評分趨勢</a></li>
-</ul>
+<h1 id="schema-maintenance">Schema Maintenance</h1>
+<p>The project currently creates tables directly from SQLAlchemy models and does not use a migration
+tool such as Alembic. Schema changes therefore need an explicit compatibility plan before they are
+merged.</p>
+<h2 id="before-changing-models">Before Changing Models</h2>
+<p>Check whether the change is additive or breaking.</p>
+<p>Additive changes include new nullable columns, new tables, and new relationships that can be left
+empty for historical rows.</p>
+<p>Breaking changes include renamed columns, removed columns, changed primary keys, changed foreign
+keys, non-null columns without defaults, and type changes that existing SQLite values cannot
+represent safely.</p>
+<h2 id="required-steps">Required Steps</h2>
+<p>For additive changes:</p>
+<ol>
+<li>update <code>bahamut_ani_stat/db/models.py</code></li>
+<li>update the parser or CLI write path that fills the new fields</li>
+<li>add focused tests for the write path</li>
+<li>document how existing <code>anime.db</code> files behave before backfill</li>
+</ol>
+<p>For breaking changes:</p>
+<ol>
+<li>write a one-off migration or backfill script</li>
+<li>test it on a copy of <code>anime.db</code></li>
+<li>record the before and after schema</li>
+<li>update the data maintenance documentation with the recovery plan</li>
+<li>run the full test, style, docs, and security checks</li>
+</ol>
+<h2 id="verification">Verification</h2>
+<p>At minimum, run:</p>
+<pre><code class="language-sh">uv run poe style
+uv run poe test
+uv run poe doc-build
+uv run poe audit
+uv run poe bandit
+</code></pre>
+<p>When a schema change touches generated plots, also regenerate plot assets from a copy of the data
+branch database before updating <code>accumulate-data</code>.</p>
 
 
 

@@ -8,9 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://lee-w.github.io/bahamut_ani_stat/plots/">
+        <link rel="canonical" href="https://lee-w.github.io/bahamut_ani_stat/data-maintenance/">
       
       
+        <link rel="prev" href="../contributing/">
+      
+      
+        <link rel="next" href="../schema-maintenance/">
       
       
         
@@ -21,7 +25,7 @@
     
     
       
-        <title>Plots - 巴哈姆特動畫瘋 - 歷史資料</title>
+        <title>Data maintenance - 巴哈姆特動畫瘋 - 歷史資料</title>
       
     
     
@@ -62,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#plots" class="md-skip">
+        <a href="#data-maintenance" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Plots
+              Data maintenance
             
           </span>
         </div>
@@ -269,10 +273,37 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../data-maintenance/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data maintenance
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -288,6 +319,81 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branches
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#daily-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Daily Collection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-plot-regeneration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Plot Regeneration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovery-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release Check
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -339,6 +445,69 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branches
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#daily-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Daily Collection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-plot-regeneration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Plot Regeneration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovery-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release Check
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -357,12 +526,46 @@
   
 
 
-<h1 id="plots">Plots</h1>
+<h1 id="data-maintenance">Data Maintenance</h1>
+<p>This project keeps historical Bahamut Anime data on the <code>accumulate-data</code> branch.</p>
+<h2 id="branches">Branches</h2>
+<p><code>main</code> contains the application code, documentation, tests, and release metadata.</p>
+<p><code>accumulate-data</code> contains the generated data and plot assets used by GitHub Pages. The
+large <code>anime.db</code> file intentionally remains on that branch for now.</p>
+<p><code>gh-pages</code> contains the deployed static site generated by MkDocs.</p>
+<h2 id="daily-collection">Daily Collection</h2>
+<p>Daily data collection is currently triggered outside this repository. There is no scheduled
+GitHub Actions workflow on <code>main</code> that records new daily data.</p>
+<p>Until that process is moved into the repository, treat the external collector as the owner of:</p>
 <ul>
-<li><a href="../assets/plots/anime.html">動畫列表</a></li>
-<li><a href="../assets/plots/premium-rate.html">付費比例</a></li>
-<li><a href="../assets/plots/new-anime-trend.html">動畫瘋觀看、評分趨勢</a></li>
+<li>updating <code>anime.db</code> on <code>accumulate-data</code></li>
+<li>committing generated data changes</li>
+<li>pushing <code>accumulate-data</code></li>
+<li>triggering plot publication through the existing branch workflow</li>
 </ul>
+<h2 id="manual-plot-regeneration">Manual Plot Regeneration</h2>
+<p>Use the <code>Trigger plot manually</code> workflow when plot assets need to be regenerated from the
+current <code>accumulate-data</code> branch.</p>
+<p>That workflow:</p>
+<ol>
+<li>checks out <code>accumulate-data</code></li>
+<li>installs the project dependencies</li>
+<li>regenerates plot HTML and trend JSON files</li>
+<li>commits the changed <code>docs/</code> assets if there are changes</li>
+<li>builds and publishes GitHub Pages</li>
+</ol>
+<h2 id="recovery-notes">Recovery Notes</h2>
+<p>If daily collection fails, do not rewrite <code>accumulate-data</code> history unless a corrupted commit has
+not been shared. Prefer a forward fix commit that restores or regenerates the missing data.</p>
+<p>If generated plot assets are stale but <code>anime.db</code> is correct, rerun the manual plot workflow.</p>
+<p>If <code>anime.db</code> itself is stale, rerun the external collector first, then regenerate plots.</p>
+<h2 id="release-check">Release Check</h2>
+<p>Python package releases are tag driven. A version is published only after the corresponding tag
+exists on GitHub and the PyPI publish workflow succeeds.</p>
+<p>Useful checks:</p>
+<pre><code class="language-sh">git ls-remote --tags origin
+curl --max-time 10 --fail --silent --show-error https://pypi.org/pypi/bahamut-ani-stat/json
+</code></pre>
 
 
 

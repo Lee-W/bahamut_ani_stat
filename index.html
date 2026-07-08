@@ -330,6 +330,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintenance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#authors" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -382,14 +393,41 @@
   
   
     <li class="md-nav__item">
-      <a href="plots/" class="md-nav__link">
+      <a href="data-maintenance/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Plots
+    Data maintenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="schema-maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema maintenance
   
 
     
@@ -479,6 +517,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintenance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#authors" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -524,8 +573,23 @@
 <li><a href="https://github.com/astral-sh/uv">uv</a></li>
 </ul>
 <h2 id="usage">Usage</h2>
+<p>Install the package and inspect the available CLI commands:</p>
+<pre><code class="language-sh">uvx --from bahamut_ani_stat bahamut-ani-stat --help
+</code></pre>
+<p>Common local development commands:</p>
+<pre><code class="language-sh">uv run bahamut-ani-stat parse get-premium-rate --print-output
+uv run bahamut-ani-stat db create-tables sqlite:///anime.db
+uv run bahamut-ani-stat db add-new-animes sqlite:///anime.db
+uv run bahamut-ani-stat db add-animes-detail sqlite:///anime.db
+uv run bahamut-ani-stat plot anime sqlite:///anime.db docs/assets/anime.html
+</code></pre>
+<p>The historical <code>anime.db</code> dataset is maintained on the <code>accumulate-data</code> branch. Daily data
+collection is currently driven outside this repository, so changes on <code>main</code> do not by themselves
+record new daily data.</p>
 <h2 id="contributing">Contributing</h2>
 <p>See <a href="contributing/">Contributing</a></p>
+<h2 id="maintenance">Maintenance</h2>
+<p>See <a href="data-maintenance/">Data maintenance</a> and <a href="schema-maintenance/">Schema maintenance</a>.</p>
 <h2 id="authors">Authors</h2>
 <p>Wei Lee <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#101;&#105;&#108;&#101;&#101;&#46;&#114;&#120;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#119;&#101;&#105;&#108;&#101;&#101;&#46;&#114;&#120;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
 <p>Created from <a href="https://github.com/Lee-W/cookiecutter-python-template/tree/3.0.0">Lee-W/cookiecutter-python-template</a> version 3.0.0</p>
