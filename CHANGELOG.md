@@ -1,4 +1,10 @@
 # Changelog
+## 0.10.3 (2026-07-09)
+
+### Fix
+
+- **docs**: restore Plots page and nav entry
+
 ## 0.10.2 (2026-07-08)
 
 ### Fix
