@@ -14,12 +14,12 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 FROM python:3.12-slim-bookworm
 
-ARG USERNAME=lee_w
+ARG APP_USER=lee_w
 
-RUN useradd -m $USERNAME
-USER $USERNAME
+RUN useradd -m $APP_USER
+USER $APP_USER
 WORKDIR /app
 
-COPY --from=builder --chown=$USERNAME:$USERNAME /app /app
+COPY --from=builder --chown=$APP_USER:$APP_USER /app /app
 
 ENV PATH="/app/.venv/bin:$PATH"

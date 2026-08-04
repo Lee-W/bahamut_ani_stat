@@ -48,6 +48,21 @@ def test_sanitize_view_count(view_count_str: str, expected: int):
     assert parser._sanitize_view_count(view_count_str) == expected
 
 
+@pytest.mark.parametrize(
+    ("anime_name", "expected"),
+    [
+        ("前輩有夠煩 [2]", "2"),
+        ("關於我轉生變成史萊姆這檔事 第二季 [36.5]", "36.5"),
+        ("靈能百分百 [OVA]", "OVA"),
+        ("你的名字", "1"),
+        ("", "1"),
+        (None, "1"),
+    ],
+)
+def test_sanitize_episode_name(anime_name: str | None, expected: str):
+    assert parser._sanitize_episode_name(anime_name) == expected
+
+
 def test_get_danmu(httpx_mock: HTTPXMock, data_regression, shared_datadir):
     danmu_data = json.loads((shared_datadir / "danmu.json").read_text())
     httpx_mock.add_response(json=danmu_data)
@@ -85,8 +100,9 @@ def test_get_all_animes_base_data(httpx_mock: HTTPXMock, data_regression, anime_
         "animeVideo.html",
         "animeVideo_new_anime.html",
         "animeVideo_with_season_section.html",
+        "animeVideo_no_season_section.html",
     ],
-    ids=("standard", "new_anime", "with_season_section"),
+    ids=("standard", "new_anime", "with_season_section", "no_season_section"),
     indirect=True,
 )
 def test_get_anime_detail_data(httpx_mock: HTTPXMock, data_regression, datadir_text):
