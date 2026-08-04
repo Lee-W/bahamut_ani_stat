@@ -100,6 +100,19 @@ def _sanitize_sn(url_suffix: str | list[str] | None) -> str:
     return ""
 
 
+def _sanitize_episode_name(anime_name: str | None) -> str:
+    # Video page titles look like "前輩有夠煩 [2]", where the bracketed part is the
+    # episode name shown in section.season. Fall back to "1" when there is no bracket
+    # (e.g. movies and one-shot animes).
+    if not anime_name:
+        return "1"
+    pattern = re.compile(r".*\[(.+)\]$")
+    match = pattern.match(anime_name.strip())
+    if match:
+        return match.group(1).strip()
+    return "1"
+
+
 def _sanitize_line_width(line_width_style: str | list[str] | None) -> int:
     if not isinstance(line_width_style, str):
         return 0
@@ -207,11 +220,12 @@ def get_anime_detail_data(anime_sn: str) -> Anime | None:
     season_section = soup.select_one("section.season")
     episodes_data: list[Episode] = list()
     if not season_section:
-        # new anime
+        # single episode anime, the episode name only exists in the page title
+        anime_name_h1 = soup.select_one("div.anime_name > h1")
         episodes_data.append(
             Episode(
                 season_title=None,
-                name="1",  # TODO: parse from class=anime_name
+                name=_sanitize_episode_name(anime_name_h1.text if anime_name_h1 else None),
                 sn=req.url.params.get("sn"),
             )
         )
