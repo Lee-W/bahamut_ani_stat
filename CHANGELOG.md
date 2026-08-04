@@ -1,4 +1,10 @@
 # Changelog
+## 0.10.4 (2026-08-04)
+
+### Fix
+
+- **parser**: parse episode name for animes without a season section
+
 ## 0.10.3 (2026-07-09)
 
 ### Fix
